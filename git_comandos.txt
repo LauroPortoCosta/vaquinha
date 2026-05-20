@@ -18,3 +18,8 @@ git init
 git remote add origin https://github.com/LauroPortoCosta/Condominio.git
 git commit -m "uma mensagem"
 git push -u origin master
+-------------------------- VALENDO-------------------------------------
+git init
+git remote add origin https://github.com/LauroPortoCosta/vaquinha.git
+git commit -m "uma mensagem"
+git push -u origin master
