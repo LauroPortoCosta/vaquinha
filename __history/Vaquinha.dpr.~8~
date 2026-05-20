@@ -1,0 +1,18 @@
+program Vaquinha;
+
+uses
+  System.StartUpCopy,
+  FMX.Forms,
+  va_01_abertura in 'va_01_abertura.pas' {va_abertura},
+  va_02_creditos in 'va_02_creditos.pas' {va_creditos: TFrame},
+  va_03_debitos in 'va_03_debitos.pas' {va_debitos: TFrame};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.CreateForm(Tva_abertura, va_abertura);
+  Application.CreateForm(Tva_creditos, va_02_creditos);
+  Application.CreateForm(Tva__debitos, va_03_debitos);
+  Application.Run;
+end.

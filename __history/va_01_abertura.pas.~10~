@@ -1,0 +1,81 @@
+unit va_01_abertura;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
+  FMX.Layouts, FMX.Controls.Presentation, FMX.StdCtrls, FMX.ListBox,
+  FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base,
+  FMX.ListView;
+
+type
+  Tva_abertura = class(TForm)
+    Lay01_cabecalho: TLayout;
+    Lay02_saldo: TLayout;
+    Lay03_debito_credito: TLayout;
+    Lay04_menu: TLayout;
+    Lay06_rodape: TLayout;
+    Lay05_outros: TLayout;
+    Circle1: TCircle;
+    Rectangle1: TRectangle;
+    Rectangle2: TRectangle;
+    Layout1: TLayout;
+    Layout2: TLayout;
+    Image2: TImage;
+    Rectangle3: TRectangle;
+    Image1: TImage;
+    Label1: TLabel;
+    Label2: TLabel;
+    Rectangle4: TRectangle;
+    Rectangle5: TRectangle;
+    TXT_DEVEDOR: TLabel;
+    TXT_CREDOR: TLabel;
+    Rectangle6: TRectangle;
+    Label3: TLabel;
+    TXT_DATA: TLabel;
+    Lay07_LISTEBOX: TLayout;
+    Rectangle7: TRectangle;
+    Label4: TLabel;
+    ListBox1: TListBox;
+    ListBoxItem1: TListBoxItem;
+    ListBoxItem2: TListBoxItem;
+    ListBoxItem3: TListBoxItem;
+    ListBoxItem4: TListBoxItem;
+    Rectangle8: TRectangle;
+    Rectangle9: TRectangle;
+    Rectangle10: TRectangle;
+    Rectangle11: TRectangle;
+    Image3: TImage;
+    Image4: TImage;
+    Image5: TImage;
+    Image6: TImage;
+    Label5: TLabel;
+    Label6: TLabel;
+    Rectangle12: TRectangle;
+    Label7: TLabel;
+    ListView1: TListView;
+    Rectangle13: TRectangle;
+    procedure Image4Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  va_abertura: Tva_abertura;
+
+implementation
+
+{$R *.fmx}
+
+uses va_02_creditos, va_03_debitos;
+
+procedure Tva_abertura.Image4Click(Sender: TObject);
+begin
+ShowMessage('ola');
+
+end;
+
+end.

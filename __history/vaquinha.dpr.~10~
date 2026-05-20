@@ -1,0 +1,14 @@
+program vaquinha;
+
+uses
+  System.StartUpCopy,
+  FMX.Forms,
+  va_00_menu in 'va_00_menu.pas' {menu};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.CreateForm(Tmenu, menu);
+  Application.Run;
+end.

@@ -1,0 +1,20 @@
+cd /c/arvore_genealogica_X/bakup_161022
+
+git init
+
+git add .
+
+git commit -m "Primeiro commit"
+
+git branch -M main
+
+git remote add origin https://github.com/USUARIO/REPOSITORIO.git
+
+git push -u origin main
+
+//git@github.com:LauroPortoCosta/vaquinha.git
+-------------------------- VALENDO-------------------------------------
+git init
+git remote add origin https://github.com/LauroPortoCosta/Condominio.git
+git commit -m "uma mensagem"
+git push -u origin master

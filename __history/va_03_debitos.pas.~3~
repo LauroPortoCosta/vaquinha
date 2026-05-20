@@ -1,0 +1,33 @@
+unit va_03_debitos;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
+  FMX.Layouts, FMX.Controls.Presentation, FMX.StdCtrls;
+
+type
+  Tva_debitos = class(TForm)
+    Lay01_cabecalho: TLayout;
+    Rect1_cabecalho: TRectangle;
+    Lay2_direito: TLayout;
+    Img2_direita: TImage;
+    Lay1_esquerdo: TLayout;
+    Img1_esquerda: TImage;
+    Label1: TLabel;
+    Rectangle1: TRectangle;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  va_debitos: Tva_debitos;
+
+implementation
+
+{$R *.fmx}
+
+end.
