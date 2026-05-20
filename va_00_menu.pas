@@ -24,12 +24,17 @@ var
 implementation
 
 {$R *.fmx}
+{$R *.NmXhdpiPh.fmx ANDROID}
 
 uses va_01_abertura;
 
 procedure Tmenu.Image1Click(Sender: TObject);
 begin
- va_abertura.show;
+
+   if   not Assigned(va_abertura) then                              // pergunta se o programa ja existe, se nao cria
+     Application.CreateForm(Tva_abertura ,va_abertura);                   // cria o formulario
+ va_abertura.Show;
+
 end;
 
 end.

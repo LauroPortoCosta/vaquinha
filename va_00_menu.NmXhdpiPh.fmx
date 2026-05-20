@@ -1,0 +1,13 @@
+inherited menu_NmXhdpiPh: Tmenu_NmXhdpiPh
+  ClientHeight = 615
+  ClientWidth = 400
+  DesignerMasterStyle = 3
+  inherited Layout1: TLayout
+    Position.Y = 493.000000000000000000
+    Size.Width = 400.000000000000000000
+    inherited Image1: TImage
+      MultiResBitmap.Height = 150
+      MultiResBitmap.Width = 150
+    end
+  end
+end

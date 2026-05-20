@@ -1,0 +1,38 @@
+# Compilados Delphi
+*.dcu
+*.ddp
+*.dcp
+*.bpl
+*.bpi
+*.dsk
+*.identcache
+*.local
+*.tvsconfig
+
+# Executáveis
+*.exe
+*.dll
+
+# Pastas compiladas
+Win32/
+Win64/
+Debug/
+Release/
+
+# Histórico IDE
+__history/
+
+# Backup
+backup/
+
+# Logs
+*.log
+
+# Arquivos temporários
+*.tmp
+
+# Android
+*.apk
+
+# IOS
+*.ipa

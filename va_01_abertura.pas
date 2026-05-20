@@ -10,8 +10,6 @@ uses
   FMX.ListView, FMX.Ani;
 
 
-
-
 type
   Tva_abertura = class(TForm)
     Lay01_cabecalho: TLayout;
@@ -63,6 +61,7 @@ type
     Rect7_cab: TRectangle;
     procedure Image4Click(Sender: TObject);
     procedure Image5Click(Sender: TObject);
+    procedure Image3Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -76,12 +75,26 @@ implementation
 
 {$R *.fmx}
 
-uses va_02_creditos;
+uses va_02_creditos, va_00_menu, va_03_debitos, va_04_grupos, va_05_dm,
+  va_02_credito;
 
+
+procedure Tva_abertura.Image3Click(Sender: TObject);
+begin
+
+   if   not Assigned(va_debitos) then                              // pergunta se o programa ja existe, se nao cria
+     Application.CreateForm(Tva_debitos ,va_debitos);                   // cria o formulario
+  va_debitos.Show;
+
+end;
 
 procedure Tva_abertura.Image4Click(Sender: TObject);
 begin
- //va_02_creditos.Show;
+
+   if   not Assigned(va_credito) then                              // pergunta se o programa ja existe, se nao cria
+     Application.CreateForm(Tva_credito ,va_credito);                   // cria o formulario
+  va_credito.Show;
+
 
 end;
 
