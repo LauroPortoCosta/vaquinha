@@ -55,6 +55,7 @@ type
     Lay06_rodape: TLayout;
     RectX_rodape: TRectangle;
     Label16: TLabel;
+    procedure Img2_direitaClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -67,5 +68,10 @@ var
 implementation
 
 {$R *.fmx}
+
+procedure Tva_debitos.Img2_direitaClick(Sender: TObject);
+begin
+  close;
+end;
 
 end.

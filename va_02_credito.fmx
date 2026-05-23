@@ -65,6 +65,7 @@ object va_credito: Tva_credito
           Size.Width = 30.000000000000000000
           Size.Height = 30.000000000000000000
           Size.PlatformDefault = False
+          OnClick = Img2_direitaClick
         end
       end
       object Lay1_esquerdo: TLayout
@@ -169,6 +170,17 @@ object va_credito: Tva_credito
           Size.Height = 30.000000000000000000
           Size.PlatformDefault = False
         end
+      end
+      object Label16: TLabel
+        Align = Center
+        StyledSettings = [Family, FontColor]
+        Size.Width = 66.000000000000000000
+        Size.Height = 34.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Size = 18.000000000000000000
+        TextSettings.Font.StyleExt = {00070000000000000004000000}
+        Text = 'Receita'
+        TabOrder = 3
       end
     end
   end

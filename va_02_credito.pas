@@ -54,6 +54,8 @@ type
     Image5: TImage;
     Label13: TLabel;
     Label14: TLabel;
+    Label16: TLabel;
+    procedure Img2_direitaClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -66,5 +68,10 @@ var
 implementation
 
 {$R *.fmx}
+
+procedure Tva_credito.Img2_direitaClick(Sender: TObject);
+begin
+  close;
+end;
 
 end.

@@ -3,10 +3,34 @@ unit va_05_dm;
 interface
 
 uses
-  System.SysUtils, System.Classes;
+  System.SysUtils, System.Classes, REST.Types, System.Net.URLClient,
+  System.Net.HttpClient, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  REST.Response.Adapter, REST.Client, Data.Bind.Components,
+  Data.Bind.ObjectScope, REST.Authenticator.OAuth;
 
 type
   TDM = class(TDataModule)
+    RESTClient_login: TRESTClient;
+    RESTRequest_login: TRESTRequest;
+    RESTResponse_login: TRESTResponse;
+    RESTResponseDataSetAdapter_login: TRESTResponseDataSetAdapter;
+    FDMemTable_login: TFDMemTable;
+    RESTClient_grupo: TRESTClient;
+    RESTRequest_grupo: TRESTRequest;
+    RESTResponse_grupo: TRESTResponse;
+    RESTResponseDataSetAdapter_grupo: TRESTResponseDataSetAdapter;
+    FDMemTable_grupo: TFDMemTable;
+    OAuth1Authenticator_grupo: TOAuth1Authenticator;
+    FDMemTable_grupodata: TWideStringField;
+    FDMemTable_grupodescricao: TWideStringField;
+    FDMemTable_grupoid_grupo: TFloatField;
+    FDMemTable_grupoparcela: TFloatField;
+    FDMemTable_grupoparticipantes: TFloatField;
+    FDMemTable_gruposaldo_credor: TFloatField;
+    FDMemTable_gruposaldo_devedor: TFloatField;
+    FDMemTable_grupostatus: TWideStringField;
   private
     { Private declarations }
   public

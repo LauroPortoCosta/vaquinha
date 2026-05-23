@@ -59,6 +59,7 @@ type
     Rectangle13: TRectangle;
     GradientAnimation1: TGradientAnimation;
     Rect7_cab: TRectangle;
+    Img2_direita: TImage;
     procedure Image4Click(Sender: TObject);
     procedure Image5Click(Sender: TObject);
     procedure Image3Click(Sender: TObject);
@@ -100,7 +101,8 @@ end;
 
 procedure Tva_abertura.Image5Click(Sender: TObject);
 begin
-//va_02_creditos.show;
+     Application.CreateForm(Tva_grupos ,va_grupos);                   // cria o formulario
+  va_grupos.Show;
 end;
 
 end.

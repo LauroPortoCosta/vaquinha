@@ -1,0 +1,44 @@
+unit va_04_grupos;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
+  FMX.Layouts, FMX.Controls.Presentation, FMX.StdCtrls, FMX.ListView.Types,
+  FMX.ListView.Appearances, FMX.ListView.Adapters.Base, FMX.ListView;
+
+type
+  Tva_grupos = class(TForm)
+    Lay01_cabecalho: TLayout;
+    Rect1_cabecalho: TRectangle;
+    Lay2_direito: TLayout;
+    Img2_direita: TImage;
+    Rect_central: TRectangle;
+    Label1: TLabel;
+    Rectangle2: TRectangle;
+    Image3: TImage;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Rectangle3: TRectangle;
+    Label5: TLabel;
+    Lay2_rodape: TLayout;
+    Rectangle1: TRectangle;
+    Label6: TLabel;
+    ListView1: TListView;
+    Image1: TImage;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  va_grupos: Tva_grupos;
+
+implementation
+
+{$R *.fmx}
+
+end.

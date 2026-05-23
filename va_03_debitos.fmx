@@ -11,7 +11,7 @@ object va_debitos: Tva_debitos
   object Lay01_cabecalho: TLayout
     Align = Top
     Size.Width = 435.000000000000000000
-    Size.Height = 65.000000000000000000
+    Size.Height = 49.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 0
     object Rect1_cabecalho: TRectangle
@@ -62,6 +62,10 @@ object va_debitos: Tva_debitos
             end>
           Align = Center
           Opacity = 0.500000000000000000
+          Size.Width = 30.000000000000000000
+          Size.Height = 30.000000000000000000
+          Size.PlatformDefault = False
+          OnClick = Img2_direitaClick
         end
       end
       object Lay1_esquerdo: TLayout
@@ -168,15 +172,14 @@ object va_debitos: Tva_debitos
         end
       end
       object Label1: TLabel
+        Align = Center
         StyledSettings = [Family, FontColor]
-        Position.X = 152.000000000000000000
-        Position.Y = 28.000000000000000000
-        Size.Width = 145.000000000000000000
+        Size.Width = 81.000000000000000000
         Size.Height = 34.000000000000000000
         Size.PlatformDefault = False
         TextSettings.Font.Size = 18.000000000000000000
         TextSettings.Font.StyleExt = {00070000000000000004000000}
-        Text = 'Nova Despesa'
+        Text = 'Despesa'
         TabOrder = 3
       end
     end
@@ -184,7 +187,7 @@ object va_debitos: Tva_debitos
   object Rect_cobertura_fundo: TRectangle
     Align = Client
     Size.Width = 435.000000000000000000
-    Size.Height = 494.000000000000000000
+    Size.Height = 510.000000000000000000
     Size.PlatformDefault = False
     Stroke.Color = claWhitesmoke
     object Lay1: TLayout
@@ -727,7 +730,7 @@ object va_debitos: Tva_debitos
     object Lay4: TLayout
       Align = Client
       Size.Width = 435.000000000000000000
-      Size.Height = 205.000000000000000000
+      Size.Height = 221.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 3
       object Rectangle9: TRectangle
@@ -1055,7 +1058,7 @@ object va_debitos: Tva_debitos
     Size.Width = 435.000000000000000000
     Size.Height = 82.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 3
+    TabOrder = 5
     object RectX_rodape: TRectangle
       Align = Client
       Fill.Color = claAliceblue
@@ -1078,7 +1081,7 @@ object va_debitos: Tva_debitos
   end
   object Lay02_saldo: TLayout
     Align = Top
-    Position.Y = 65.000000000000000000
+    Position.Y = 49.000000000000000000
     Size.Width = 435.000000000000000000
     Size.Height = 104.000000000000000000
     Size.PlatformDefault = False

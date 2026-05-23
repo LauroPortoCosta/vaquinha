@@ -1,0 +1,134 @@
+unit va_04_grupos;
+
+interface
+
+uses
+ System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+ FMX.Types, FMX.Controls,  FMX.Forms,  FMX.Graphics,  FMX.Dialogs,  FMX.Controls.Presentation,
+ FMX.Edit,  FMX.Objects,  FMX.Layouts,  FMX.StdCtrls,  FMX.Ani,   FMX.ScrollBox,
+ FMX.Memo,  FMX.TabControl,  FMX.Grid,  FMX.ListView.Types,  FMX.ListView.Appearances,
+ FMX.ListView.Adapters.Base,  FMX.ListView,  FMX.VirtualKeyboard,  FMX.Platform, System.Actions,
+ FMX.ActnList,  Fmx.Bind.Editors,  REST.Types,  FireDAC.Stan.Intf,  FireDAC.Stan.Option,
+ FireDAC.Stan.Param,  FireDAC.Stan.Error,  FireDAC.DatS,  FireDAC.Phys.Intf,  FireDAC.DApt.Intf,
+ REST.Client,  REST.Authenticator.Basic,  Data.DB,  FireDAC.Comp.DataSet,  FireDAC.Comp.Client,
+ REST.Response.Adapter,  Data.Bind.Components,  Data.Bind.ObjectScope,  System.Json.Types,
+ System.Json.Readers,  System.Json.Writers,  System.Json,
+ System.Rtti,   FMX.Grid.Style,  Data.Bind.EngExt,  Fmx.Bind.DBEngExt,  Fmx.Bind.Grid,
+ System.Bindings.Outputs,  Data.Bind.Grid,   Data.Bind.DBScope, FMX.DialogService,
+  FMX.DateTimeCtrls;
+
+type
+  Tva_grupos = class(TForm)
+    Lay01_cabecalho: TLayout;
+    Rect1_cabecalho: TRectangle;
+    Lay2_direito: TLayout;
+    Img2_direita: TImage;
+    Rect_central: TRectangle;
+    Label1: TLabel;
+    Rectangle2: TRectangle;
+    Image3: TImage;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Rectangle3: TRectangle;
+    Label5: TLabel;
+    Lay2_rodape: TLayout;
+    Rectangle1: TRectangle;
+    Label6: TLabel;
+    ListView1: TListView;
+    Image1: TImage;
+    procedure Img2_direitaClick(Sender: TObject);
+    procedure Rectangle1Click(Sender: TObject);
+  private
+    procedure grava_velho;
+    procedure grava;
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  va_grupos: Tva_grupos;
+
+implementation
+
+{$R *.fmx}
+
+uses va_05_dm;
+
+procedure Tva_grupos.Img2_direitaClick(Sender: TObject);
+begin
+  close;
+end;
+
+
+procedure Tva_grupos.Rectangle1Click(Sender: TObject);
+begin
+
+
+        // criar grupo
+
+        ShowMessage('  ola  ');
+        grava;
+        grava_velho;
+
+
+end;
+
+procedure Tva_grupos.grava_velho;
+var
+cc:string;
+xx:string;
+Begin
+  xx:= '0';
+  va_05_dm.DM.RESTClient_grupo.BaseURL:='https://laurolivro-606860-default-rtdb.firebaseio.com/tab_grupo/cod_grupo/'+xx+'.json?auth=gGrjaEZca7Dld3kCnSd7oDeQ8Xi8xJkcuvqCkrBg';
+  va_05_dm.DM.RESTRequest_grupo.Method:= TRESTRequestMethod.rmPATCH;
+  va_05_dm.DM.RESTClient_grupo.Params.Clear;
+  va_05_dm.DM.RESTClient_grupo.Params.AddItem;
+ // va_05_dm.DM.RESTClient_grupo.Items[0].name:= 'param';
+  cc:= '{"status":"n"}';
+  va_05_dm.DM.RESTClient_grupo.Params.Items[0].value :=cc;
+  va_05_dm.DM.RESTClient_grupo.Params.Items[0].ContentType := ctAPPLICATION_JSON;
+  va_05_dm.DM.RESTClient_grupo.Params.Items[0].Kind := TRESTRequestParameterKind.pkGETorPOST;
+  va_05_dm.DM.RESTRequest_grupo.Execute;
+  showmessage('salvo com sucesso');
+ // carrega;
+  end;
+
+
+ procedure Tva_grupos.grava;
+var
+  cc : string;
+  xx : string;
+begin
+  xx := '0';
+  cc := '{"status":"n"}';
+
+  // URL BASE
+  va_05_dm.DM.RESTClient_grupo.BaseURL :=
+    'https://laurolivro-606860-default-rtdb.firebaseio.com';
+
+  // RESOURCE
+  va_05_dm.DM.RESTRequest_grupo.Resource := 'tab_grupo/cod_grupo/' + xx + '.json';
+
+  // METODO
+  va_05_dm.DM.RESTRequest_grupo.Method :=  TRESTRequestMethod.rmPATCH;
+
+  // LIMPA PARAMETROS
+  va_05_dm.DM.RESTRequest_grupo.Params.Clear;
+
+  // TOKEN AUTH
+  va_05_dm.DM.RESTRequest_grupo.AddParameter('auth', 'gGrjaEZca7Dld3kCnSd7oDeQ8Xi8xJkcuvqCkrBg', pkGETorPOST );
+
+  // JSON BODY
+  va_05_dm.DM.RESTRequest_grupo.AddBody(cc,ctAPPLICATION_JSON );
+
+  // EXECUTA
+  va_05_dm.DM.RESTRequest_grupo.Execute;
+
+  ShowMessage('Salvo com sucesso');
+
+end;
+
+
+end.
