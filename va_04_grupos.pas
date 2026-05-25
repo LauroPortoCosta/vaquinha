@@ -21,7 +21,7 @@ type
   Tva_grupos = class(TForm)
     Lay01_cabecalho: TLayout;
     Rect1_cabecalho: TRectangle;
-    Lay2_direito: TLayout;
+    LayA_direito: TLayout;
     Img2_direita: TImage;
     Rect_central: TRectangle;
     Label1: TLabel;
@@ -35,18 +35,41 @@ type
     Lay2_rodape: TLayout;
     Rectangle1: TRectangle;
     Label6: TLabel;
-    ListView1: TListView;
     Image1: TImage;
-    Memo1: TMemo;
+    Lay3_central: TLayout;
+    Edit1: TEdit;
+    ListView1: TListView;
+    Image2: TImage;
+    Image4: TImage;
+    Image5: TImage;
+    StyleBook1: TStyleBook;
     procedure Img2_direitaClick(Sender: TObject);
     procedure Rectangle1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     procedure grava_velho;
     procedure grava;
     procedure ThreadLoginTerminate(Sender: TObject);
+    procedure addcategoria(var1, var2, var3, var4, var5: string);
     { Private declarations }
   public
     { Public declarations }
+                 meu_grupo : string;
+                 xvar1         : String;
+                 xvar2         : String;
+                 xvar3         : String;   // controla as variaveis do relatorio
+                 xvar4         : String;   // controla as variaveis do relatorio
+                 xvar5         : String;
+                 xvar6         : String;
+                 unha_data     : String;
+                 unha2_hora    : String;
+                 unha3_servico : String;
+                 unha7_nome    : String;
+                 xtag          : integer;
+                 x_OnClik      : Integer;
+                 so_para_zero  : integer;
+                 x:integer;
+
   end;
 
 var
@@ -67,13 +90,7 @@ end;
 procedure Tva_grupos.Rectangle1Click(Sender: TObject);
 begin
 
-
-        // criar grupo
-
-        ShowMessage('  ola  ');
-      //  grava;
         grava_velho;
-
 
 end;
 
@@ -82,85 +99,84 @@ procedure Tva_grupos.grava_velho;
 ///     G R A V A   ///
 //////////////////////
 var
-  k              :Text         ;
-  I, y           : Integer     ;
-  tranf_objet    : TJSONObject ;
-  tranf_array    : TJSONArray  ;
-  tranf_value    : TJSONValue  ;  // nao funcionou
-  a              : string      ;
+  jArray    : TJSONArray;
+  JValue    : TJSONValue;
+  JObject   : TJSONObject;
+  email, a  : string;
+  status,descricao     : string;
 
+begin
+  va_05_dm.DM.RESTRequest_grupo.Method := rmGET;
+  va_05_dm.DM.RESTRequest_grupo.Execute;
+  jArray := TJSONObject.ParseJSONValue(TEncoding.UTF8.GetBytes( va_05_dm.DM.RESTResponse_grupo.Content ),0)as TJSONArray;    // fazer a leitura da STRING  a partir da posição  0, converte utf8   // já analisei a string, ela é ARRAY
+  a:= jArray.ToString;                                                                                                      // pego o ARRAY e jogo em uma variável string
+  JObject:= TJSONObject.ParseJSONValue(jArray.Items[0].ToJSON) as TJSONObject;                                            // estou pegando apenas o item PRIMEIRO=0 do ARRAY
+  JValue := JObject;
+
+  if JValue = nil then
+  begin
+    ShowMessage('JSON inválido');
+    Exit;
+  end;
+
+  if JValue is TJSONObject then
   begin
 
-  //       va_05_dm.DM.RESTClient_grupo.BaseURL:='https://laurolivro-606860-default-rtdb.firebaseio.com/tab_grupo/cod_grupo/.json?auth=gGrjaEZca7Dld3kCnSd7oDeQ8Xi8xJkcuvqCkrBg';
-  //       va_05_dm.DM.RESTRequest_grupo.Method := TRESTRequestMethod.rmPATCH;
-  //       va_05_dm.DM.RESTRequest_grupo.Params.Clear;                                                       // limpa o RESTRequest1
-  //       va_05_dm.DM.RESTRequest_grupo.Params.AddItem;                                                     // adiciona item
-  //       va_05_dm.DM.RESTRequest_grupo.Params.Items[0].name  := 'param';                                   // item = param
-  //       cc:= '{"data":"25/05/2026","descricao":"Grupo de familia"}';                     // cc é uma string composta de um Json feito na mao
-  //       va_05_dm.DM.RESTRequest_grupo.Params.Items[0].value :=cc;                                         // colocado dentro do RESTRequest1 o conteudo de cc
-  //       va_05_dm.DM.RESTRequest_grupo.Params.Items[0].ContentType := ctAPPLICATION_JSON;                  // ct application
-  //       va_05_dm.DM.RESTRequest_grupo.Params.Items[0].Kind := TRESTRequestParameterKind.pkGETorPOST;      // recebe um pk GET ou POST ( se não existir atualize )
-  //       va_05_dm.DM.RESTRequest_grupo.Execute;
+    JObject := JValue as TJSONObject;
 
-
-      va_05_dm.DM.RESTClient_grupo.BaseURL:='https://laurolivro-606860-default-rtdb.firebaseio.com/tab_grupo/cod_grupo/0.json?auth=gGrjaEZca7Dld3kCnSd7oDeQ8Xi8xJkcuvqCkrBg';
-      va_05_dm.DM.RESTRequest_grupo.Method := TRESTRequestMethod.rmGET;
-      va_05_dm.DM.RESTRequest_grupo.execute;
-
-       a:= va_05_dm.DM.RESTResponse_grupo.Content ;
-
-        ShowMessage(a);
-
-//      Memo1.Text:=va_05_dm.DM.RESTRequest_grupo.Response.JSONText;
-//      Memo1.Text:=va_05_dm.DM.RESTResponse_grupo.JSONText;
-
-
-
-
-
-//        01) transformando o response em jsontext e mostrando no memo
-//        neste momento o memo é carregado com a tabela completa separaddas por  [ ]
-
-//          showmessage('mostrei a tabela completa 01 ');   // esta é a melhor tabela mostrada
-
-// garantir que seja um array
-    tranf_value :=TJSONObject.ParseJSONValue(a); // coloquei este comando , nao deu erro , mas nao teve efeito
-
-    if (tranf_value is TJSONObject )   then
-     begin
-  //     FreeAndNil(tranf_value);
-  //     tranf_value := TJSONObject.ParseJSONValue('['+RESTRequest1.Response.JSONText+']');  // nao funciona
-  //     tranf_value := TJSONObject.ParseJSONValue(memo1.Text) as TJSONValue;               // nao funciona
+    if JObject.GetValue('status') <> nil then
+    begin
+      status    := JObject.GetValue<string>('status');
+      descricao := JObject.GetValue<string>('descricao');
+      edit1.Text:=descricao;
     end;
+   end
+  else
+
+  JValue.Free;
+end;
 
 
 
 
 
+ procedure Tva_grupos.FormCreate(Sender: TObject); //--------------------------------------------------------------------------------
+begin
 
- end;
+  meu_grupo:='0';
+  grava_velho;
 
+        ListView1.items.Clear;
+        va_05_dm.DM.RESTRequest_usuario.Execute;
+        while Not va_05_dm.DM.FDMemTable_usuario.Eof  do
+         begin
+                addcategoria(
+                va_05_dm.DM.FDMemTable_usuario.FieldByName('telefone').AsString,
+                va_05_dm.DM.FDMemTable_usuario.FieldByName('status').AsString,
+                va_05_dm.DM.FDMemTable_usuario.FieldByName('data').AsString,
+                va_05_dm.DM.FDMemTable_usuario.FieldByName('senha').AsString,
+                va_05_dm.DM.FDMemTable_usuario.FieldByName('id').AsString
+                );
+                va_05_dm.DM.FDMemTable_usuario.Next;
+         end ;
+end;
 
-
-
-
- procedure Tva_grupos.grava;
+procedure Tva_grupos.grava;
 var
   cc : string;
   xx : string;
 begin
-  xx := '0';
-  cc := '{"status":"n"}';
+  xx := meu_grupo;
+  cc := '{"status":"y"}';
 
   // URL BASE
-  va_05_dm.DM.RESTClient_grupo.BaseURL :=
-    'https://laurolivro-606860-default-rtdb.firebaseio.com';
+  va_05_dm.DM.RESTClient_grupo.BaseURL          := 'https://laurolivro-606860-default-rtdb.firebaseio.com';
 
   // RESOURCE
-  va_05_dm.DM.RESTRequest_grupo.Resource := 'tab_grupo/cod_grupo/'+xx+'.json';
-
+  va_05_dm.DM.RESTRequest_grupo.Resource        := 'tab_grupo/cod_grupo/';
+  va_05_dm.DM.RESTRequest_grupo.ResourceSuffix  :=  xx+'.json';
   // METODO
-  va_05_dm.DM.RESTRequest_grupo.Method :=  TRESTRequestMethod.rmPATCH;
+  va_05_dm.DM.RESTRequest_grupo.Method          :=  TRESTRequestMethod.rmPATCH;
 
   // LIMPA PARAMETROS
   va_05_dm.DM.RESTRequest_grupo.Params.Clear;
@@ -173,18 +189,13 @@ begin
 
   // EXECUTA
   va_05_dm.DM.RESTRequest_grupo.Execute;
-
-
-
   cc:=va_05_dm.DM.RESTResponse_grupo.Content;
   ShowMessage('Salvo com sucesso'+cc);
 
 end;
 
 
-
-
-   procedure Tva_grupos.ThreadLoginTerminate(Sender: TObject);
+procedure Tva_grupos.ThreadLoginTerminate(Sender: TObject);
 begin // TRATANDO ERRO DENTRO DE UMA TTHREAD
 
     if Sender is TThread then
@@ -200,20 +211,36 @@ begin // TRATANDO ERRO DENTRO DE UMA TTHREAD
 
 
 
+procedure  Tva_grupos.addcategoria(var1, var2, var3, var4, var5: string ); // procedure que jogará dentro da list view os dados recolhidos dentro da tab
+ begin
 
+    with  ListView1.items.Add do
+        begin
+           TlistItemText(objects.FindDrawable('Text1')).Text := (xvar1 + var1) ;
+           TlistItemText(objects.FindDrawable('Text2')).Text := (xvar2 + var2) ;
+           TlistItemText(objects.FindDrawable('Text3')).Text := (xvar3 + var3) ;
+           TlistItemText(objects.FindDrawable('Text7')).Text := (xvar4 + var4) ;
+           TlistItemText(objects.FindDrawable('Text8')).Text := (var5) ;
 
-
-
-
-
-
-
-
-
-
-
-
-
+           if x=0 then
+           begin
+             TListItemImage(Objects.FindDrawable('Image6')).Bitmap := Image3.Bitmap ;
+             x:=x+1;
+           end
+           else
+           if x=1 then
+           begin
+            TListItemImage(Objects.FindDrawable('Image6')).Bitmap := Image4.Bitmap ;
+             x:=x+1;
+            end
+            else
+           if x=2 then
+           begin
+             TListItemImage(Objects.FindDrawable('Image6')).Bitmap := Image5.Bitmap ;
+             x:=0;
+           end;
+        end;
+ end;
 
 
 

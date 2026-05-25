@@ -12,24 +12,23 @@ uses
 
 type
   TDM = class(TDataModule)
-    RESTClient_login: TRESTClient;
-    RESTRequest_login: TRESTRequest;
-    RESTResponse_login: TRESTResponse;
-    RESTResponseDataSetAdapter_login: TRESTResponseDataSetAdapter;
-    FDMemTable_login: TFDMemTable;
     RESTClient_grupo: TRESTClient;
     RESTRequest_grupo: TRESTRequest;
     RESTResponse_grupo: TRESTResponse;
     RESTResponseDataSetAdapter_grupo: TRESTResponseDataSetAdapter;
     FDMemTable_grupo: TFDMemTable;
-    OAuth1Authenticator_grupo: TOAuth1Authenticator;
+    RESTClient_usuario: TRESTClient;
+    RESTRequest_usuario: TRESTRequest;
+    RESTResponse_usuario: TRESTResponse;
+    RESTResponseDataSetAdapter_usuario: TRESTResponseDataSetAdapter;
+    FDMemTable_usuario: TFDMemTable;
+    FDMemTable_grupocredor: TFloatField;
     FDMemTable_grupodata: TWideStringField;
     FDMemTable_grupodescricao: TWideStringField;
+    FDMemTable_grupodevedor: TFloatField;
     FDMemTable_grupoid_grupo: TFloatField;
     FDMemTable_grupoparcela: TFloatField;
     FDMemTable_grupoparticipantes: TFloatField;
-    FDMemTable_gruposaldo_credor: TFloatField;
-    FDMemTable_gruposaldo_devedor: TFloatField;
     FDMemTable_grupostatus: TWideStringField;
   private
     { Private declarations }
