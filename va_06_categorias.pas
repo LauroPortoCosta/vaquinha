@@ -3,11 +3,19 @@ unit va_06_categorias;
 interface
 
 uses
-  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
-  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects, FMX.Layouts,
-  FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base,
-  FMX.ListView;
+ System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+ FMX.Types, FMX.Controls,  FMX.Forms,  FMX.Graphics,  FMX.Dialogs,  FMX.Controls.Presentation,
+ FMX.Edit,  FMX.Objects,  FMX.Layouts,  FMX.StdCtrls,  FMX.Ani,   FMX.ScrollBox,
+ FMX.Memo,  FMX.TabControl,  FMX.Grid,  FMX.ListView.Types,  FMX.ListView.Appearances,
+ FMX.ListView.Adapters.Base,  FMX.ListView,  FMX.VirtualKeyboard,  FMX.Platform, System.Actions,
+ FMX.ActnList,  Fmx.Bind.Editors,  REST.Types,  FireDAC.Stan.Intf,  FireDAC.Stan.Option,
+ FireDAC.Stan.Param,  FireDAC.Stan.Error,  FireDAC.DatS,  FireDAC.Phys.Intf,  FireDAC.DApt.Intf,
+ REST.Client,  REST.Authenticator.Basic,  Data.DB,  FireDAC.Comp.DataSet,  FireDAC.Comp.Client,
+ REST.Response.Adapter,  Data.Bind.Components,  Data.Bind.ObjectScope,  System.Json.Types,
+ System.Json.Readers,  System.Json.Writers,  System.Json,
+ System.Rtti,   FMX.Grid.Style,  Data.Bind.EngExt,  Fmx.Bind.DBEngExt,  Fmx.Bind.Grid,
+ System.Bindings.Outputs,  Data.Bind.Grid,   Data.Bind.DBScope, FMX.DialogService,
+  FMX.DateTimeCtrls, FMX.Memo.Types, FMX.ListBox;
 
 type
   Tva_categorias = class(TForm)
@@ -30,8 +38,46 @@ type
     Label4: TLabel;
     Label5: TLabel;
     ListView1: TListView;
+    Image2: TImage;
+    lb_icone: TListBox;
+    ListBoxItem1: TListBoxItem;
+    img_selecao: TImage;
+    Image3: TImage;
+    ListBoxItem2: TListBoxItem;
+    Image4: TImage;
+    ListBoxItem3: TListBoxItem;
+    Image5: TImage;
+    ListBoxItem4: TListBoxItem;
+    Image6: TImage;
+    ListBoxItem5: TListBoxItem;
+    Image7: TImage;
+    ListBoxItem6: TListBoxItem;
+    Image8: TImage;
+    ListBoxItem7: TListBoxItem;
+    Image9: TImage;
+    ListBoxItem8: TListBoxItem;
+    Image10: TImage;
+    ListBoxItem9: TListBoxItem;
+    Image11: TImage;
+    ListBoxItem10: TListBoxItem;
+    Image12: TImage;
+    ListBoxItem11: TListBoxItem;
+    Image13: TImage;
+    ListBoxItem12: TListBoxItem;
+    Image14: TImage;
+    ListBoxItem13: TListBoxItem;
+    Image15: TImage;
+    ListBoxItem14: TListBoxItem;
+    Image16: TImage;
+    ListBoxItem15: TListBoxItem;
+    Image17: TImage;
+    ListBoxItem16: TListBoxItem;
+    Image18: TImage;
     procedure Img2_direitaClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure Rectangle2Click(Sender: TObject);
   private
+    procedure addcategoria(var1, var2: string);
     { Private declarations }
   public
     { Public declarations }
@@ -44,9 +90,50 @@ implementation
 
 {$R *.fmx}
 
+uses va_05_dm, va_07_categ_cad;
+
 procedure Tva_categorias.Img2_direitaClick(Sender: TObject);
 begin
   close;
 end;
+
+
+
+procedure Tva_categorias.Rectangle2Click(Sender: TObject);
+begin
+
+   if   not Assigned(va_cat_CAD) then                                    // pergunta se o programa ja existe, se nao cria
+            Application.CreateForm(Tva_cat_CAD ,va_cat_CAD);            // cria o formulario
+            va_cat_CAD.Show;
+
+end;
+
+procedure Tva_categorias.FormCreate(Sender: TObject);
+begin
+     ListView1.items.Clear;
+     va_05_dm.DM.RESTRequest_categoria.Execute;
+     while Not va_05_dm.DM.FDMemTable_categoria.Eof  do
+     begin
+          addcategoria(
+          va_05_dm.DM.FDMemTable_categoria.FieldByName('descricao').AsString,
+          va_05_dm.DM.FDMemTable_categoria.FieldByName('id').AsString
+                );
+           va_05_dm.DM.FDMemTable_categoria.Next;
+     end ;
+end;
+
+
+procedure  Tva_categorias.addcategoria(var1, var2: string ); // procedure que jogará dentro da list view os dados recolhidos dentro da tab
+ begin
+    with  ListView1.items.Add do
+        begin
+           TlistItemText(objects.FindDrawable('Text1')).Text := var1 ;
+           TListItemImage(Objects.FindDrawable('Image2')).Bitmap := Image1.Bitmap ;
+        end;
+ end;
+
+
+
+
 
 end.

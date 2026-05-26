@@ -346,6 +346,10 @@
             <Form>va_categorias</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="va_07_categ_cad.pas">
+            <Form>va_cat_CAD</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

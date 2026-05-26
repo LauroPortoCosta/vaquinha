@@ -1,0 +1,105 @@
+unit va_06_categorias;
+
+interface
+
+uses
+ System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+ FMX.Types, FMX.Controls,  FMX.Forms,  FMX.Graphics,  FMX.Dialogs,  FMX.Controls.Presentation,
+ FMX.Edit,  FMX.Objects,  FMX.Layouts,  FMX.StdCtrls,  FMX.Ani,   FMX.ScrollBox,
+ FMX.Memo,  FMX.TabControl,  FMX.Grid,  FMX.ListView.Types,  FMX.ListView.Appearances,
+ FMX.ListView.Adapters.Base,  FMX.ListView,  FMX.VirtualKeyboard,  FMX.Platform, System.Actions,
+ FMX.ActnList,  Fmx.Bind.Editors,  REST.Types,  FireDAC.Stan.Intf,  FireDAC.Stan.Option,
+ FireDAC.Stan.Param,  FireDAC.Stan.Error,  FireDAC.DatS,  FireDAC.Phys.Intf,  FireDAC.DApt.Intf,
+ REST.Client,  REST.Authenticator.Basic,  Data.DB,  FireDAC.Comp.DataSet,  FireDAC.Comp.Client,
+ REST.Response.Adapter,  Data.Bind.Components,  Data.Bind.ObjectScope,  System.Json.Types,
+ System.Json.Readers,  System.Json.Writers,  System.Json,
+ System.Rtti,   FMX.Grid.Style,  Data.Bind.EngExt,  Fmx.Bind.DBEngExt,  Fmx.Bind.Grid,
+ System.Bindings.Outputs,  Data.Bind.Grid,   Data.Bind.DBScope, FMX.DialogService,
+  FMX.DateTimeCtrls, FMX.Memo.Types;
+
+type
+  Tva_categorias = class(TForm)
+    Lay1_cabecalho: TLayout;
+    Rect1_cabecalho: TRectangle;
+    Lay2_direito: TLayout;
+    Img2_direita: TImage;
+    Lay1_esquerdo: TLayout;
+    Img1_esquerda: TImage;
+    Label16: TLabel;
+    Layout1: TLayout;
+    Rectangle1: TRectangle;
+    Label1: TLabel;
+    Label2: TLabel;
+    Image1: TImage;
+    Lay2_rodape: TLayout;
+    Rectangle2: TRectangle;
+    Label3: TLabel;
+    Lay3_corpo: TLayout;
+    Label4: TLabel;
+    Label5: TLabel;
+    ListView1: TListView;
+    Image2: TImage;
+    procedure Img2_direitaClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure Rectangle2Click(Sender: TObject);
+  private
+    procedure addcategoria(var1, var2: string);
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  va_categorias: Tva_categorias;
+
+implementation
+
+{$R *.fmx}
+
+uses va_05_dm, va_07_categ_cad;
+
+procedure Tva_categorias.Img2_direitaClick(Sender: TObject);
+begin
+  close;
+end;
+
+
+
+procedure Tva_categorias.Rectangle2Click(Sender: TObject);
+begin
+
+   if   not Assigned(va_cat_CAD) then                                    // pergunta se o programa ja existe, se nao cria
+            Application.CreateForm(Tva_cat_CAD ,va_cat_CAD);            // cria o formulario
+            va_cat_CAD.Show;
+
+end;
+
+procedure Tva_categorias.FormCreate(Sender: TObject);
+begin
+     ListView1.items.Clear;
+     va_05_dm.DM.RESTRequest_categoria.Execute;
+     while Not va_05_dm.DM.FDMemTable_categoria.Eof  do
+     begin
+          addcategoria(
+          va_05_dm.DM.FDMemTable_categoria.FieldByName('descricao').AsString,
+          va_05_dm.DM.FDMemTable_categoria.FieldByName('id').AsString
+                );
+           va_05_dm.DM.FDMemTable_categoria.Next;
+     end ;
+end;
+
+
+procedure  Tva_categorias.addcategoria(var1, var2: string ); // procedure que jogará dentro da list view os dados recolhidos dentro da tab
+ begin
+    with  ListView1.items.Add do
+        begin
+           TlistItemText(objects.FindDrawable('Text1')).Text := var1 ;
+           TListItemImage(Objects.FindDrawable('Image2')).Bitmap := Image1.Bitmap ;
+        end;
+ end;
+
+
+
+
+
+end.

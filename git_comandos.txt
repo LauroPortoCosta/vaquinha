@@ -22,4 +22,4 @@ git push -u origin master
 git init
 git remote add origin https://github.com/LauroPortoCosta/vaquinha.git
 git commit -m "uma mensagem"
-git push -u origin master
+git 

@@ -1,6 +1,6 @@
 object DM: TDM
-  Height = 537
-  Width = 425
+  Height = 557
+  Width = 675
   object RESTClient_grupo: TRESTClient
     Accept = 'application/json, text/plain;q=0.9, text/html;q=0.8'
     AcceptCharset = 'utf-8, *;q=0.8'
@@ -203,5 +203,98 @@ object DM: TDM
     StoreDefs = True
     Left = 64
     Top = 432
+  end
+  object RESTClient_categoria: TRESTClient
+    Accept = 'application/json, text/plain;q=0.9, text/html;q=0.8'
+    AcceptCharset = 'utf-8, *;q=0.8'
+    BaseURL = 'https://vaquinha-8e06e-default-rtdb.firebaseio.com'
+    Params = <>
+    SynchronizedEvents = False
+    Left = 480
+    Top = 72
+  end
+  object RESTRequest_categoria: TRESTRequest
+    AssignedValues = [rvConnectTimeout, rvReadTimeout]
+    Client = RESTClient_categoria
+    Params = <
+      item
+        Name = 'auth'
+        Value = 'AIzaSyBVLql1yRfz_h9yenkJYdH8VJl-JlPcnCI'
+      end>
+    Resource = 'tab_categoria/cod_categoria/'
+    ResourceSuffix = '.json?'
+    Response = RESTResponse_categoria
+    SynchronizedEvents = False
+    Left = 480
+    Top = 152
+  end
+  object RESTResponse_categoria: TRESTResponse
+    ContentType = 'application/json'
+    Left = 472
+    Top = 232
+  end
+  object RESTResponseDataSetAdapter_categoria: TRESTResponseDataSetAdapter
+    Active = True
+    Dataset = FDMemTable_categoria
+    FieldDefs = <>
+    Response = RESTResponse_categoria
+    TypesMode = Rich
+    Left = 472
+    Top = 336
+  end
+  object FDMemTable_categoria: TFDMemTable
+    Active = True
+    FieldDefs = <
+      item
+        Name = 'descricao'
+        DataType = ftWideString
+        Size = 12
+      end
+      item
+        Name = 'icone'
+        DataType = ftFloat
+      end
+      item
+        Name = 'id'
+        DataType = ftFloat
+      end
+      item
+        Name = 'registro'
+        DataType = ftFloat
+      end
+      item
+        Name = 'status'
+        DataType = ftWideString
+        Size = 1
+      end>
+    IndexDefs = <>
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvUpdateChngFields, uvUpdateMode, uvLockMode, uvLockPoint, uvLockWait, uvRefreshMode, uvFetchGeneratorsPoint, uvCheckRequired, uvCheckReadOnly, uvCheckUpdatable]
+    UpdateOptions.LockWait = True
+    UpdateOptions.FetchGeneratorsPoint = gpNone
+    UpdateOptions.CheckRequired = False
+    StoreDefs = True
+    Left = 480
+    Top = 432
+    object FDMemTable_categoriadescricao: TWideStringField
+      FieldName = 'descricao'
+      Size = 12
+    end
+    object FDMemTable_categoriaicone: TFloatField
+      FieldName = 'icone'
+    end
+    object FDMemTable_categoriaid: TFloatField
+      FieldName = 'id'
+    end
+    object FDMemTable_categoriaregistro: TFloatField
+      FieldName = 'registro'
+    end
+    object FDMemTable_categoriastatus: TWideStringField
+      FieldName = 'status'
+      Size = 1
+    end
   end
 end

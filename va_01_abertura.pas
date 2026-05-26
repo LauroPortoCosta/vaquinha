@@ -63,6 +63,7 @@ type
     procedure Image4Click(Sender: TObject);
     procedure Image5Click(Sender: TObject);
     procedure Image3Click(Sender: TObject);
+    procedure Image6Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -77,7 +78,7 @@ implementation
 {$R *.fmx}
 
 uses va_02_creditos, va_00_menu, va_03_debitos, va_04_grupos, va_05_dm,
-  va_02_credito;
+  va_02_credito, va_06_categorias;
 
 
 procedure Tva_abertura.Image3Click(Sender: TObject);
@@ -103,6 +104,15 @@ procedure Tva_abertura.Image5Click(Sender: TObject);
 begin
      Application.CreateForm(Tva_grupos ,va_grupos);                   // cria o formulario
   va_grupos.Show;
+end;
+
+procedure Tva_abertura.Image6Click(Sender: TObject);
+begin
+
+   if   not Assigned(va_categorias) then                              // pergunta se o programa ja existe, se nao cria
+     Application.CreateForm(Tva_categorias ,va_categorias);                   // cria o formulario
+  va_categorias.Show;
+
 end;
 
 end.

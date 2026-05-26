@@ -1046,6 +1046,7 @@ object va_abertura: Tva_abertura
             Size.Width = 99.000000000000000000
             Size.Height = 97.000000000000000000
             Size.PlatformDefault = False
+            OnClick = Image6Click
           end
         end
       end

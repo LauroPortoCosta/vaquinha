@@ -30,6 +30,16 @@ type
     FDMemTable_grupoparcela: TFloatField;
     FDMemTable_grupoparticipantes: TFloatField;
     FDMemTable_grupostatus: TWideStringField;
+    RESTClient_categoria: TRESTClient;
+    RESTRequest_categoria: TRESTRequest;
+    RESTResponse_categoria: TRESTResponse;
+    RESTResponseDataSetAdapter_categoria: TRESTResponseDataSetAdapter;
+    FDMemTable_categoria: TFDMemTable;
+    FDMemTable_categoriadescricao: TWideStringField;
+    FDMemTable_categoriaicone: TFloatField;
+    FDMemTable_categoriaid: TFloatField;
+    FDMemTable_categoriaregistro: TFloatField;
+    FDMemTable_categoriastatus: TWideStringField;
   private
     { Private declarations }
   public

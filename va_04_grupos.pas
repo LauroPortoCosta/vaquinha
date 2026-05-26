@@ -42,7 +42,6 @@ type
     Image2: TImage;
     Image4: TImage;
     Image5: TImage;
-    StyleBook1: TStyleBook;
     procedure Img2_direitaClick(Sender: TObject);
     procedure Rectangle1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -54,7 +53,7 @@ type
     { Private declarations }
   public
     { Public declarations }
-                 meu_grupo : string;
+                 meu_grupo     : string;
                  xvar1         : String;
                  xvar2         : String;
                  xvar3         : String;   // controla as variaveis do relatorio
@@ -68,7 +67,7 @@ type
                  xtag          : integer;
                  x_OnClik      : Integer;
                  so_para_zero  : integer;
-                 x:integer;
+                 x             : integer;
 
   end;
 
