@@ -110,11 +110,8 @@ procedure Tva_abertura.Image6Click(Sender: TObject);
 begin
 
    if   not Assigned(va_categorias) then                              // pergunta se o programa ja existe, se nao cria
-        begin
-          Application.CreateForm(Tva_categorias ,va_categorias);
-          va_categorias.Show;
-
-        end;
+     Application.CreateForm(Tva_categorias ,va_categorias);                   // cria o formulario
+  va_categorias.Show;
 
 end;
 

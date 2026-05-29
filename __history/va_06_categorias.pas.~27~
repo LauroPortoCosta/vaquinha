@@ -103,6 +103,7 @@ end;
 
 
 
+
 procedure Tva_categorias.ListView1ItemClick(const Sender: TObject;
   const AItem: TListViewItem);
 begin   // se vou passar a variável A tenho que criar o formulário
@@ -128,7 +129,7 @@ end;
 
 procedure Tva_categorias.FormCreate(Sender: TObject);
 begin
-   //  carrega;
+     carrega;
      ListView1.items.Clear;
      va_05_dm.DM.RESTRequest_categoria.Execute;
      while Not va_05_dm.DM.FDMemTable_categoria.Eof  do
@@ -139,7 +140,7 @@ begin
           va_05_dm.DM.FDMemTable_categoria.FieldByName('id').AsString
                 );
            va_05_dm.DM.FDMemTable_categoria.Next;
-
+ 
      end ;
 end;
 

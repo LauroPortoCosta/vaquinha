@@ -353,24 +353,12 @@ object va_categorias: Tva_categorias
         item
           AppearanceObjectName = 'Text1'
           AppearanceClassName = 'TTextObjectAppearance'
-          Appearance.Width = 225.000000000000000000
-          Appearance.Height = 25.000000000000000000
-          Appearance.PlaceOffset.X = 78.000000000000000000
-          Appearance.PlaceOffset.Y = 8.000000000000000000
         end
         item
           AppearanceObjectName = 'Image2'
           AppearanceClassName = 'TImageObjectAppearance'
           Appearance.Width = 79.000000000000000000
           Appearance.Height = 44.000000000000000000
-        end
-        item
-          AppearanceObjectName = 'Text3'
-          AppearanceClassName = 'TTextObjectAppearance'
-          Appearance.Width = 19.000000000000000000
-          Appearance.Height = 24.000000000000000000
-          Appearance.PlaceOffset.X = 350.000000000000000000
-          Appearance.PlaceOffset.Y = 8.000000000000000000
         end>
       ItemAppearanceObjects.ItemEditObjects.ObjectsCollection = <
         item
@@ -394,7 +382,6 @@ object va_categorias: Tva_categorias
     Size.PlatformDefault = False
     StyleLookup = 'transparentlistboxstyle'
     TabOrder = 3
-    Visible = False
     Columns = 4
     DisableFocusEffect = True
     DefaultItemStyles.ItemStyle = ''

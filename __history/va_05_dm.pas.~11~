@@ -30,7 +30,6 @@ type
     FDMemTable_grupoparcela: TFloatField;
     FDMemTable_grupoparticipantes: TFloatField;
     FDMemTable_grupostatus: TWideStringField;
-    RESTReq_categoria_G: TRESTRequest;
     RESTClient_categoria: TRESTClient;
     RESTRequest_categoria: TRESTRequest;
     RESTResponse_categoria: TRESTResponse;

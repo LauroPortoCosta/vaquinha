@@ -12,23 +12,25 @@
     <Transaction>2026/05/07 14:55:31.000.767,C:\AULA\vaquinha\va_03_debitos.pas=C:\AULA\vaquinha\Unit1.pas</Transaction>
     <Transaction>2026/05/07 14:55:31.000.767,C:\AULA\vaquinha\va_03_debitos.fmx=C:\AULA\vaquinha\Unit1.fmx</Transaction>
     <Transaction>2026/05/07 15:14:17.000.546,=C:\AULA\vaquinha\Unit1.pas</Transaction>
-    <Transaction>2026/05/07 15:16:15.000.531,C:\AULA\vaquinha\Unit1.pas=C:\AULA\vaquinha\va_03_debitos.pas</Transaction>
     <Transaction>2026/05/07 15:16:15.000.531,C:\AULA\vaquinha\Unit1.fmx=C:\AULA\vaquinha\va_03_debitos.fmx</Transaction>
+    <Transaction>2026/05/07 15:16:15.000.531,C:\AULA\vaquinha\Unit1.pas=C:\AULA\vaquinha\va_03_debitos.pas</Transaction>
     <Transaction>2026/05/10 19:49:24.000.049,=C:\AULA\vaquinha\Unit1.pas</Transaction>
     <Transaction>2026/05/10 19:50:27.000.918,C:\AULA\vaquinha\va_04_grupos.fmx=C:\AULA\vaquinha\Unit1.fmx</Transaction>
     <Transaction>2026/05/10 19:50:27.000.918,C:\AULA\vaquinha\va_04_grupos.pas=C:\AULA\vaquinha\Unit1.pas</Transaction>
     <Transaction>2026/05/20 12:30:10.000.988,=C:\AULA\vaquinha\Unit1.pas</Transaction>
-    <Transaction>2026/05/20 12:30:59.000.817,C:\AULA\vaquinha\Unit1.dfm=C:\AULA\vaquinha\va_05_dm.dfm</Transaction>
     <Transaction>2026/05/20 12:30:59.000.817,C:\AULA\vaquinha\Unit1.pas=C:\AULA\vaquinha\va_05_dm.pas</Transaction>
+    <Transaction>2026/05/20 12:30:59.000.817,C:\AULA\vaquinha\Unit1.dfm=C:\AULA\vaquinha\va_05_dm.dfm</Transaction>
     <Transaction>2026/05/20 16:12:22.000.147,=C:\AULA\vaquinha\Unit1.pas</Transaction>
     <Transaction>2026/05/20 16:13:15.000.812,C:\AULA\vaquinha\va_02_credito.pas=C:\AULA\vaquinha\Unit1.pas</Transaction>
     <Transaction>2026/05/20 16:13:15.000.812,C:\AULA\vaquinha\va_02_credito.fmx=C:\AULA\vaquinha\Unit1.fmx</Transaction>
     <Transaction>2026/05/20 16:55:47.000.676,=C:\AULA\vaquinha\Unit1.pas</Transaction>
-    <Transaction>2026/05/20 16:56:31.000.197,C:\AULA\vaquinha\Unit1.pas=C:\AULA\vaquinha\va_06_categorias.pas</Transaction>
     <Transaction>2026/05/20 16:56:31.000.197,C:\AULA\vaquinha\Unit1.fmx=C:\AULA\vaquinha\va_06_categorias.fmx</Transaction>
+    <Transaction>2026/05/20 16:56:31.000.197,C:\AULA\vaquinha\Unit1.pas=C:\AULA\vaquinha\va_06_categorias.pas</Transaction>
     <Transaction>2026/05/25 16:35:43.000.835,=C:\AULA\vaquinha\Unit1.pas</Transaction>
     <Transaction>2026/05/25 16:36:24.000.912,C:\AULA\vaquinha\Unit1.fmx=C:\AULA\vaquinha\va_07_categ_cad.fmx</Transaction>
     <Transaction>2026/05/25 16:36:24.000.912,C:\AULA\vaquinha\Unit1.pas=C:\AULA\vaquinha\va_07_categ_cad.pas</Transaction>
+    <Transaction>2026/05/29 11:18:36.713,C:\AULA\vaquinha\va_06_categorias.pas=</Transaction>
+    <Transaction>2026/05/29 11:18:49.929,=C:\AULA\vaquinha\va_06_categorias.pas</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="activity-1.7.2.dex.jar"/>
@@ -221,9 +223,9 @@
     <File Path="va_04_grupos.fmx"/>
     <File Path="va_05_dm.pas"/>
     <File Path="va_05_dm.dfm"/>
-    <File Path="va_06_categorias.pas"/>
-    <File Path="va_06_categorias.fmx"/>
     <File Path="va_07_categ_cad.pas"/>
     <File Path="va_07_categ_cad.fmx"/>
+    <File Path="va_06_categorias.pas"/>
+    <File Path="va_06_categorias.fmx"/>
   </ProjectSortOrder>
 </BorlandProject>

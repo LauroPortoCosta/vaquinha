@@ -342,12 +342,12 @@
             <Form>va_credito</Form>
             <FormType>fmx</FormType>
         </DCCReference>
-        <DCCReference Include="va_06_categorias.pas">
-            <Form>va_categorias</Form>
-            <FormType>fmx</FormType>
-        </DCCReference>
         <DCCReference Include="va_07_categ_cad.pas">
             <Form>va_cat_CAD</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="va_06_categorias.pas">
+            <Form>va_categorias</Form>
             <FormType>fmx</FormType>
         </DCCReference>
         <BuildConfiguration Include="Base">

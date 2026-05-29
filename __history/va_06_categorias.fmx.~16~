@@ -353,24 +353,12 @@ object va_categorias: Tva_categorias
         item
           AppearanceObjectName = 'Text1'
           AppearanceClassName = 'TTextObjectAppearance'
-          Appearance.Width = 225.000000000000000000
-          Appearance.Height = 25.000000000000000000
-          Appearance.PlaceOffset.X = 78.000000000000000000
-          Appearance.PlaceOffset.Y = 8.000000000000000000
         end
         item
           AppearanceObjectName = 'Image2'
           AppearanceClassName = 'TImageObjectAppearance'
           Appearance.Width = 79.000000000000000000
           Appearance.Height = 44.000000000000000000
-        end
-        item
-          AppearanceObjectName = 'Text3'
-          AppearanceClassName = 'TTextObjectAppearance'
-          Appearance.Width = 19.000000000000000000
-          Appearance.Height = 24.000000000000000000
-          Appearance.PlaceOffset.X = 350.000000000000000000
-          Appearance.PlaceOffset.Y = 8.000000000000000000
         end>
       ItemAppearanceObjects.ItemEditObjects.ObjectsCollection = <
         item
@@ -394,7 +382,6 @@ object va_categorias: Tva_categorias
     Size.PlatformDefault = False
     StyleLookup = 'transparentlistboxstyle'
     TabOrder = 3
-    Visible = False
     Columns = 4
     DisableFocusEffect = True
     DefaultItemStyles.ItemStyle = ''
@@ -454,7 +441,7 @@ object va_categorias: Tva_categorias
         Size.Height = 80.000000000000000000
         Size.PlatformDefault = False
       end
-      object ImageA1: TImage
+      object Image3: TImage
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -529,7 +516,7 @@ object va_categorias: Tva_categorias
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 1
-      object ImageA2: TImage
+      object Image4: TImage
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -591,7 +578,7 @@ object va_categorias: Tva_categorias
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 2
-      object ImageA3: TImage
+      object Image5: TImage
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -650,7 +637,7 @@ object va_categorias: Tva_categorias
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 3
-      object ImageA4: TImage
+      object Image6: TImage
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -698,7 +685,7 @@ object va_categorias: Tva_categorias
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 4
-      object ImageB1: TImage
+      object Image7: TImage
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -864,7 +851,7 @@ object va_categorias: Tva_categorias
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 5
-      object ImageB2: TImage
+      object Image8: TImage
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -948,7 +935,7 @@ object va_categorias: Tva_categorias
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 6
-      object ImageB3: TImage
+      object Image9: TImage
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -1002,7 +989,7 @@ object va_categorias: Tva_categorias
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 7
-      object ImageB4: TImage
+      object Image10: TImage
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -1058,7 +1045,7 @@ object va_categorias: Tva_categorias
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 8
-      object ImageC1: TImage
+      object Image11: TImage
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -1114,7 +1101,7 @@ object va_categorias: Tva_categorias
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 9
-      object ImageC2: TImage
+      object Image12: TImage
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -1167,7 +1154,7 @@ object va_categorias: Tva_categorias
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 10
-      object ImageC3: TImage
+      object Image13: TImage
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -1246,7 +1233,7 @@ object va_categorias: Tva_categorias
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 11
-      object ImageC4: TImage
+      object Image14: TImage
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -1299,7 +1286,7 @@ object va_categorias: Tva_categorias
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 12
-      object ImageD1: TImage
+      object Image15: TImage
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -1366,7 +1353,7 @@ object va_categorias: Tva_categorias
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 13
-      object ImageD2: TImage
+      object Image16: TImage
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -1403,7 +1390,7 @@ object va_categorias: Tva_categorias
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 14
-      object ImageD3: TImage
+      object Image17: TImage
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -1454,7 +1441,7 @@ object va_categorias: Tva_categorias
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 15
-      object ImageD4: TImage
+      object Image18: TImage
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <

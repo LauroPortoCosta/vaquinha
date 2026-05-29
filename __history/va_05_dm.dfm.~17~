@@ -204,32 +204,15 @@ object DM: TDM
     Left = 64
     Top = 432
   end
-  object RESTReq_categoria_G: TRESTRequest
-    Client = RESTClient_categoria
-    Params = <
-      item
-        Name = 'auth'
-        Value = 'AIzaSyBVLql1yRfz_h9yenkJYdH8VJl-JlPcnCI'
-      end
-      item
-        Kind = pkURLSEGMENT
-        Name = 'id'
-        Options = [poAutoCreated]
-      end>
-    Resource = 'tab_categoria/cod_categoria/{id}.json?'
-    Response = RESTResponse_categoria
-    SynchronizedEvents = False
-    Left = 504
-    Top = 520
-  end
   object RESTClient_categoria: TRESTClient
     Accept = 'application/json, text/plain;q=0.9, text/html;q=0.8'
     AcceptCharset = 'utf-8, *;q=0.8'
     BaseURL = 'https://vaquinha-8e06e-default-rtdb.firebaseio.com'
+    ContentType = 'application/x-www-form-urlencoded'
     Params = <>
     SynchronizedEvents = False
-    Left = 464
-    Top = 416
+    Left = 480
+    Top = 72
   end
   object RESTRequest_categoria: TRESTRequest
     AssignedValues = [rvConnectTimeout, rvReadTimeout]
@@ -239,16 +222,17 @@ object DM: TDM
         Name = 'auth'
         Value = 'AIzaSyBVLql1yRfz_h9yenkJYdH8VJl-JlPcnCI'
       end>
-    Resource = 'tab_categoria/cod_categoria/.json?'
+    Resource = 'tab_categoria/cod_categoria/'
+    ResourceSuffix = '.json?'
     Response = RESTResponse_categoria
     SynchronizedEvents = False
-    Left = 440
-    Top = 320
+    Left = 480
+    Top = 152
   end
   object RESTResponse_categoria: TRESTResponse
     ContentType = 'application/json'
-    Left = 432
-    Top = 240
+    Left = 472
+    Top = 232
   end
   object RESTResponseDataSetAdapter_categoria: TRESTResponseDataSetAdapter
     Active = True
@@ -256,8 +240,8 @@ object DM: TDM
     FieldDefs = <>
     Response = RESTResponse_categoria
     TypesMode = Rich
-    Left = 416
-    Top = 144
+    Left = 472
+    Top = 336
   end
   object FDMemTable_categoria: TFDMemTable
     Active = True
@@ -294,8 +278,8 @@ object DM: TDM
     UpdateOptions.FetchGeneratorsPoint = gpNone
     UpdateOptions.CheckRequired = False
     StoreDefs = True
-    Left = 424
-    Top = 56
+    Left = 480
+    Top = 432
     object FDMemTable_categoriadescricao: TWideStringField
       FieldName = 'descricao'
       Size = 12
@@ -313,5 +297,22 @@ object DM: TDM
       FieldName = 'status'
       Size = 1
     end
+  end
+  object RESTReq_categoria_G: TRESTRequest
+    Client = RESTClient_categoria
+    Params = <
+      item
+        Name = 'auth'
+        Value = 'AIzaSyBVLql1yRfz_h9yenkJYdH8VJl-JlPcnCI'
+      end
+      item
+        Kind = pkURLSEGMENT
+        Name = 'id'
+        Options = [poAutoCreated]
+      end>
+    Resource = 'tab_categoria/cod_categoria/{id}.json?'
+    SynchronizedEvents = False
+    Left = 488
+    Top = 512
   end
 end

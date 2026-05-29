@@ -8,7 +8,6 @@ object va_categorias: Tva_categorias
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
-  OnCreate = FormCreate
   DesignerMasterStyle = 0
   object Lay1_cabecalho: TLayout
     Align = Top
@@ -299,7 +298,6 @@ object va_categorias: Tva_categorias
       Size.PlatformDefault = False
       XRadius = 25.000000000000000000
       YRadius = 25.000000000000000000
-      OnClick = Rectangle2Click
       object Label3: TLabel
         Align = Center
         StyledSettings = [Family]
@@ -311,7 +309,6 @@ object va_categorias: Tva_categorias
         TextSettings.FontColor = claWhite
         Text = '+ Nova Categoria'
         TabOrder = 0
-        OnClick = Rectangle2Click
       end
     end
   end
@@ -377,7 +374,6 @@ object va_categorias: Tva_categorias
           AppearanceObjectName = 'Text1'
           AppearanceClassName = 'TTextObjectAppearance'
         end>
-      OnItemClick = ListView1ItemClick
     end
   end
   object Image2: TImage

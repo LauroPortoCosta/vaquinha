@@ -6,8 +6,8 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
   FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts, FMX.Edit, FMX.ListBox,
-  FireDAC.Comp.Client, FireDAC.DApt, FMX.DialogService, REST.Types;
-   // coloquei o REST.Types para funcionar o REST
+  FireDAC.Comp.Client, FireDAC.DApt, FMX.DialogService;
+
 type
   Tva_cat_CAD = class(TForm)
     Label1: TLabel;
@@ -58,18 +58,15 @@ type
     procedure img_voltarClick(Sender: TObject);
     procedure ImageA1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure img_addClick(Sender: TObject);
   private
     icone_selecionado  : TBitmap;             // USADA NA  ==>  procedure img_saveClick(Sender: TObject); E NA procedure SelecionaIcone(img: TImage)
     indice_selecionado : Integer;            // USADA NA   ==>  procedure SelecionaIcone(img: TImage)
     procedure SelecionaIcone(img: TImage);
-    procedure confirma;
     { Private declarations }
   public
       modo      : string; // I (Inclusao) ou A (Alteracao)
       id_img    : string;
       descricao : string;
-      id        : string;
 
     { Public declarations }
   end;
@@ -80,8 +77,6 @@ var
 implementation
 
 {$R *.fmx}
-
-uses va_05_dm, va_06_categorias;
 
 procedure Tva_cat_CAD.FormShow(Sender: TObject);
 var
@@ -99,16 +94,16 @@ begin
     else
     begin
         try  //   A L T E R A Ç A O   //
-
            rectangle1.Visible := true;                                   //  FICA ASSIM    | ATIVANDO o retangulo com a imagem de delecao   // retangulo é um componete do PALLET que foi colocado no formulario
            edt_descricao.Text := descricao;                             // meu edit1.text recebe a DESCRICAO que a qry a cima selecionou
            item := lb_icone.ItemByIndex(StrToInt(id_img));             // item:TListBoxItem; variável criada logo a cima, //lb_icone = nome dado a ListBox no formulário // ItemByIndex = busca no item o indice ( faz parte do comando )
            img_selecao.Parent := item;                               // img_selecao = é a imagem criada no formulario (list Box)  com o fundo cinza // e o Parent é a dependencia que ele terá no quadro da listbox  // recebe o ITEM , tipo ( 0= primeiro quadro 1=segundo quadro etc
 
-       //ESTUDO
-      // ShowMessage(IntToStr(id_cat)+' = id_cat que é o ID_CATEGORIA');
-    //   ShowMessage(edt_descricao.Text+             ' = Está dentro do Descrição ');
-   //    ShowMessage((intToStr(indice_selecionado))+ ' = capturado o indice da figura - INDICE_ICONE');
+
+      //  ShowMessage(IntToStr(id_cat)+' = id_cat que é o ID_CATEGORIA');
+          ShowMessage(edt_descricao.Text+             ' = Está dentro do Descrição ');
+          ShowMessage((intToStr(indice_selecionado))+ ' = capturado o indice da figura - INDICE_ICONE');
+
 
          finally
         end;
@@ -119,41 +114,6 @@ procedure Tva_cat_CAD.ImageA1Click(Sender: TObject);
 begin
     SelecionaIcone(TImage(Sender));
 end;
-
-
-
-procedure Tva_cat_CAD.img_addClick(Sender: TObject);
-var
-   cat : string;
-begin
-    TDialogService.MessageDialog('Confirma exclusão da categoria?',
-                     TMsgDlgType.mtConfirmation,
-                     [TMsgDlgBtn.mbYes, TMsgDlgBtn.mbNo],
-                     TMsgDlgBtn.mbNo,
-                     0,
-      procedure(const AResult: TModalResult)
-     var
-
-        erro: string;
-        cc  : string;
-     begin
-        if AResult = mrYes then
-        begin
-            try
-                cat := 'TCategoria.Create(dm.conn)';
-                begin
-                    confirma;
-                    va_cat_CAD.Close;
-                    va_categorias.Show;
-                    exit;
-                end;
-                close;
-            finally
-               // cat.DisposeOf;
-            end;
-         end;
-      end     );
-  end;
 
 procedure Tva_cat_CAD.img_voltarClick(Sender: TObject);
 begin
@@ -173,19 +133,4 @@ begin
 
 end;
 
-
-procedure Tva_cat_CAD.confirma;
-var
-   cc : String ;
-begin
- va_05_dm.DM.RESTReq_categoria_G.Method := TRESTRequestMethod.rmPATCH;
- va_05_dm.DM.RESTReq_categoria_G.Params.ParameterByName('id').Value := id;
- cc := '{'+'"status":"x"'+'}';
- va_05_dm.DM.RESTReq_categoria_G.Body.ClearBody;
- va_05_dm.DM.RESTReq_categoria_G.AddBody(cc,ctAPPLICATION_JSON);
- va_05_dm.DM.RESTReq_categoria_G.Execute;
-//   ShowMessage(va_05_dm.DM.RESTReq_categoria_G.GetFullRequestURL );
-//   ShowMessage(va_05_dm.DM.RESTResponse_categoria.Content);
-//   ShowMessage(va_05_dm.DM.RESTReq_categoria_G.Response.Content );
-end;
 end.

@@ -99,16 +99,16 @@ begin
     else
     begin
         try  //   A L T E R A Ç A O   //
-
            rectangle1.Visible := true;                                   //  FICA ASSIM    | ATIVANDO o retangulo com a imagem de delecao   // retangulo é um componete do PALLET que foi colocado no formulario
            edt_descricao.Text := descricao;                             // meu edit1.text recebe a DESCRICAO que a qry a cima selecionou
            item := lb_icone.ItemByIndex(StrToInt(id_img));             // item:TListBoxItem; variável criada logo a cima, //lb_icone = nome dado a ListBox no formulário // ItemByIndex = busca no item o indice ( faz parte do comando )
            img_selecao.Parent := item;                               // img_selecao = é a imagem criada no formulario (list Box)  com o fundo cinza // e o Parent é a dependencia que ele terá no quadro da listbox  // recebe o ITEM , tipo ( 0= primeiro quadro 1=segundo quadro etc
 
-       //ESTUDO
-      // ShowMessage(IntToStr(id_cat)+' = id_cat que é o ID_CATEGORIA');
-    //   ShowMessage(edt_descricao.Text+             ' = Está dentro do Descrição ');
-   //    ShowMessage((intToStr(indice_selecionado))+ ' = capturado o indice da figura - INDICE_ICONE');
+
+      //  ShowMessage(IntToStr(id_cat)+' = id_cat que é o ID_CATEGORIA');
+  //        ShowMessage(edt_descricao.Text+             ' = Está dentro do Descrição ');
+   //       ShowMessage((intToStr(indice_selecionado))+ ' = capturado o indice da figura - INDICE_ICONE');
+
 
          finally
         end;
@@ -142,7 +142,27 @@ begin
             try
                 cat := 'TCategoria.Create(dm.conn)';
                 begin
-                    confirma;
+
+
+
+
+
+                    id:='1';
+                    va_05_dm.DM.RESTReq_categoria_G.Params.ParameterByName('id').Value := id;
+                 //   ShowMessage(   va_05_dm.DM.RESTReq_categoria_G.GetFullRequestURL );        //FUNCIONANDO E TESTADO
+                     cc := '{'+ '"descricao":"SUPERMERCADO",'+ '"status":"A"'+ '}';
+                    // LIMPA BODY ANTIGO
+                    va_05_dm.DM.RESTReq_categoria_G.Body.ClearBody;
+                    // NOVO BODY
+                 //   va_05_dm.DM.RESTReq_categoria_G.AddBody(cc, ctAPPLICATION_JSON);
+                    va_05_dm.DM.RESTReq_categoria_G.Execute;
+                    ShowMessage(va_05_dm.DM.RESTResponse_categoria.Content);
+
+
+                   // JSON
+
+
+
                     va_cat_CAD.Close;
                     va_categorias.Show;
                     exit;
@@ -178,14 +198,14 @@ procedure Tva_cat_CAD.confirma;
 var
    cc : String ;
 begin
- va_05_dm.DM.RESTReq_categoria_G.Method := TRESTRequestMethod.rmPATCH;
- va_05_dm.DM.RESTReq_categoria_G.Params.ParameterByName('id').Value := id;
- cc := '{'+'"status":"x"'+'}';
+ va_05_dm.DM.RESTReq_categoria_G.Method := rmPATCH;                   // Undeclared idenfifier: rmPATCH
+ va_05_dm.DM.RESTReq_categoria_G.ParameterByName('id').Value := id;   // Undeclared ParameterBYName at line  // Missing operator or semicolon at line 200
+ cc := '{'+'"telefone":"3333-4444"'+'}';
  va_05_dm.DM.RESTReq_categoria_G.Body.ClearBody;
- va_05_dm.DM.RESTReq_categoria_G.AddBody(cc,ctAPPLICATION_JSON);
- va_05_dm.DM.RESTReq_categoria_G.Execute;
-//   ShowMessage(va_05_dm.DM.RESTReq_categoria_G.GetFullRequestURL );
-//   ShowMessage(va_05_dm.DM.RESTResponse_categoria.Content);
-//   ShowMessage(va_05_dm.DM.RESTReq_categoria_G.Response.Content );
+ va_05_dm.DM.RESTReq_categoria_G.AddBody(cc,ctAPPLICATION_JSON);      // Undeclared identifer ctAPPLICATION_JSON
+ va_05_dm.DM.RESTReq_categoria_G.Execute;// there is no overloaded version of AddBody that can be called with htese argumento
 end;
+
+
+
 end.

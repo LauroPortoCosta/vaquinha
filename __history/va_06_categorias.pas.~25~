@@ -81,7 +81,6 @@ type
       const AItem: TListViewItem);
   private
     procedure addcategoria(var1, var2, var3: string);
-    procedure Carrega;
     { Private declarations }
   public
     { Public declarations }
@@ -100,6 +99,7 @@ procedure Tva_categorias.Img2_direitaClick(Sender: TObject);
 begin
   close;
 end;
+
 
 
 
@@ -128,7 +128,6 @@ end;
 
 procedure Tva_categorias.FormCreate(Sender: TObject);
 begin
-   //  carrega;
      ListView1.items.Clear;
      va_05_dm.DM.RESTRequest_categoria.Execute;
      while Not va_05_dm.DM.FDMemTable_categoria.Eof  do
@@ -139,7 +138,7 @@ begin
           va_05_dm.DM.FDMemTable_categoria.FieldByName('id').AsString
                 );
            va_05_dm.DM.FDMemTable_categoria.Next;
-
+ 
      end ;
 end;
 
@@ -198,49 +197,5 @@ begin
     end;
 
   end;
-end;
 
-
-procedure Tva_categorias.Carrega;
-var
-  JObject : TJSONObject;
-  Pair    : TJSONPair;
-  Item    : TJSONObject;
-begin
-
-  va_05_dm.DM.FDMemTable_categoria.Close;
-  va_05_dm.DM.FDMemTable_categoria.Open;
-  va_05_dm.DM.FDMemTable_categoria.EmptyDataSet;
-
-  JObject := TJSONObject.ParseJSONValue(va_05_dm.DM.RESTResponse_categoria.Content ) as TJSONObject;
-
-  try
-
-    for Pair in JObject do
-    begin
-
-      Item := Pair.JsonValue as TJSONObject;
-
-      va_05_dm.DM.FDMemTable_categoria.Append;
-
-      va_05_dm.DM.FDMemTable_categoria.FieldByName('descricao').AsString :=
-      Item.GetValue<string>('descricao');
-
-      va_05_dm.DM.FDMemTable_categoria.FieldByName('icone').AsInteger :=
-      Item.GetValue<Integer>('icone');
-
-      va_05_dm.DM.FDMemTable_categoria.FieldByName('status').AsString :=
-      Item.GetValue<string>('status');
-
-      va_05_dm.DM.FDMemTable_categoria.Post;
-
-    end;
-
-  finally
-    JObject.Free;
-  end;
-
-end;
-
-
-end.
+end;end.

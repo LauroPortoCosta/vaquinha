@@ -81,7 +81,6 @@ type
       const AItem: TListViewItem);
   private
     procedure addcategoria(var1, var2, var3: string);
-    procedure Carrega;
     { Private declarations }
   public
     { Public declarations }
@@ -103,6 +102,7 @@ end;
 
 
 
+
 procedure Tva_categorias.ListView1ItemClick(const Sender: TObject;
   const AItem: TListViewItem);
 begin   // se vou passar a variável A tenho que criar o formulário
@@ -111,8 +111,6 @@ begin   // se vou passar a variável A tenho que criar o formulário
                 va_cat_CAD.modo      := 'A';
                 va_cat_CAD.id_img    := AItem.Objects.FindObjectT<TListItemText>('Text3').Text;
                 va_cat_CAD.descricao := AItem.Objects.FindObjectT<TListItemText>('Text1').Text;
-                va_cat_CAD.id        := AItem.TagString;
- //               ShowMessage(AItem.TagString);
                 va_cat_CAD.Show;
 end;
 
@@ -121,14 +119,12 @@ begin
 
    if   not Assigned(va_cat_CAD) then                                    // pergunta se o programa ja existe, se nao cria
             Application.CreateForm(Tva_cat_CAD ,va_cat_CAD);            // cria o formulario
-            va_cat_CAD.modo  := 'I';
             va_cat_CAD.Show;
 
 end;
 
 procedure Tva_categorias.FormCreate(Sender: TObject);
 begin
-   //  carrega;
      ListView1.items.Clear;
      va_05_dm.DM.RESTRequest_categoria.Execute;
      while Not va_05_dm.DM.FDMemTable_categoria.Eof  do
@@ -139,7 +135,7 @@ begin
           va_05_dm.DM.FDMemTable_categoria.FieldByName('id').AsString
                 );
            va_05_dm.DM.FDMemTable_categoria.Next;
-
+ 
      end ;
 end;
 
@@ -153,7 +149,6 @@ begin
     // descrição
     TListItemText(Objects.FindDrawable('Text1')).Text := var1;
     TListItemText(Objects.FindDrawable('Text3')).Text := var2;
-    ListView1.TagString:=var3;
 
     // guarda ID
     TagString := var3;
@@ -198,49 +193,5 @@ begin
     end;
 
   end;
-end;
 
-
-procedure Tva_categorias.Carrega;
-var
-  JObject : TJSONObject;
-  Pair    : TJSONPair;
-  Item    : TJSONObject;
-begin
-
-  va_05_dm.DM.FDMemTable_categoria.Close;
-  va_05_dm.DM.FDMemTable_categoria.Open;
-  va_05_dm.DM.FDMemTable_categoria.EmptyDataSet;
-
-  JObject := TJSONObject.ParseJSONValue(va_05_dm.DM.RESTResponse_categoria.Content ) as TJSONObject;
-
-  try
-
-    for Pair in JObject do
-    begin
-
-      Item := Pair.JsonValue as TJSONObject;
-
-      va_05_dm.DM.FDMemTable_categoria.Append;
-
-      va_05_dm.DM.FDMemTable_categoria.FieldByName('descricao').AsString :=
-      Item.GetValue<string>('descricao');
-
-      va_05_dm.DM.FDMemTable_categoria.FieldByName('icone').AsInteger :=
-      Item.GetValue<Integer>('icone');
-
-      va_05_dm.DM.FDMemTable_categoria.FieldByName('status').AsString :=
-      Item.GetValue<string>('status');
-
-      va_05_dm.DM.FDMemTable_categoria.Post;
-
-    end;
-
-  finally
-    JObject.Free;
-  end;
-
-end;
-
-
-end.
+end;end.

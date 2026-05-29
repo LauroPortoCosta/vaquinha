@@ -23,3 +23,24 @@ git init
 git remote add origin https://github.com/LauroPortoCosta/vaquinha.git
 git commit -m "uma mensagem"
 git 
+
+
+
+
+
+
+tab_categoria/cod_categoria/.json?orderBy="status"&equalTo="s"
+
+{"0":{"descricao":"Supermercado","icone":0,"id":0,"registro":0,"status":"s"},
+"1":{"descricao":"Farmácia","icone":1,"id":1,"registro":0,"status":"s"},
+"2":{"descricao":"Hospedagem","icone":2,"id":2,"registro":0,"status":"s"},
+"3":{"descricao":"alimentacao","icone":3,"id":3,"registro":0,"status":"s"}
+}
+
+tab_categoria/cod_categoria/.json?
+[
+{"descricao":"Supermercado","icone":0,"id":0,"registro":0,"status":"s"},
+{"descricao":"Farmácia","icone":1,"id":1,"registro":0,"status":"s"},
+{"descricao":"Hospedagem","icone":2,"id":2,"registro":0,"status":"s"},
+{"descricao":"alimentacao","icone":3,"id":3,"registro":0,"status":"s"}
+]
