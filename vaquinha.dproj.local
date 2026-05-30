@@ -29,8 +29,8 @@
     <Transaction>2026/05/25 16:35:43.000.835,=C:\AULA\vaquinha\Unit1.pas</Transaction>
     <Transaction>2026/05/25 16:36:24.000.912,C:\AULA\vaquinha\Unit1.fmx=C:\AULA\vaquinha\va_07_categ_cad.fmx</Transaction>
     <Transaction>2026/05/25 16:36:24.000.912,C:\AULA\vaquinha\Unit1.pas=C:\AULA\vaquinha\va_07_categ_cad.pas</Transaction>
-    <Transaction>2026/05/29 11:18:36.713,C:\AULA\vaquinha\va_06_categorias.pas=</Transaction>
-    <Transaction>2026/05/29 11:18:49.929,=C:\AULA\vaquinha\va_06_categorias.pas</Transaction>
+    <Transaction>2026/05/29 11:18:36.000.713,C:\AULA\vaquinha\va_06_categorias.pas=</Transaction>
+    <Transaction>2026/05/29 11:18:49.000.929,=C:\AULA\vaquinha\va_06_categorias.pas</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="activity-1.7.2.dex.jar"/>

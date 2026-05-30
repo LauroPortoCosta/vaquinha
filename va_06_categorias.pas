@@ -39,7 +39,6 @@ type
     Label4: TLabel;
     Label5: TLabel;
     ListView1: TListView;
-    Image2: TImage;
     lb_icone: TListBox;
     ListBoxItem1: TListBoxItem;
     img_selecao: TImage;
@@ -74,6 +73,7 @@ type
     ImageD3: TImage;
     ListBoxItem16: TListBoxItem;
     ImageD4: TImage;
+    Label6: TLabel;
     procedure Img2_direitaClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Rectangle2Click(Sender: TObject);
@@ -106,13 +106,14 @@ end;
 procedure Tva_categorias.ListView1ItemClick(const Sender: TObject;
   const AItem: TListViewItem);
 begin   // se vou passar a variável A tenho que criar o formulário
+
          if not Assigned(va_cat_CAD) then
                 va_cat_CAD           := Tva_cat_CAD.Create(nil);
                 va_cat_CAD.modo      := 'A';
                 va_cat_CAD.id_img    := AItem.Objects.FindObjectT<TListItemText>('Text3').Text;
                 va_cat_CAD.descricao := AItem.Objects.FindObjectT<TListItemText>('Text1').Text;
                 va_cat_CAD.id        := AItem.TagString;
- //               ShowMessage(AItem.TagString);
+ //             ShowMessage(AItem.TagString);
                 va_cat_CAD.Show;
 end;
 
@@ -126,120 +127,130 @@ begin
 
 end;
 
+
 procedure Tva_categorias.FormCreate(Sender: TObject);
 begin
-   //  carrega;
-     ListView1.items.Clear;
-     va_05_dm.DM.RESTRequest_categoria.Execute;
-     while Not va_05_dm.DM.FDMemTable_categoria.Eof  do
-     begin
-          addcategoria(
-          va_05_dm.DM.FDMemTable_categoria.FieldByName('descricao').AsString,
-          va_05_dm.DM.FDMemTable_categoria.FieldByName('icone').AsString,
-          va_05_dm.DM.FDMemTable_categoria.FieldByName('id').AsString
-                );
-           va_05_dm.DM.FDMemTable_categoria.Next;
 
-     end ;
+     carrega;
 end;
+
 
 
 procedure Tva_categorias.addcategoria(var1, var2, var3: string);
 begin
 
-  with ListView1.Items.Add do
+  if  var1 <> '' then
   begin
 
-    // descrição
-    TListItemText(Objects.FindDrawable('Text1')).Text := var1;
-    TListItemText(Objects.FindDrawable('Text3')).Text := var2;
-    ListView1.TagString:=var3;
 
-    // guarda ID
-    TagString := var3;
+    with ListView1.Items.Add do
+    begin
 
-    // escolhe ícone
-    case StrToIntDef(var2, 0) of
+       // descrição
+       TListItemText(Objects.FindDrawable('Text1')).Text := var1;
+       TListItemText(Objects.FindDrawable('Text3')).Text := var2;
+       ListView1.TagString:=var3;
 
-      0:
+       // guarda ID
+       TagString := var3;
+
+
+      // ShowMessage('valor de var3 ....... :  ' +var1+' ///   '+var2+' ///   '+var3);
+     //  ShowMessage('valor de var1 ........:   '+var2);
+     //  ShowMessage('valor de var1 ........:   '+var3);
+
+
+
+       // escolhe ícone
+       case StrToIntDef(var2, 0) of
+
+         0:
          TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageA1.Bitmap;
-      1:
+         1:
          TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageA2.Bitmap;
-      2:
+         2:
          TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageA3.Bitmap;
-      3:
+         3:
          TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageA4.Bitmap;
-      4:
+         4:
          TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageB1.Bitmap;
-      5:
+         5:
          TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageB2.Bitmap;
-      6:
+         6:
          TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageB3.Bitmap;
-      7:
+         7:
          TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageB4.Bitmap;
-      8:
+         8:
          TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageC1.Bitmap;
-      9:
+         9:
          TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageC2.Bitmap;
-     10:
+        10:
          TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageC3.Bitmap;
-     11:
+        11:
          TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageC4.Bitmap;
-     12:
+        12:
          TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageD1.Bitmap;
-     13:
+        13:
          TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageD2.Bitmap;
-     14:
+        14:
          TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageD3.Bitmap;
-     15:
+        15:
          TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageD4.Bitmap;
-    else
+       else
          TListItemImage(Objects.FindDrawable('Image2')).Bitmap := Image1.Bitmap;
+       end;
     end;
-
   end;
 end;
 
 
-procedure Tva_categorias.Carrega;
+procedure Tva_categorias.Carrega;   // vou pegar o RESTResponse e transformar em FDMAmTable porque estou usando   no RESTRequest .json?orderBy="status"&equalTo="s" .Se tirar , não preciso usar o CARREGA
 var
   JObject : TJSONObject;
   Pair    : TJSONPair;
   Item    : TJSONObject;
+  x : integer;
+  y : string;
 begin
+  va_05_dm.DM.FDMemTable_categoria_G.Close;
+  va_05_dm.DM.FDMemTable_categoria_G.Open;
+  va_05_dm.DM.FDMemTable_categoria_G.EmptyDataSet;
+  va_05_dm.DM.RESTReq_categoria_G.execute;
 
-  va_05_dm.DM.FDMemTable_categoria.Close;
-  va_05_dm.DM.FDMemTable_categoria.Open;
-  va_05_dm.DM.FDMemTable_categoria.EmptyDataSet;
 
-  JObject := TJSONObject.ParseJSONValue(va_05_dm.DM.RESTResponse_categoria.Content ) as TJSONObject;
-
+  JObject := TJSONObject.ParseJSONValue(va_05_dm.DM.RESTReq_categoria_G.Response.Content ) as TJSONObject;
   try
-
     for Pair in JObject do
     begin
-
       Item := Pair.JsonValue as TJSONObject;
-
-      va_05_dm.DM.FDMemTable_categoria.Append;
-
-      va_05_dm.DM.FDMemTable_categoria.FieldByName('descricao').AsString :=
+      va_05_dm.DM.FDMemTable_categoria_G.Append;
+      va_05_dm.DM.FDMemTable_categoria_G.FieldByName('descricao').AsString :=
       Item.GetValue<string>('descricao');
-
-      va_05_dm.DM.FDMemTable_categoria.FieldByName('icone').AsInteger :=
+      va_05_dm.DM.FDMemTable_categoria_G.FieldByName('icone').AsInteger :=
       Item.GetValue<Integer>('icone');
-
-      va_05_dm.DM.FDMemTable_categoria.FieldByName('status').AsString :=
-      Item.GetValue<string>('status');
-
-      va_05_dm.DM.FDMemTable_categoria.Post;
-
+      va_05_dm.DM.FDMemTable_categoria_G.FieldByName('id').AsString :=
+      Item.GetValue<string>('id');
+      va_05_dm.DM.FDMemTable_categoria_G.Post;
     end;
 
+    x:=va_05_dm.DM.FDMemTable_categoria_G.RecordCount;
+    label2.Text := intToStr(x-1);
   finally
     JObject.Free;
   end;
 
+//---------------------------CARREGA OS DADOS NO LIST VIEW------------------------------------
+     va_05_dm.DM.FDMemTable_categoria_G.First;
+     while Not va_05_dm.DM.FDMemTable_categoria_G.Eof  do
+     begin
+          addcategoria(
+          va_05_dm.DM.FDMemTable_categoria_G.FieldByName('descricao').AsString,
+          va_05_dm.DM.FDMemTable_categoria_G.FieldByName('icone').AsString,
+          va_05_dm.DM.FDMemTable_categoria_G.FieldByName('id').AsString
+              );
+           va_05_dm.DM.FDMemTable_categoria_G.Next;
+     end ;
+//------------------------------------------------------------------------------------------- }
 end;
 
 

@@ -1,6 +1,6 @@
 object DM: TDM
   Height = 708
-  Width = 675
+  Width = 1056
   object RESTClient_grupo: TRESTClient
     Accept = 'application/json, text/plain;q=0.9, text/html;q=0.8'
     AcceptCharset = 'utf-8, *;q=0.8'
@@ -205,7 +205,33 @@ object DM: TDM
     Top = 432
   end
   object RESTReq_categoria_G: TRESTRequest
+    Client = RESTClient_categoria_G
+    Params = <
+      item
+        Name = 'auth'
+        Value = 'AIzaSyBVLql1yRfz_h9yenkJYdH8VJl-JlPcnCI'
+      end>
+    Resource = 'tab_categoria/cod_categoria/'
+    ResourceSuffix = '.json?orderBy="status"&equalTo="s"'
+    Response = RESTResp_categoria_G
+    SynchronizedEvents = False
+    Left = 424
+    Top = 136
+  end
+  object RESTClient_categoria: TRESTClient
+    Accept = 'application/json, text/plain;q=0.9, text/html;q=0.8'
+    AcceptCharset = 'utf-8, *;q=0.8'
+    BaseURL = 'https://vaquinha-8e06e-default-rtdb.firebaseio.com'
+    ContentType = 'application/x-www-form-urlencoded'
+    Params = <>
+    SynchronizedEvents = False
+    Left = 704
+    Top = 368
+  end
+  object RESTRequest_categoria: TRESTRequest
+    AssignedValues = [rvConnectTimeout, rvReadTimeout]
     Client = RESTClient_categoria
+    Method = rmPATCH
     Params = <
       item
         Name = 'auth'
@@ -216,39 +242,17 @@ object DM: TDM
         Name = 'id'
         Options = [poAutoCreated]
       end>
-    Resource = 'tab_categoria/cod_categoria/{id}.json?'
+    Resource = 'tab_categoria/cod_categoria/'
+    ResourceSuffix = '{id}.json?'
     Response = RESTResponse_categoria
     SynchronizedEvents = False
-    Left = 504
-    Top = 520
-  end
-  object RESTClient_categoria: TRESTClient
-    Accept = 'application/json, text/plain;q=0.9, text/html;q=0.8'
-    AcceptCharset = 'utf-8, *;q=0.8'
-    BaseURL = 'https://vaquinha-8e06e-default-rtdb.firebaseio.com'
-    Params = <>
-    SynchronizedEvents = False
-    Left = 464
-    Top = 416
-  end
-  object RESTRequest_categoria: TRESTRequest
-    AssignedValues = [rvConnectTimeout, rvReadTimeout]
-    Client = RESTClient_categoria
-    Params = <
-      item
-        Name = 'auth'
-        Value = 'AIzaSyBVLql1yRfz_h9yenkJYdH8VJl-JlPcnCI'
-      end>
-    Resource = 'tab_categoria/cod_categoria/.json?'
-    Response = RESTResponse_categoria
-    SynchronizedEvents = False
-    Left = 440
-    Top = 320
+    Left = 688
+    Top = 240
   end
   object RESTResponse_categoria: TRESTResponse
     ContentType = 'application/json'
-    Left = 432
-    Top = 240
+    Left = 672
+    Top = 144
   end
   object RESTResponseDataSetAdapter_categoria: TRESTResponseDataSetAdapter
     Active = True
@@ -256,12 +260,17 @@ object DM: TDM
     FieldDefs = <>
     Response = RESTResponse_categoria
     TypesMode = Rich
-    Left = 416
-    Top = 144
+    Left = 672
+    Top = 64
   end
   object FDMemTable_categoria: TFDMemTable
     Active = True
     FieldDefs = <
+      item
+        Name = 'error'
+        DataType = ftWideString
+        Size = 93
+      end
       item
         Name = 'descricao'
         DataType = ftWideString
@@ -294,8 +303,8 @@ object DM: TDM
     UpdateOptions.FetchGeneratorsPoint = gpNone
     UpdateOptions.CheckRequired = False
     StoreDefs = True
-    Left = 424
-    Top = 56
+    Left = 696
+    Top = 520
     object FDMemTable_categoriadescricao: TWideStringField
       FieldName = 'descricao'
       Size = 12
@@ -313,5 +322,94 @@ object DM: TDM
       FieldName = 'status'
       Size = 1
     end
+  end
+  object FDMemTable_categoria_G: TFDMemTable
+    Active = True
+    FieldDefs = <
+      item
+        Name = '0'
+        DataType = ftWideString
+        Size = 255
+      end
+      item
+        Name = '1'
+        DataType = ftWideString
+        Size = 255
+      end
+      item
+        Name = 'descricao'
+        DataType = ftWideString
+        Size = 12
+      end
+      item
+        Name = 'icone'
+        DataType = ftFloat
+      end
+      item
+        Name = 'id'
+        DataType = ftFloat
+      end
+      item
+        Name = 'registro'
+        DataType = ftFloat
+      end
+      item
+        Name = 'status'
+        DataType = ftWideString
+        Size = 1
+      end>
+    IndexDefs = <>
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvUpdateChngFields, uvUpdateMode, uvLockMode, uvLockPoint, uvLockWait, uvRefreshMode, uvFetchGeneratorsPoint, uvCheckRequired, uvCheckReadOnly, uvCheckUpdatable, uvAutoCommitUpdates]
+    UpdateOptions.LockWait = True
+    UpdateOptions.FetchGeneratorsPoint = gpNone
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    StoreDefs = True
+    Left = 416
+    Top = 216
+    object FDMemTable_categoria_Gdescricao: TWideStringField
+      FieldName = 'descricao'
+      Size = 12
+    end
+    object FDMemTable_categoria_Gicone: TFloatField
+      FieldName = 'icone'
+    end
+    object FDMemTable_categoria_Gid: TFloatField
+      FieldName = 'id'
+    end
+    object FDMemTable_categoria_Gregistro: TFloatField
+      FieldName = 'registro'
+    end
+    object FDMemTable_categoria_Gstatus: TWideStringField
+      FieldName = 'status'
+      Size = 1
+    end
+  end
+  object RESTResp_categoria_G: TRESTResponse
+    ContentType = 'application/json'
+    Left = 408
+    Top = 320
+  end
+  object RESTResponseDataSetAdapter_categoria_G: TRESTResponseDataSetAdapter
+    Active = True
+    Dataset = FDMemTable_categoria_G
+    FieldDefs = <>
+    Response = RESTResp_categoria_G
+    TypesMode = Rich
+    Left = 416
+    Top = 520
+  end
+  object RESTClient_categoria_G: TRESTClient
+    Accept = 'application/json, text/plain;q=0.9, text/html;q=0.8'
+    AcceptCharset = 'utf-8, *;q=0.8'
+    BaseURL = 'https://vaquinha-8e06e-default-rtdb.firebaseio.com'
+    Params = <>
+    SynchronizedEvents = False
+    Left = 416
+    Top = 432
   end
 end

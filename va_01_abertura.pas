@@ -85,36 +85,35 @@ procedure Tva_abertura.Image3Click(Sender: TObject);
 begin
 
    if   not Assigned(va_debitos) then                              // pergunta se o programa ja existe, se nao cria
-     Application.CreateForm(Tva_debitos ,va_debitos);                   // cria o formulario
-  va_debitos.Show;
+            Application.CreateForm(Tva_debitos ,va_debitos);                   // cria o formulario
+            va_debitos.Show;
 
 end;
 
 procedure Tva_abertura.Image4Click(Sender: TObject);
 begin
 
-   if   not Assigned(va_credito) then                              // pergunta se o programa ja existe, se nao cria
-     Application.CreateForm(Tva_credito ,va_credito);                   // cria o formulario
-  va_credito.Show;
+     if not Assigned(va_credito) then
+            Application.CreateForm(Tva_credito ,va_credito);
+            va_credito.Show;
 
 
 end;
 
 procedure Tva_abertura.Image5Click(Sender: TObject);
 begin
-     Application.CreateForm(Tva_grupos ,va_grupos);                   // cria o formulario
-  va_grupos.Show;
+     if not Assigned(va_grupos) then
+            Application.CreateForm(Tva_grupos ,va_grupos);
+            va_grupos.Show;
 end;
 
 procedure Tva_abertura.Image6Click(Sender: TObject);
 begin
 
-   if   not Assigned(va_categorias) then                              // pergunta se o programa ja existe, se nao cria
-        begin
-          Application.CreateForm(Tva_categorias ,va_categorias);
-          va_categorias.Show;
+      if not Assigned(va_categorias) then                              // pergunta se o programa ja existe, se nao cria
+             Application.CreateForm(Tva_categorias ,va_categorias);
+             va_categorias.Show;
 
-        end;
 
 end;
 

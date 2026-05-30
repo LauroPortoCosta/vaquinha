@@ -1,0 +1,174 @@
+unit va_07_categ_cad;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
+  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts, FMX.Edit, FMX.ListBox,
+  FireDAC.Comp.Client, FireDAC.DApt, FMX.DialogService, REST.Types;
+   // coloquei o REST.Types para funcionar o REST
+type
+  Tva_cat_CAD = class(TForm)
+    Label1: TLabel;
+    Layout1: TLayout;
+    lbl_titulo: TLabel;
+    img_voltar: TImage;
+    img_save: TImage;
+    Layout2: TLayout;
+    Label2: TLabel;
+    edt_descricao: TEdit;
+    Line1: TLine;
+    lb_icone: TListBox;
+    ListBoxItem1: TListBoxItem;
+    img_selecao: TImage;
+    ImageA1: TImage;
+    ListBoxItem2: TListBoxItem;
+    ImageA2: TImage;
+    ListBoxItem3: TListBoxItem;
+    ImageA3: TImage;
+    ListBoxItem4: TListBoxItem;
+    ImageA4: TImage;
+    ListBoxItem5: TListBoxItem;
+    ImageB1: TImage;
+    ListBoxItem6: TListBoxItem;
+    ImageB2: TImage;
+    ListBoxItem7: TListBoxItem;
+    ImageB3: TImage;
+    ListBoxItem8: TListBoxItem;
+    ImageB4: TImage;
+    ListBoxItem9: TListBoxItem;
+    ImageC1: TImage;
+    ListBoxItem10: TListBoxItem;
+    ImageC2: TImage;
+    ListBoxItem11: TListBoxItem;
+    ImageC3: TImage;
+    ListBoxItem12: TListBoxItem;
+    ImageC4: TImage;
+    ListBoxItem13: TListBoxItem;
+    ImageD1: TImage;
+    ListBoxItem14: TListBoxItem;
+    ImageD2: TImage;
+    ListBoxItem15: TListBoxItem;
+    ImageD3: TImage;
+    ListBoxItem16: TListBoxItem;
+    ImageD4: TImage;
+    Rectangle1: TRectangle;
+    img_add: TImage;
+    procedure img_voltarClick(Sender: TObject);
+    procedure ImageA1Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure img_addClick(Sender: TObject);
+  private
+    icone_selecionado  : TBitmap;             // USADA NA  ==>  procedure img_saveClick(Sender: TObject); E NA procedure SelecionaIcone(img: TImage)
+    indice_selecionado : Integer;            // USADA NA   ==>  procedure SelecionaIcone(img: TImage)
+    procedure SelecionaIcone(img: TImage);
+    procedure confirma;
+    { Private declarations }
+  public
+      modo      : string; // I (Inclusao) ou A (Alteracao)
+      id_img    : string; // indica quem é a imagem que está relacionado a categoria
+      descricao : string; // serve para passar a descrição para uma outra tela
+      id        : string; // vai controlar em que registro estou dentro do banco de dados
+
+    { Public declarations }
+  end;
+
+var
+  va_cat_CAD: Tva_cat_CAD;
+
+implementation
+
+{$R *.fmx}
+
+uses va_05_dm, va_06_categorias;
+
+procedure Tva_cat_CAD.FormShow(Sender: TObject);
+var
+      erro  : string;                            // objetivo da variavel é quardar informaçoes de erro, que vai ser usada pelo sistema
+      item  : TListBoxItem;                     // servirá para armazenar o número da minha listbox
+      img   : TImage;
+begin
+    if modo = 'I' then                       // estou no On Show , ele pergunta de é uma inclusao ... se nao for ELSE vai ser alteracao
+    begin
+         edt_descricao.Text  := ' ';       // se for inclusao o campo edit fica em branco // edt_descricao (Tedit) é um campo do FORMULARIO e classificado como texto .Text
+         Rectangle1.Visible  := false;    // ativando o retangulo de delecao
+         SelecionaIcone(ImageA1);        // e a imagem vai ser a sempre a primeira IMAGEM 1
+                                        // procedure TFrmCategoriasCad.SelecionaIcone(img: TImage); //  SelecionaIcone(Image1); ele pega qualquer imagem que for apontado  //Image1 //Image2 //Image3
+    end
+    else
+    begin
+        try  //   A L T E R A Ç A O   //
+           rectangle1.Visible := true;                                   //  FICA ASSIM    | ATIVANDO o retangulo com a imagem de delecao   // retangulo é um componete do PALLET que foi colocado no formulario
+           edt_descricao.Text := descricao;                             // meu edit1.text recebe a DESCRICAO que a qry a cima selecionou
+           item := lb_icone.ItemByIndex(StrToInt(id_img));             // item:TListBoxItem; variável criada logo a cima, //lb_icone = nome dado a ListBox no formulário // ItemByIndex = busca no item o indice ( faz parte do comando )
+           img_selecao.Parent := item;                               // img_selecao = é a imagem criada no formulario (list Box)  com o fundo cinza // e o Parent é a dependencia que ele terá no quadro da listbox  // recebe o ITEM , tipo ( 0= primeiro quadro 1=segundo quadro etc
+
+         finally
+        end;
+    end;
+end;
+
+procedure Tva_cat_CAD.ImageA1Click(Sender: TObject);
+begin
+    SelecionaIcone(TImage(Sender));
+end;
+
+procedure Tva_cat_CAD.img_addClick(Sender: TObject);
+var
+   cat : string;
+begin
+    TDialogService.MessageDialog('Confirma exclusão da categoria?',
+                     TMsgDlgType.mtConfirmation,
+                     [TMsgDlgBtn.mbYes, TMsgDlgBtn.mbNo],
+                     TMsgDlgBtn.mbNo,
+                     0,
+     procedure(const AResult: TModalResult)
+     begin
+        if AResult = mrYes then
+        begin
+            try
+                cat := 'TCategoria.Create(dm.conn)';
+                begin
+                    confirma;
+                    va_cat_CAD.Close;
+                    va_categorias.Show;
+                    exit;
+                end;
+                close;
+            finally
+               // cat.DisposeOf;
+            end;
+         end;
+      end     );
+  end;
+
+procedure Tva_cat_CAD.img_voltarClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure Tva_cat_CAD.SelecionaIcone(img: TImage);              // UMA PROCEDURE . trata a imagem   // NESTE PROGRAMA privada
+begin
+    icone_selecionado  := img.Bitmap;                          // variavel criada PRIVATE   icone_selecionado: TBitmap;
+    indice_selecionado := TListBoxItem(img.Parent).Index;    //  indice_selecionado: Integer; VARIAVEL  private
+    img_selecao.Parent := img.Parent;
+      // ShowMessage(IntToStr(id_cat)+' = id_cat que é o ID_CATEGORIA');
+     //ShowMessage(edt_descricao.Text+ ' = é o edit dentro do formulario ');
+    //ShowMessage((intToStr(indice_selecionado))+ ' = capturado o indice da figura - INDICE_ICONE');
+end;
+
+
+procedure Tva_cat_CAD.confirma;
+var
+   cc : String ;
+begin
+    va_05_dm.DM.RESTRequest_categoria.Method := TRESTRequestMethod.rmPATCH;
+    va_05_dm.DM.RESTRequest_categoria.Params.ParameterByName('id').Value := id;
+    cc := '{'+'"status":"n"'+'}';
+    va_05_dm.DM.RESTRequest_categoria.Body.ClearBody;
+    va_05_dm.DM.RESTRequest_categoria.AddBody(cc,ctAPPLICATION_JSON);
+    va_05_dm.DM.RESTRequest_categoria.Execute;
+end;
+
+end.

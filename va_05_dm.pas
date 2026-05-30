@@ -41,6 +41,15 @@ type
     FDMemTable_categoriaid: TFloatField;
     FDMemTable_categoriaregistro: TFloatField;
     FDMemTable_categoriastatus: TWideStringField;
+    FDMemTable_categoria_G: TFDMemTable;
+    RESTResp_categoria_G: TRESTResponse;
+    RESTResponseDataSetAdapter_categoria_G: TRESTResponseDataSetAdapter;
+    RESTClient_categoria_G: TRESTClient;
+    FDMemTable_categoria_Gdescricao: TWideStringField;
+    FDMemTable_categoria_Gicone: TFloatField;
+    FDMemTable_categoria_Gid: TFloatField;
+    FDMemTable_categoria_Gregistro: TFloatField;
+    FDMemTable_categoria_Gstatus: TWideStringField;
   private
     { Private declarations }
   public

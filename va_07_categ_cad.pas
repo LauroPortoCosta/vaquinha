@@ -67,9 +67,9 @@ type
     { Private declarations }
   public
       modo      : string; // I (Inclusao) ou A (Alteracao)
-      id_img    : string;
-      descricao : string;
-      id        : string;
+      id_img    : string; // indica quem é a imagem que está relacionado a categoria
+      descricao : string; // serve para passar a descrição para uma outra tela
+      id        : string; // vai controlar em que registro estou dentro do banco de dados
 
     { Public declarations }
   end;
@@ -81,34 +81,28 @@ implementation
 
 {$R *.fmx}
 
-uses va_05_dm, va_06_categorias;
+uses va_05_dm, va_06_categorias, va_01_abertura;
 
 procedure Tva_cat_CAD.FormShow(Sender: TObject);
 var
-      erro  : string;          // objetivo da variavel é quardar informaçoes de erro, que vai ser usada pelo sistema
-      item  : TListBoxItem;    // servirá para armazenar o número da minha listbox
+      erro  : string;                            // objetivo da variavel é quardar informaçoes de erro, que vai ser usada pelo sistema
+      item  : TListBoxItem;                     // servirá para armazenar o número da minha listbox
       img   : TImage;
 begin
-    if modo = 'I' then                    // estou no On Show , ele pergunta de é uma inclusao ... se nao for ELSE vai ser alteracao
+    if modo = 'I' then                       // estou no On Show , ele pergunta de é uma inclusao ... se nao for ELSE vai ser alteracao
     begin
-         edt_descricao.Text  := ' ';     // se for inclusao o campo edit fica em branco // edt_descricao (Tedit) é um campo do FORMULARIO e classificado como texto .Text
+         edt_descricao.Text  := ' ';       // se for inclusao o campo edit fica em branco // edt_descricao (Tedit) é um campo do FORMULARIO e classificado como texto .Text
          Rectangle1.Visible  := false;    // ativando o retangulo de delecao
          SelecionaIcone(ImageA1);        // e a imagem vai ser a sempre a primeira IMAGEM 1
-                                       // procedure TFrmCategoriasCad.SelecionaIcone(img: TImage); //  SelecionaIcone(Image1); ele pega qualquer imagem que for apontado  //Image1 //Image2 //Image3
+                                        // procedure TFrmCategoriasCad.SelecionaIcone(img: TImage); //  SelecionaIcone(Image1); ele pega qualquer imagem que for apontado  //Image1 //Image2 //Image3
     end
     else
     begin
         try  //   A L T E R A Ç A O   //
-
            rectangle1.Visible := true;                                   //  FICA ASSIM    | ATIVANDO o retangulo com a imagem de delecao   // retangulo é um componete do PALLET que foi colocado no formulario
            edt_descricao.Text := descricao;                             // meu edit1.text recebe a DESCRICAO que a qry a cima selecionou
            item := lb_icone.ItemByIndex(StrToInt(id_img));             // item:TListBoxItem; variável criada logo a cima, //lb_icone = nome dado a ListBox no formulário // ItemByIndex = busca no item o indice ( faz parte do comando )
            img_selecao.Parent := item;                               // img_selecao = é a imagem criada no formulario (list Box)  com o fundo cinza // e o Parent é a dependencia que ele terá no quadro da listbox  // recebe o ITEM , tipo ( 0= primeiro quadro 1=segundo quadro etc
-
-       //ESTUDO
-      // ShowMessage(IntToStr(id_cat)+' = id_cat que é o ID_CATEGORIA');
-    //   ShowMessage(edt_descricao.Text+             ' = Está dentro do Descrição ');
-   //    ShowMessage((intToStr(indice_selecionado))+ ' = capturado o indice da figura - INDICE_ICONE');
 
          finally
         end;
@@ -120,8 +114,6 @@ begin
     SelecionaIcone(TImage(Sender));
 end;
 
-
-
 procedure Tva_cat_CAD.img_addClick(Sender: TObject);
 var
    cat : string;
@@ -131,11 +123,7 @@ begin
                      [TMsgDlgBtn.mbYes, TMsgDlgBtn.mbNo],
                      TMsgDlgBtn.mbNo,
                      0,
-      procedure(const AResult: TModalResult)
-     var
-
-        erro: string;
-        cc  : string;
+     procedure(const AResult: TModalResult)
      begin
         if AResult = mrYes then
         begin
@@ -144,7 +132,7 @@ begin
                 begin
                     confirma;
                     va_cat_CAD.Close;
-                    va_categorias.Show;
+                    va_abertura.Show;
                     exit;
                 end;
                 close;
@@ -165,12 +153,9 @@ begin
     icone_selecionado  := img.Bitmap;                          // variavel criada PRIVATE   icone_selecionado: TBitmap;
     indice_selecionado := TListBoxItem(img.Parent).Index;    //  indice_selecionado: Integer; VARIAVEL  private
     img_selecao.Parent := img.Parent;
-    // ShowMessage(IntToStr(id_cat)+' = id_cat que é o ID_CATEGORIA');
-    ShowMessage(edt_descricao.Text+ ' = é o edit dentro do formulario ');
-    ShowMessage((intToStr(indice_selecionado))+ ' = capturado o indice da figura - INDICE_ICONE');
-
-
-
+      // ShowMessage(IntToStr(id_cat)+' = id_cat que é o ID_CATEGORIA');
+     //ShowMessage(edt_descricao.Text+ ' = é o edit dentro do formulario ');
+    //ShowMessage((intToStr(indice_selecionado))+ ' = capturado o indice da figura - INDICE_ICONE');
 end;
 
 
@@ -178,14 +163,12 @@ procedure Tva_cat_CAD.confirma;
 var
    cc : String ;
 begin
- va_05_dm.DM.RESTReq_categoria_G.Method := TRESTRequestMethod.rmPATCH;
- va_05_dm.DM.RESTReq_categoria_G.Params.ParameterByName('id').Value := id;
- cc := '{'+'"status":"x"'+'}';
- va_05_dm.DM.RESTReq_categoria_G.Body.ClearBody;
- va_05_dm.DM.RESTReq_categoria_G.AddBody(cc,ctAPPLICATION_JSON);
- va_05_dm.DM.RESTReq_categoria_G.Execute;
-//   ShowMessage(va_05_dm.DM.RESTReq_categoria_G.GetFullRequestURL );
-//   ShowMessage(va_05_dm.DM.RESTResponse_categoria.Content);
-//   ShowMessage(va_05_dm.DM.RESTReq_categoria_G.Response.Content );
+    va_05_dm.DM.RESTRequest_categoria.Method := TRESTRequestMethod.rmPATCH;
+    va_05_dm.DM.RESTRequest_categoria.Params.ParameterByName('id').Value := id;
+    cc := '{'+'"status":"n"'+'}';
+    va_05_dm.DM.RESTRequest_categoria.Body.ClearBody;
+    va_05_dm.DM.RESTRequest_categoria.AddBody(cc,ctAPPLICATION_JSON);
+    va_05_dm.DM.RESTRequest_categoria.Execute;
 end;
+
 end.
