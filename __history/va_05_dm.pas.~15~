@@ -50,21 +50,6 @@ type
     FDMemTable_categoria_Gid: TFloatField;
     FDMemTable_categoria_Gregistro: TFloatField;
     FDMemTable_categoria_Gstatus: TWideStringField;
-    RESTClient_contador: TRESTClient;
-    RESTRequest_contador: TRESTRequest;
-    RESTResponse_contador: TRESTResponse;
-    RESTResponseDataSetAdapter_contador: TRESTResponseDataSetAdapter;
-    FDMemTable_contador: TFDMemTable;
-    RESTRequest_contador_G: TRESTRequest;
-    RESTClient1: TRESTClient;
-    RESTRequest1: TRESTRequest;
-    RESTResponse1: TRESTResponse;
-    RESTResponseDataSetAdapter1: TRESTResponseDataSetAdapter;
-    FDMemTable1: TFDMemTable;
-    FDMemTable1descricao: TWideStringField;
-    FDMemTable1icone: TIntegerField;
-    FDMemTable1id: TIntegerField;
-    FDMemTable1status: TWideStringField;
   private
     { Private declarations }
   public

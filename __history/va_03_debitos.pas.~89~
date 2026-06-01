@@ -102,12 +102,15 @@ type
     procedure Img2_direitaClick(Sender: TObject);
     procedure ImageA1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure lbCategoriaClick(Sender: TObject);
   private
     icone_selecionado  : TBitmap;                                               // USADA NA  ==>  procedure img_saveClick(Sender: TObject); E NA procedure SelecionaIcone(img: TImage)
     indice_selecionado : Integer;                                               // USADA NA   ==>  procedure SelecionaIcone(img: TImage)
     procedure SelecionaIcone(img: TImage);
     procedure ListarCategorias;
     procedure ThreadProdutosTerminate(Sender: TObject);
+    procedure ThreadDadosTerminate(Sender: TObject);
+    procedure SelecionarCategoria(item: TListBoxItem);
     procedure AddCategoria(id_categoria: integer; descricao: string);
     { Private declarations }
   public
@@ -126,10 +129,7 @@ uses va_05_dm;
 
 procedure Tva_debitos.FormCreate(Sender: TObject);
 begin
-
   ListarCategorias;
-  teste;
-
 end;
 
 procedure Tva_debitos.ImageA1Click(Sender: TObject);
@@ -142,13 +142,32 @@ begin
   close;
 end;
 
+procedure Tva_debitos.lbCategoriaClick(Sender: TObject);  //-----------------------------------------------------------
+var
+    item    : TListBoxItem;
+    lbl     : TLabel;
+    x       : String;
+    j       : integer;
+begin
+
+   item := TListBoxItem.Create(lbCategoria);
+      x := IntToStr(item.Tag);
+      j := item.ImageIndex ;
+      j := item.ComponentCount;
+
+  ShowMessage( x+  '+++++++'+ IntToStr(j));
+end;
+
 procedure Tva_debitos.SelecionaIcone(img: TImage);
 begin
     icone_selecionado  := img.Bitmap;
     indice_selecionado := TListBoxItem(img.Parent).Index;
     img_selecao.Parent := img.Parent;
-//  ShowMessage((intToStr(indice_selecionado))+ ' - INDICE_ICONE  -');
+    ShowMessage((intToStr(indice_selecionado))+ ' - INDICE_ICONE  -');
+
 end;
+
+
 
 
 procedure Tva_debitos.ListarCategorias;                                         // 1 //
@@ -161,18 +180,19 @@ begin
         begin
             TThread.Synchronize(TThread.CurrentThread, procedure
             begin
+              if va_05_dm.DM.FDMemTable1status.Value = 's'  then
                  begin
                    descricao := va_05_dm.DM.FDMemTable1descricao.Value;
                    AddCategoria(fieldbyname('icone').asinteger, fieldbyname('descricao').asstring);
                  end;
-            end );
+            end);
             Next;
         end;
     end;
     if lbCategoria.Items.Count > 0 then
         TThread.Synchronize(TThread.CurrentThread, procedure
             begin
-               // SelecionarCategoria(lbCategoria.ItemByIndex(0));
+                SelecionarCategoria(lbCategoria.ItemByIndex(0));
             end)
 end;
 
@@ -181,6 +201,29 @@ procedure Tva_debitos.ThreadProdutosTerminate(Sender: TObject);
 begin
 
 end;
+
+
+procedure Tva_debitos.ThreadDadosTerminate(Sender: TObject);
+begin
+
+end;
+
+
+procedure Tva_debitos.SelecionarCategoria(item: TListBoxItem);
+var
+  x         : integer;
+  item_loop : TListBoxItem;
+  rect      : TRectangle;
+  lbl       : TLabel;
+begin
+    for x := 0 to lbCategoria.Items.Count - 1 do
+    begin
+        item_loop := lbCategoria.ItemByIndex(x);
+//      ShowMessage('linha 301 - SelecionarCategoria tem   :  '+ intToStr(lbCategoria.Items.Count) );
+    end;
+    lbCategoria.Tag := item.Tag;
+end;
+
 
 
 procedure Tva_debitos.AddCategoria(id_categoria: integer; descricao: string);   // 2 //
@@ -209,12 +252,13 @@ begin
     rect.Margins.Right  := 8;
     rect.Margins.Bottom := 8;
     rect.XRadius        := 6;
+    rect.YRadius        := 6;
     rect.Stroke.Kind    := TBrushKind.None;
-
 //------------------------------------------------------------------------------
     img_box         := TImage.Create(rect);
     img_box.Height  := 50  ;
     img_box.Width   := 50 ;
+// Showmessage(IntToStr(id_categoria)+' valor que esta no id ' +IntToStr(item.tag));
 
        case id_categoria of
             0:

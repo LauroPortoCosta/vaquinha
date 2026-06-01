@@ -79,7 +79,6 @@ type
     procedure Rectangle2Click(Sender: TObject);
     procedure ListView1ItemClick(const Sender: TObject;
       const AItem: TListViewItem);
-    procedure FormShow(Sender: TObject);
   private
     procedure addcategoria(var1, var2, var3: string);
     procedure Carrega;
@@ -107,7 +106,7 @@ end;
 procedure Tva_categorias.ListView1ItemClick(const Sender: TObject;
   const AItem: TListViewItem);
 begin   // se vou passar a variável A tenho que criar o formulário
-                va_categorias.Close;
+
          if not Assigned(va_cat_CAD) then
                 va_cat_CAD           := Tva_cat_CAD.Create(nil);
                 va_cat_CAD.modo      := 'A';
@@ -125,25 +124,17 @@ begin
             Application.CreateForm(Tva_cat_CAD ,va_cat_CAD);            // cria o formulario
             va_cat_CAD.modo  := 'I';
             va_cat_CAD.Show;
-            va_categorias.Close;
 
 end;
 
 
 procedure Tva_categorias.FormCreate(Sender: TObject);
 begin
- //   ShowMessage(' 1 - create  ');   // estava fazendo testes para migrar de um formulário para outro
-//     carrega;
+
+     carrega;
 end;
 
 
-
-procedure Tva_categorias.FormShow(Sender: TObject);
-begin
-   //   ShowMessage(' 1 -  Show ');   // aqui a eficiencida e maior pois ele limpa minha list view e inicia um novo
-      ListView1.items.Clear;
-      carrega;
-end;
 
 procedure Tva_categorias.addcategoria(var1, var2, var3: string);
 begin
@@ -159,8 +150,18 @@ begin
        TListItemText(Objects.FindDrawable('Text1')).Text := var1;
        TListItemText(Objects.FindDrawable('Text3')).Text := var2;
        ListView1.TagString:=var3;
+
+       // guarda ID
        TagString := var3;
 
+
+      // ShowMessage('valor de var3 ....... :  ' +var1+' ///   '+var2+' ///   '+var3);
+     //  ShowMessage('valor de var1 ........:   '+var2);
+     //  ShowMessage('valor de var1 ........:   '+var3);
+
+
+
+       // escolhe ícone
        case StrToIntDef(var2, 0) of
 
          0:

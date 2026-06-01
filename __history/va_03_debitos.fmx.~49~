@@ -3,7 +3,7 @@ object va_debitos: Tva_debitos
   Top = 0
   Caption = 'Form1'
   ClientHeight = 745
-  ClientWidth = 440
+  ClientWidth = 384
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
@@ -11,7 +11,7 @@ object va_debitos: Tva_debitos
   DesignerMasterStyle = 0
   object Lay01_cabecalho: TLayout
     Align = Top
-    Size.Width = 440.000000000000000000
+    Size.Width = 384.000000000000000000
     Size.Height = 49.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 0
@@ -187,20 +187,20 @@ object va_debitos: Tva_debitos
   end
   object Rect_cobertura_fundo: TRectangle
     Align = Client
-    Size.Width = 440.000000000000000000
+    Size.Width = 384.000000000000000000
     Size.Height = 510.000000000000000000
     Size.PlatformDefault = False
     Stroke.Color = claWhitesmoke
     object Lay1: TLayout
       Align = Top
-      Size.Width = 440.000000000000000000
+      Size.Width = 384.000000000000000000
       Size.Height = 105.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 0
       object Rectangle6: TRectangle
         Align = Client
         Fill.Color = claWhitesmoke
-        Size.Width = 440.000000000000000000
+        Size.Width = 384.000000000000000000
         Size.Height = 105.000000000000000000
         Size.PlatformDefault = False
         Stroke.Color = claWhite
@@ -214,7 +214,7 @@ object va_debitos: Tva_debitos
           Margins.Top = 2.000000000000000000
           Margins.Right = 2.000000000000000000
           Margins.Bottom = 2.000000000000000000
-          Size.Width = 401.000000000000000000
+          Size.Width = 380.000000000000000000
           Size.Height = 101.000000000000000000
           Size.PlatformDefault = False
           StyleLookup = 'transparentlistboxstyle'
@@ -228,7 +228,7 @@ object va_debitos: Tva_debitos
           DefaultItemStyles.GroupHeaderStyle = ''
           DefaultItemStyles.GroupFooterStyle = ''
           ListStyle = Horizontal
-          Viewport.Width = 401.000000000000000000
+          Viewport.Width = 380.000000000000000000
           Viewport.Height = 101.000000000000000000
           object ListBoxItem2: TListBoxItem
             Cursor = crHandPoint
@@ -711,7 +711,7 @@ object va_debitos: Tva_debitos
               Size.PlatformDefault = False
               TextSettings.HorzAlign = Center
               Text = 'ImageB2'
-              TabOrder = 40
+              TabOrder = 39
             end
           end
           object ListBoxItem7: TListBoxItem
@@ -777,7 +777,7 @@ object va_debitos: Tva_debitos
               Size.PlatformDefault = False
               TextSettings.HorzAlign = Center
               Text = 'LabelB3'
-              TabOrder = 40
+              TabOrder = 39
             end
           end
           object ListBoxItem8: TListBoxItem
@@ -846,7 +846,7 @@ object va_debitos: Tva_debitos
               Size.PlatformDefault = False
               TextSettings.HorzAlign = Center
               Text = 'LabelB4'
-              TabOrder = 40
+              TabOrder = 39
             end
           end
           object ListBoxItem9: TListBoxItem
@@ -914,7 +914,7 @@ object va_debitos: Tva_debitos
               Size.PlatformDefault = False
               TextSettings.HorzAlign = Center
               Text = 'LabelC1'
-              TabOrder = 40
+              TabOrder = 39
             end
           end
           object ListBoxItem10: TListBoxItem
@@ -979,7 +979,7 @@ object va_debitos: Tva_debitos
               Size.PlatformDefault = False
               TextSettings.HorzAlign = Center
               Text = 'LabelC2'
-              TabOrder = 40
+              TabOrder = 39
             end
           end
           object ListBoxItem11: TListBoxItem
@@ -1070,7 +1070,7 @@ object va_debitos: Tva_debitos
               Size.PlatformDefault = False
               TextSettings.HorzAlign = Center
               Text = 'LabelC3'
-              TabOrder = 40
+              TabOrder = 39
             end
           end
           object ListBoxItem12: TListBoxItem
@@ -1136,7 +1136,7 @@ object va_debitos: Tva_debitos
               Size.PlatformDefault = False
               TextSettings.HorzAlign = Center
               Text = 'LabelC4'
-              TabOrder = 40
+              TabOrder = 39
             end
           end
           object ListBoxItem13: TListBoxItem
@@ -1215,7 +1215,7 @@ object va_debitos: Tva_debitos
               Size.PlatformDefault = False
               TextSettings.HorzAlign = Center
               Text = 'LabelD1'
-              TabOrder = 40
+              TabOrder = 39
             end
           end
           object ListBoxItem14: TListBoxItem
@@ -1254,7 +1254,6 @@ object va_debitos: Tva_debitos
               Size.Width = 50.000000000000000000
               Size.Height = 50.000000000000000000
               Size.PlatformDefault = False
-              OnClick = ImageA1Click
             end
             object LabelD2: TLabel
               Align = Bottom
@@ -1264,7 +1263,7 @@ object va_debitos: Tva_debitos
               Size.PlatformDefault = False
               TextSettings.HorzAlign = Center
               Text = 'LabelD2'
-              TabOrder = 40
+              TabOrder = 39
             end
           end
           object ListBoxItem15: TListBoxItem
@@ -1317,7 +1316,6 @@ object va_debitos: Tva_debitos
               Size.Width = 50.000000000000000000
               Size.Height = 50.000000000000000000
               Size.PlatformDefault = False
-              OnClick = ImageA1Click
             end
             object LabelD3: TLabel
               Align = Bottom
@@ -1327,7 +1325,7 @@ object va_debitos: Tva_debitos
               Size.PlatformDefault = False
               TextSettings.HorzAlign = Center
               Text = 'LabelD3'
-              TabOrder = 40
+              TabOrder = 39
             end
           end
           object ListBoxItem16: TListBoxItem
@@ -1396,7 +1394,6 @@ object va_debitos: Tva_debitos
               Size.Width = 50.000000000000000000
               Size.Height = 50.000000000000000000
               Size.PlatformDefault = False
-              OnClick = ImageA1Click
             end
             object LabelD4: TLabel
               Align = Bottom
@@ -1406,7 +1403,7 @@ object va_debitos: Tva_debitos
               Size.PlatformDefault = False
               TextSettings.HorzAlign = Center
               Text = 'LabelD4'
-              TabOrder = 40
+              TabOrder = 39
             end
           end
           object ListBoxItem1: TListBoxItem
@@ -1536,7 +1533,7 @@ object va_debitos: Tva_debitos
         end
         object lbCategoria: TListBox
           Align = Client
-          Size.Width = 440.000000000000000000
+          Size.Width = 384.000000000000000000
           Size.Height = 105.000000000000000000
           Size.PlatformDefault = False
           StyleLookup = 'transparentlistboxstyle'
@@ -1546,7 +1543,7 @@ object va_debitos: Tva_debitos
           DefaultItemStyles.GroupHeaderStyle = ''
           DefaultItemStyles.GroupFooterStyle = ''
           ListStyle = Horizontal
-          Viewport.Width = 440.000000000000000000
+          Viewport.Width = 384.000000000000000000
           Viewport.Height = 105.000000000000000000
         end
       end
@@ -1554,7 +1551,7 @@ object va_debitos: Tva_debitos
     object Lay2: TLayout
       Align = Top
       Position.Y = 105.000000000000000000
-      Size.Width = 440.000000000000000000
+      Size.Width = 384.000000000000000000
       Size.Height = 81.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 1
@@ -1562,7 +1559,7 @@ object va_debitos: Tva_debitos
         Align = Top
         Margins.Top = 10.000000000000000000
         Position.Y = 10.000000000000000000
-        Size.Width = 440.000000000000000000
+        Size.Width = 384.000000000000000000
         Size.Height = 17.000000000000000000
         Size.PlatformDefault = False
         Text = '                        Valor Total'
@@ -1635,7 +1632,7 @@ object va_debitos: Tva_debitos
     object Lay3: TLayout
       Align = Top
       Position.Y = 186.000000000000000000
-      Size.Width = 440.000000000000000000
+      Size.Width = 384.000000000000000000
       Size.Height = 103.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 2
@@ -1643,7 +1640,7 @@ object va_debitos: Tva_debitos
         Align = Top
         Margins.Top = 10.000000000000000000
         Position.Y = 10.000000000000000000
-        Size.Width = 440.000000000000000000
+        Size.Width = 384.000000000000000000
         Size.Height = 17.000000000000000000
         Size.PlatformDefault = False
         Text = '                      Grupo Relacionado'
@@ -1838,7 +1835,7 @@ object va_debitos: Tva_debitos
     end
     object Lay4: TLayout
       Align = Client
-      Size.Width = 440.000000000000000000
+      Size.Width = 384.000000000000000000
       Size.Height = 221.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 3
@@ -2164,14 +2161,14 @@ object va_debitos: Tva_debitos
   object Lay06_rodape: TLayout
     Align = Bottom
     Position.Y = 663.000000000000000000
-    Size.Width = 440.000000000000000000
+    Size.Width = 384.000000000000000000
     Size.Height = 82.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 30
+    TabOrder = 27
     object RectX_rodape: TRectangle
       Align = Client
       Fill.Color = claAliceblue
-      Size.Width = 440.000000000000000000
+      Size.Width = 384.000000000000000000
       Size.Height = 82.000000000000000000
       Size.PlatformDefault = False
       Stroke.Color = claWhite
@@ -2191,14 +2188,14 @@ object va_debitos: Tva_debitos
   object Lay02_saldo: TLayout
     Align = Top
     Position.Y = 49.000000000000000000
-    Size.Width = 440.000000000000000000
+    Size.Width = 384.000000000000000000
     Size.Height = 104.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 1
     object Rectangle2: TRectangle
       Align = Client
       Fill.Color = claWhitesmoke
-      Size.Width = 440.000000000000000000
+      Size.Width = 384.000000000000000000
       Size.Height = 104.000000000000000000
       Size.PlatformDefault = False
       Stroke.Color = claWhite
@@ -2241,7 +2238,7 @@ object va_debitos: Tva_debitos
       end
       object Layout2: TLayout
         Align = Right
-        Position.X = 230.000000000000000000
+        Position.X = 174.000000000000000000
         Size.Width = 210.000000000000000000
         Size.Height = 104.000000000000000000
         Size.PlatformDefault = False

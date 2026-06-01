@@ -248,7 +248,7 @@ begin
    if controlador = 2 then   jsonString := '['+jsonString+']';                   // lá no RESTRequest no .json gera um arquivo ARRAY
    if controlador <> 2 then controlador:=2;                                      // para resolver gerei um variavel public controlador para criar um ARRAY
 
- //ShowMessage('dentro do json  '+jsonString);                                  // há um erro, problema gerado pelo ARRAY e OBJECT
+ //ShowMessage('dentro do json  '+jsonString);
   jsonArray := TJSONObject.ParseJSONValue(jsonString) as TJSONArray;
  //ShowMessage('2');
 

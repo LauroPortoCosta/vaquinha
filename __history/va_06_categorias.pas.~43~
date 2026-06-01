@@ -125,7 +125,6 @@ begin
             Application.CreateForm(Tva_cat_CAD ,va_cat_CAD);            // cria o formulario
             va_cat_CAD.modo  := 'I';
             va_cat_CAD.Show;
-            va_categorias.Close;
 
 end;
 

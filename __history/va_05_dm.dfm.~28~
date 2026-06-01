@@ -1,6 +1,6 @@
 object DM: TDM
-  Height = 854
-  Width = 1117
+  Height = 708
+  Width = 1056
   object RESTClient_grupo: TRESTClient
     Accept = 'application/json, text/plain;q=0.9, text/html;q=0.8'
     AcceptCharset = 'utf-8, *;q=0.8'
@@ -215,8 +215,8 @@ object DM: TDM
     ResourceSuffix = '.json?orderBy="status"&equalTo="s"'
     Response = RESTResp_categoria_G
     SynchronizedEvents = False
-    Left = 64
-    Top = 560
+    Left = 48
+    Top = 208
   end
   object RESTClient_categoria: TRESTClient
     Accept = 'application/json, text/plain;q=0.9, text/html;q=0.8'
@@ -225,8 +225,8 @@ object DM: TDM
     ContentType = 'application/x-www-form-urlencoded'
     Params = <>
     SynchronizedEvents = False
-    Left = 64
-    Top = 336
+    Left = 56
+    Top = 320
   end
   object RESTRequest_categoria: TRESTRequest
     AssignedValues = [rvConnectTimeout, rvReadTimeout]
@@ -246,13 +246,13 @@ object DM: TDM
     ResourceSuffix = '{id}.json?'
     Response = RESTResponse_categoria
     SynchronizedEvents = False
-    Left = 344
-    Top = 752
+    Left = 56
+    Top = 320
   end
   object RESTResponse_categoria: TRESTResponse
     ContentType = 'application/json'
-    Left = 64
-    Top = 272
+    Left = 56
+    Top = 320
   end
   object RESTResponseDataSetAdapter_categoria: TRESTResponseDataSetAdapter
     Active = True
@@ -260,8 +260,8 @@ object DM: TDM
     FieldDefs = <>
     Response = RESTResponse_categoria
     TypesMode = Rich
-    Left = 64
-    Top = 272
+    Left = 56
+    Top = 320
   end
   object FDMemTable_categoria: TFDMemTable
     Active = True
@@ -303,8 +303,8 @@ object DM: TDM
     UpdateOptions.FetchGeneratorsPoint = gpNone
     UpdateOptions.CheckRequired = False
     StoreDefs = True
-    Left = 64
-    Top = 200
+    Left = 56
+    Top = 320
     object FDMemTable_categoriadescricao: TWideStringField
       FieldName = 'descricao'
       Size = 12
@@ -379,8 +379,8 @@ object DM: TDM
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
     StoreDefs = True
-    Left = 56
-    Top = 472
+    Left = 48
+    Top = 208
     object FDMemTable_categoria_Gdescricao: TWideStringField
       FieldName = 'descricao'
       Size = 12
@@ -401,8 +401,8 @@ object DM: TDM
   end
   object RESTResp_categoria_G: TRESTResponse
     ContentType = 'application/json'
-    Left = 344
-    Top = 416
+    Left = 48
+    Top = 208
   end
   object RESTResponseDataSetAdapter_categoria_G: TRESTResponseDataSetAdapter
     Active = True
@@ -410,8 +410,8 @@ object DM: TDM
     FieldDefs = <>
     Response = RESTResp_categoria_G
     TypesMode = Rich
-    Left = 352
-    Top = 352
+    Left = 48
+    Top = 216
   end
   object RESTClient_categoria_G: TRESTClient
     Accept = 'application/json, text/plain;q=0.9, text/html;q=0.8'
@@ -419,8 +419,8 @@ object DM: TDM
     BaseURL = 'https://vaquinha-8e06e-default-rtdb.firebaseio.com'
     Params = <>
     SynchronizedEvents = False
-    Left = 56
-    Top = 408
+    Left = 48
+    Top = 208
   end
   object RESTClient_contador: TRESTClient
     Accept = 'application/json, text/plain;q=0.9, text/html;q=0.8'
@@ -434,6 +434,7 @@ object DM: TDM
   object RESTRequest_contador: TRESTRequest
     AssignedValues = [rvConnectTimeout, rvReadTimeout]
     Client = RESTClient_contador
+    Method = rmPATCH
     Params = <
       item
         Name = 'auth'
@@ -443,8 +444,8 @@ object DM: TDM
     ResourceSuffix = '0.json?'
     Response = RESTResponse_contador
     SynchronizedEvents = False
-    Left = 344
-    Top = 488
+    Left = 352
+    Top = 192
   end
   object RESTResponse_contador: TRESTResponse
     ContentType = 'application/json'
@@ -457,8 +458,8 @@ object DM: TDM
     FieldDefs = <>
     Response = RESTResponse_contador
     TypesMode = Rich
-    Left = 360
-    Top = 208
+    Left = 352
+    Top = 264
   end
   object FDMemTable_contador: TFDMemTable
     Active = True
@@ -499,7 +500,7 @@ object DM: TDM
     UpdateOptions.CheckRequired = False
     StoreDefs = True
     Left = 352
-    Top = 280
+    Top = 336
   end
   object RESTRequest_contador_G: TRESTRequest
     Client = RESTClient_contador
@@ -512,92 +513,7 @@ object DM: TDM
     ResourceSuffix = '0.json?'
     Response = RESTResponse_contador
     SynchronizedEvents = False
-    Left = 336
-    Top = 576
-  end
-  object RESTClient1: TRESTClient
-    Accept = 'application/json, text/plain;q=0.9, text/html;q=0.8'
-    AcceptCharset = 'utf-8, *;q=0.8'
-    BaseURL = 'https://vaquinha-8e06e-default-rtdb.firebaseio.com'
-    Params = <>
-    SynchronizedEvents = False
-    Left = 672
-    Top = 704
-  end
-  object RESTRequest1: TRESTRequest
-    AssignedValues = [rvConnectTimeout, rvReadTimeout]
-    Client = RESTClient1
-    Params = <
-      item
-        Name = 'auth'
-        Value = 'AIzaSyBVLql1yRfz_h9yenkJYdH8VJl-JlPcnCI'
-      end>
-    Resource = 'tab_categoria/cod_categoria/.json?'
-    Response = RESTResponse1
-    SynchronizedEvents = False
-    Left = 640
-    Top = 616
-  end
-  object RESTResponse1: TRESTResponse
-    ContentType = 'application/json'
-    Left = 808
-    Top = 720
-  end
-  object RESTResponseDataSetAdapter1: TRESTResponseDataSetAdapter
-    Active = True
-    Dataset = FDMemTable1
-    FieldDefs = <>
-    Response = RESTResponse1
-    TypesMode = Rich
-    Left = 744
-    Top = 528
-  end
-  object FDMemTable1: TFDMemTable
-    Active = True
-    FieldDefs = <
-      item
-        Name = 'descricao'
-        DataType = ftWideString
-        Size = 18
-      end
-      item
-        Name = 'icone'
-        DataType = ftInteger
-      end
-      item
-        Name = 'id'
-        DataType = ftInteger
-      end
-      item
-        Name = 'status'
-        DataType = ftWideString
-        Size = 1
-      end>
-    IndexDefs = <>
-    FetchOptions.AssignedValues = [evMode]
-    FetchOptions.Mode = fmAll
-    ResourceOptions.AssignedValues = [rvSilentMode]
-    ResourceOptions.SilentMode = True
-    UpdateOptions.AssignedValues = [uvUpdateChngFields, uvUpdateMode, uvLockMode, uvLockPoint, uvLockWait, uvRefreshMode, uvFetchGeneratorsPoint, uvCheckRequired, uvCheckReadOnly, uvCheckUpdatable]
-    UpdateOptions.LockWait = True
-    UpdateOptions.FetchGeneratorsPoint = gpNone
-    UpdateOptions.CheckRequired = False
-    StoreDefs = True
-    Left = 840
-    Top = 624
-    object FDMemTable1descricao: TWideStringField
-      FieldName = 'descricao'
-      Size = 18
-    end
-    object FDMemTable1icone: TIntegerField
-      FieldName = 'icone'
-    end
-    object FDMemTable1id: TIntegerField
-      FieldName = 'id'
-    end
-    object FDMemTable1status: TWideStringField
-      FieldName = 'status'
-      Size = 1
-    end
+    Left = 344
+    Top = 416
   end
 end

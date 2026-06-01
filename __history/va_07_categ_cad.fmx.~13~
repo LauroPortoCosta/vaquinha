@@ -452,7 +452,6 @@ object va_cat_CAD: Tva_cat_CAD
         Size.PlatformDefault = False
       end
       object ImageA1: TImage
-        Tag = 1
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -529,7 +528,6 @@ object va_cat_CAD: Tva_cat_CAD
       Size.PlatformDefault = False
       TabOrder = 1
       object ImageA2: TImage
-        Tag = 2
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -593,7 +591,6 @@ object va_cat_CAD: Tva_cat_CAD
       Size.PlatformDefault = False
       TabOrder = 2
       object ImageA3: TImage
-        Tag = 3
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -654,7 +651,6 @@ object va_cat_CAD: Tva_cat_CAD
       Size.PlatformDefault = False
       TabOrder = 3
       object ImageA4: TImage
-        Tag = 4
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -704,7 +700,6 @@ object va_cat_CAD: Tva_cat_CAD
       Size.PlatformDefault = False
       TabOrder = 4
       object ImageB1: TImage
-        Tag = 5
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -872,7 +867,6 @@ object va_cat_CAD: Tva_cat_CAD
       Size.PlatformDefault = False
       TabOrder = 5
       object ImageB2: TImage
-        Tag = 6
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -958,7 +952,6 @@ object va_cat_CAD: Tva_cat_CAD
       Size.PlatformDefault = False
       TabOrder = 6
       object ImageB3: TImage
-        Tag = 7
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -1014,7 +1007,6 @@ object va_cat_CAD: Tva_cat_CAD
       Size.PlatformDefault = False
       TabOrder = 7
       object ImageB4: TImage
-        Tag = 8
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -1072,7 +1064,6 @@ object va_cat_CAD: Tva_cat_CAD
       Size.PlatformDefault = False
       TabOrder = 8
       object ImageC1: TImage
-        Tag = 9
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -1130,7 +1121,6 @@ object va_cat_CAD: Tva_cat_CAD
       Size.PlatformDefault = False
       TabOrder = 9
       object ImageC2: TImage
-        Tag = 10
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -1185,7 +1175,6 @@ object va_cat_CAD: Tva_cat_CAD
       Size.PlatformDefault = False
       TabOrder = 10
       object ImageC3: TImage
-        Tag = 11
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -1266,7 +1255,6 @@ object va_cat_CAD: Tva_cat_CAD
       Size.PlatformDefault = False
       TabOrder = 11
       object ImageC4: TImage
-        Tag = 12
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -1321,7 +1309,6 @@ object va_cat_CAD: Tva_cat_CAD
       Size.PlatformDefault = False
       TabOrder = 12
       object ImageD1: TImage
-        Tag = 13
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -1390,7 +1377,6 @@ object va_cat_CAD: Tva_cat_CAD
       Size.PlatformDefault = False
       TabOrder = 13
       object ImageD2: TImage
-        Tag = 14
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -1429,7 +1415,6 @@ object va_cat_CAD: Tva_cat_CAD
       Size.PlatformDefault = False
       TabOrder = 14
       object ImageD3: TImage
-        Tag = 15
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <
@@ -1482,7 +1467,6 @@ object va_cat_CAD: Tva_cat_CAD
       Size.PlatformDefault = False
       TabOrder = 15
       object ImageD4: TImage
-        Tag = 16
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
         MultiResBitmap = <

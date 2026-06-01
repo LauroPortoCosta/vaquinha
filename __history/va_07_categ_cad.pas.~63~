@@ -72,7 +72,7 @@ type
       id_img    : string; // indica quem é a imagem que está relacionado a categoria
       descricao : string; // serve para passar a descrição para uma outra tela
       id        : string; // vai controlar em que registro estou dentro do banco de dados
-      controlador : integer; // controla a passgem la no grava
+
     { Public declarations }
   end;
 
@@ -87,13 +87,12 @@ uses va_05_dm, va_06_categorias, va_01_abertura;
 
 procedure Tva_cat_CAD.FormShow(Sender: TObject);
 var
-  a     : integer;                            // objetivo da variavel é quardar informaçoes de erro, que vai ser usada pelo sistema
+  erro  : string;                            // objetivo da variavel é quardar informaçoes de erro, que vai ser usada pelo sistema
   item  : TListBoxItem;                     // servirá para armazenar o número da minha listbox
   img   : TImage;
 begin
     if modo = 'I' then                       // estou no On Show , ele pergunta de é uma inclusao ... se nao for ELSE vai ser alteracao
     begin
-         edt_descricao.Text  := '';       // se for inclusao o campo edit fica em branco // edt_descricao (Tedit) é um campo do FORMULARIO e classificado como texto .Text
          edt_descricao.TextPrompt  := ' Categoria desejada ';       // se for inclusao o campo edit fica em branco // edt_descricao (Tedit) é um campo do FORMULARIO e classificado como texto .Text
          Rectangle1.Visible  := false;    // ativando o retangulo de delecao
          SelecionaIcone(ImageA1);        // e a imagem vai ser a sempre a primeira IMAGEM 1
@@ -116,10 +115,6 @@ procedure Tva_cat_CAD.Image1Click(Sender: TObject);
 var
   cc  : String  ;
 begin
-
-descricao := edt_descricao.Text;
-//ShowMessage('descricao : '+descricao+'-------'+id+'--------'+id_img+'  modo '+modo );
-
     if modo='I'  then
     begin
        contador;    // responsavel pelo numero do ID
@@ -239,18 +234,12 @@ var
   jsonObject   : TJSONObject  ;
   jsonPair     : TJSONPair    ;
   jsonValue    : TJSONValue   ;
-  i,j          : Integer      ;
+  i            : Integer      ;
 begin
 
   va_05_dm.DM.RESTRequest_contador.Execute;
   jsonString := va_05_dm.DM.RESTRequest_contador.Response.Content ;             // o conteudo está dentro de um ARRAY
-
-   if controlador = 2 then   jsonString := '['+jsonString+']';                   // lá no RESTRequest no .json gera um arquivo ARRAY
-   if controlador <> 2 then controlador:=2;                                      // para resolver gerei um variavel public controlador para criar um ARRAY
-
- //ShowMessage('dentro do json  '+jsonString);                                  // há um erro, problema gerado pelo ARRAY e OBJECT
   jsonArray := TJSONObject.ParseJSONValue(jsonString) as TJSONArray;
- //ShowMessage('2');
 
   try                                                                            // Verificar se o array JSON foi criado com sucesso
     if Assigned(jsonArray) then

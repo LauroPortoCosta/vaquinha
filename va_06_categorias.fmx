@@ -3,16 +3,17 @@ object va_categorias: Tva_categorias
   Top = 0
   Caption = 'va_categorias'
   ClientHeight = 731
-  ClientWidth = 398
+  ClientWidth = 445
   Fill.Kind = Solid
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
   OnCreate = FormCreate
+  OnShow = FormShow
   DesignerMasterStyle = 0
   object Lay1_cabecalho: TLayout
     Align = Top
-    Size.Width = 398.000000000000000000
+    Size.Width = 445.000000000000000000
     Size.Height = 49.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 0
@@ -189,7 +190,7 @@ object va_categorias: Tva_categorias
   object Layout1: TLayout
     Align = Top
     Position.Y = 49.000000000000000000
-    Size.Width = 398.000000000000000000
+    Size.Width = 445.000000000000000000
     Size.Height = 128.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 1
@@ -200,7 +201,7 @@ object va_categorias: Tva_categorias
       Margins.Top = 15.000000000000000000
       Margins.Right = 15.000000000000000000
       Margins.Bottom = 15.000000000000000000
-      Size.Width = 368.000000000000000000
+      Size.Width = 415.000000000000000000
       Size.Height = 98.000000000000000000
       Size.PlatformDefault = False
       XRadius = 25.000000000000000000
@@ -350,7 +351,7 @@ object va_categorias: Tva_categorias
   object Lay2_rodape: TLayout
     Align = Bottom
     Position.Y = 656.000000000000000000
-    Size.Width = 398.000000000000000000
+    Size.Width = 445.000000000000000000
     Size.Height = 75.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 4
@@ -380,7 +381,7 @@ object va_categorias: Tva_categorias
   end
   object Lay3_corpo: TLayout
     Align = Client
-    Size.Width = 398.000000000000000000
+    Size.Width = 445.000000000000000000
     Size.Height = 479.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 5
@@ -408,7 +409,7 @@ object va_categorias: Tva_categorias
       FooterAppearanceClassName = 'TListHeaderObjects'
       Transparent = True
       Align = Client
-      Size.Width = 398.000000000000000000
+      Size.Width = 445.000000000000000000
       Size.Height = 479.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 2
@@ -416,15 +417,18 @@ object va_categorias: Tva_categorias
         item
           AppearanceObjectName = 'Text1'
           AppearanceClassName = 'TTextObjectAppearance'
-          Appearance.Width = 225.000000000000000000
-          Appearance.Height = 25.000000000000000000
-          Appearance.PlaceOffset.X = 78.000000000000000000
-          Appearance.PlaceOffset.Y = 8.000000000000000000
+          Appearance.Font.Size = 14.000000000000000000
+          Appearance.WordWrap = True
+          Appearance.Width = 300.000000000000000000
+          Appearance.Height = 40.000000000000000000
+          Appearance.Align = Center
+          Appearance.PlaceOffset.X = 22.000000000000000000
+          Appearance.PlaceOffset.Y = 3.000000000000000000
         end
         item
           AppearanceObjectName = 'Image2'
           AppearanceClassName = 'TImageObjectAppearance'
-          Appearance.Width = 79.000000000000000000
+          Appearance.Width = 60.000000000000000000
           Appearance.Height = 44.000000000000000000
         end
         item
@@ -432,7 +436,8 @@ object va_categorias: Tva_categorias
           AppearanceClassName = 'TTextObjectAppearance'
           Appearance.Width = 19.000000000000000000
           Appearance.Height = 24.000000000000000000
-          Appearance.PlaceOffset.X = 350.000000000000000000
+          Appearance.Align = Center
+          Appearance.PlaceOffset.X = 390.000000000000000000
           Appearance.PlaceOffset.Y = 8.000000000000000000
         end>
       ItemAppearanceObjects.ItemEditObjects.ObjectsCollection = <
@@ -440,6 +445,7 @@ object va_categorias: Tva_categorias
           AppearanceObjectName = 'Text1'
           AppearanceClassName = 'TTextObjectAppearance'
         end>
+      ItemAppearanceObjects.FooterObjects.Text.Font.Size = 14.000000000000000000
       OnItemClick = ListView1ItemClick
     end
   end

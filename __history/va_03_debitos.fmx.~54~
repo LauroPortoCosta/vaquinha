@@ -1541,6 +1541,7 @@ object va_debitos: Tva_debitos
           Size.PlatformDefault = False
           StyleLookup = 'transparentlistboxstyle'
           TabOrder = 3
+          OnClick = lbCategoriaClick
           DisableFocusEffect = True
           DefaultItemStyles.ItemStyle = ''
           DefaultItemStyles.GroupHeaderStyle = ''
@@ -2167,7 +2168,7 @@ object va_debitos: Tva_debitos
     Size.Width = 440.000000000000000000
     Size.Height = 82.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 30
+    TabOrder = 29
     object RectX_rodape: TRectangle
       Align = Client
       Fill.Color = claAliceblue
