@@ -175,6 +175,21 @@ end;
 System.Net.HttpClient, System.Net.URLClient, System.JSON, System.SysUtils (para TStringStream), 
 
 
+=====================================================================================================================================
+
+procedure Tva_08_grupo_c.grava;
+var
+   cc : String ;
+begin
+    id:= IntToStr(StrToInt(id)+1);
+    va_05_dm.DM.RESTRequest_contadorX.Params.Clear;
+    va_05_dm.DM.RESTClient_contadorX.BaseURL :='https://vaquinha-8e06e-default-rtdb.firebaseio.com/tab_contador/cod_contador/0.json?auth=AIzaSyBVLql1yRfz_h9yenkJYdH8VJl-JlPcnCI';
+    va_05_dm.DM.RESTRequest_contadorX.Method := TRESTRequestMethod.rmPATCH;
+    cc := '{'+'"grupo":"'+id+'"'+'}';
+    va_05_dm.DM.RESTRequest_contadorX.Body.ClearBody;
+    va_05_dm.DM.RESTRequest_contadorX.AddBody(cc,ctAPPLICATION_JSON);
+    va_05_dm.DM.RESTRequest_contadorX.Execute;
+end;
 
 
 

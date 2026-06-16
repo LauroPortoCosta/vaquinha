@@ -18,7 +18,7 @@ object va_grupos: Tva_grupos
     TabOrder = 0
     object Rect1_cabecalho: TRectangle
       Align = Client
-      Fill.Color = claWhite
+      Fill.Color = xFF2E7D32
       Size.Width = 399.000000000000000000
       Size.Height = 49.000000000000000000
       Size.PlatformDefault = False

@@ -80,6 +80,7 @@ type
     procedure ListView1ItemClick(const Sender: TObject;
       const AItem: TListViewItem);
     procedure FormShow(Sender: TObject);
+    procedure Img1_esquerdaClick(Sender: TObject);
   private
     procedure addcategoria(var1, var2, var3: string);
     procedure Carrega;
@@ -95,35 +96,39 @@ implementation
 
 {$R *.fmx}
 
-uses va_05_dm, va_07_categ_cad;
+uses va_05_dm, va_07_categ_cad, va_01_abertura;
+
+procedure Tva_categorias.Img1_esquerdaClick(Sender: TObject);
+begin
+      if not Assigned(va_abertura) then
+             Application.CreateForm(Tva_abertura ,va_abertura);
+             va_abertura.Show;
+end;
 
 procedure Tva_categorias.Img2_direitaClick(Sender: TObject);
 begin
   close;
 end;
 
-
-
 procedure Tva_categorias.ListView1ItemClick(const Sender: TObject;
   const AItem: TListViewItem);
-begin   // se vou passar a variável A tenho que criar o formulário
+begin                                                                           // se vou passar a variável A tenho que criar o formulário
                 va_categorias.Close;
          if not Assigned(va_cat_CAD) then
                 va_cat_CAD           := Tva_cat_CAD.Create(nil);
-                va_cat_CAD.modo      := 'A';
+                va_cat_CAD.modo      := 'A';                                     // A Alteração
                 va_cat_CAD.id_img    := AItem.Objects.FindObjectT<TListItemText>('Text3').Text;
                 va_cat_CAD.descricao := AItem.Objects.FindObjectT<TListItemText>('Text1').Text;
-                va_cat_CAD.id        := AItem.TagString;
- //             ShowMessage(AItem.TagString);
+                va_cat_CAD.id        := AItem.TagString;                        // ShowMessage(AItem.TagString);
                 va_cat_CAD.Show;
 end;
 
 procedure Tva_categorias.Rectangle2Click(Sender: TObject);
 begin
 
-   if   not Assigned(va_cat_CAD) then                                    // pergunta se o programa ja existe, se nao cria
-            Application.CreateForm(Tva_cat_CAD ,va_cat_CAD);            // cria o formulario
-            va_cat_CAD.modo  := 'I';
+   if   not Assigned(va_cat_CAD) then                                           // pergunta se o programa ja existe, se nao cria
+            Application.CreateForm(Tva_cat_CAD ,va_cat_CAD);                    // cria o formulario
+            va_cat_CAD.modo  := 'I';                                            // I inclusão
             va_cat_CAD.Show;
             va_categorias.Close;
 
@@ -140,7 +145,7 @@ end;
 
 procedure Tva_categorias.FormShow(Sender: TObject);
 begin
-   //   ShowMessage(' 1 -  Show ');   // aqui a eficiencida e maior pois ele limpa minha list view e inicia um novo
+   //   ShowMessage(' 1 -  Show ');   // limpa minha list view e inicia um novo
       ListView1.items.Clear;
       carrega;
 end;
@@ -150,8 +155,6 @@ begin
 
   if  var1 <> '' then
   begin
-
-
     with ListView1.Items.Add do
     begin
 
@@ -162,39 +165,22 @@ begin
        TagString := var3;
 
        case StrToIntDef(var2, 0) of
-
-         0:
-         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageA1.Bitmap;
-         1:
-         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageA2.Bitmap;
-         2:
-         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageA3.Bitmap;
-         3:
-         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageA4.Bitmap;
-         4:
-         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageB1.Bitmap;
-         5:
-         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageB2.Bitmap;
-         6:
-         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageB3.Bitmap;
-         7:
-         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageB4.Bitmap;
-         8:
-         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageC1.Bitmap;
-         9:
-         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageC2.Bitmap;
-        10:
-         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageC3.Bitmap;
-        11:
-         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageC4.Bitmap;
-        12:
-         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageD1.Bitmap;
-        13:
-         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageD2.Bitmap;
-        14:
-         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageD3.Bitmap;
-        15:
-         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageD4.Bitmap;
+         0: TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageA1.Bitmap;
+         1: TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageA2.Bitmap;
+         2: TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageA3.Bitmap;
+         3: TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageA4.Bitmap;
+         4: TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageB1.Bitmap;
+         5: TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageB2.Bitmap;
+         6: TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageB3.Bitmap;
+         7: TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageB4.Bitmap;
+         8: TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageC1.Bitmap;
+         9: TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageC2.Bitmap;
+        10: TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageC3.Bitmap;
+        11: TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageC4.Bitmap;
+        12: TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageD1.Bitmap;
+        13: TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageD2.Bitmap;
+        14: TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageD3.Bitmap;
+        15: TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageD4.Bitmap;
        else
          TListItemImage(Objects.FindDrawable('Image2')).Bitmap := Image1.Bitmap;
        end;
@@ -215,20 +201,15 @@ begin
   va_05_dm.DM.FDMemTable_categoria_G.Open;
   va_05_dm.DM.FDMemTable_categoria_G.EmptyDataSet;
   va_05_dm.DM.RESTReq_categoria_G.execute;
-
-
   JObject := TJSONObject.ParseJSONValue(va_05_dm.DM.RESTReq_categoria_G.Response.Content ) as TJSONObject;
   try
     for Pair in JObject do
     begin
       Item := Pair.JsonValue as TJSONObject;
       va_05_dm.DM.FDMemTable_categoria_G.Append;
-      va_05_dm.DM.FDMemTable_categoria_G.FieldByName('descricao').AsString :=
-      Item.GetValue<string>('descricao');
-      va_05_dm.DM.FDMemTable_categoria_G.FieldByName('icone').AsInteger :=
-      Item.GetValue<Integer>('icone');
-      va_05_dm.DM.FDMemTable_categoria_G.FieldByName('id').AsString :=
-      Item.GetValue<string>('id');
+      va_05_dm.DM.FDMemTable_categoria_G.FieldByName('descricao').AsString := Item.GetValue<string>('descricao');
+      va_05_dm.DM.FDMemTable_categoria_G.FieldByName('icone').AsInteger    := Item.GetValue<Integer>('icone');
+      va_05_dm.DM.FDMemTable_categoria_G.FieldByName('id').AsString        := Item.GetValue<string>('id');
       va_05_dm.DM.FDMemTable_categoria_G.Post;
     end;
 
@@ -252,5 +233,10 @@ begin
 //------------------------------------------------------------------------------------------- }
 end;
 
-
 end.
+//------------------ va_05_dm.DM.RESTReq_categoria_G.Response -------------------------------
+
+// vou pegar o RESTResponse e transformar em FDMAmTable porque estou usando
+// no RESTRequest .json?orderBy="status"&equalTo="s" .Se tirar , não preciso usar o CARREGA
+// A caracteristica dos arquivos gerado pela RESTReq_categoria_G tem o comando Method rmGET
+

@@ -78,7 +78,8 @@ implementation
 {$R *.fmx}
 
 uses va_02_creditos, va_00_menu, va_03_debitos, va_04_grupos, va_05_dm,
-  va_02_credito, va_06_categorias;
+  va_02_credito, va_06_categorias, va_07_categ_cad, va_08_grupos_cad,
+  va_09_grupos_inc;
 
 
 procedure Tva_abertura.Image3Click(Sender: TObject);
@@ -92,19 +93,16 @@ end;
 
 procedure Tva_abertura.Image4Click(Sender: TObject);
 begin
-
      if not Assigned(va_credito) then
             Application.CreateForm(Tva_credito ,va_credito);
             va_credito.Show;
-
-
 end;
 
 procedure Tva_abertura.Image5Click(Sender: TObject);
 begin
-     if not Assigned(va_grupos) then
-            Application.CreateForm(Tva_grupos ,va_grupos);
-            va_grupos.Show;
+     if not Assigned(va_09_grupos_in) then
+            Application.CreateForm(Tva_09_grupos_in ,va_09_grupos_in);
+            va_09_grupos_in.Show;
 end;
 
 procedure Tva_abertura.Image6Click(Sender: TObject);
@@ -113,8 +111,6 @@ begin
       if not Assigned(va_categorias) then
              Application.CreateForm(Tva_categorias ,va_categorias);
              va_categorias.Show;
-
-
-end;
+ end;
 
 end.

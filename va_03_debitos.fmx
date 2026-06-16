@@ -17,7 +17,7 @@ object va_debitos: Tva_debitos
     TabOrder = 0
     object Rect1_cabecalho: TRectangle
       Align = Center
-      Fill.Color = claWhite
+      Fill.Color = xFF2E7D32
       Size.Width = 429.000000000000000000
       Size.Height = 74.000000000000000000
       Size.PlatformDefault = False
@@ -174,12 +174,13 @@ object va_debitos: Tva_debitos
       end
       object lbl: TLabel
         Align = Center
-        StyledSettings = [Family, FontColor]
+        StyledSettings = [Family]
         Size.Width = 81.000000000000000000
         Size.Height = 34.000000000000000000
         Size.PlatformDefault = False
         TextSettings.Font.Size = 18.000000000000000000
         TextSettings.Font.StyleExt = {00070000000000000004000000}
+        TextSettings.FontColor = claWhite
         Text = 'Despesa'
         TabOrder = 3
       end
@@ -214,7 +215,7 @@ object va_debitos: Tva_debitos
           Margins.Top = 2.000000000000000000
           Margins.Right = 2.000000000000000000
           Margins.Bottom = 2.000000000000000000
-          Size.Width = 401.000000000000000000
+          Size.Width = 436.000000000000000000
           Size.Height = 101.000000000000000000
           Size.PlatformDefault = False
           StyleLookup = 'transparentlistboxstyle'
@@ -228,7 +229,7 @@ object va_debitos: Tva_debitos
           DefaultItemStyles.GroupHeaderStyle = ''
           DefaultItemStyles.GroupFooterStyle = ''
           ListStyle = Horizontal
-          Viewport.Width = 401.000000000000000000
+          Viewport.Width = 436.000000000000000000
           Viewport.Height = 101.000000000000000000
           object ListBoxItem2: TListBoxItem
             Cursor = crHandPoint
@@ -291,7 +292,6 @@ object va_debitos: Tva_debitos
               Size.Width = 50.000000000000000000
               Size.Height = 50.000000000000000000
               Size.PlatformDefault = False
-              WrapMode = Center
               OnClick = ImageA1Click
             end
             object LabelA2: TLabel
@@ -302,7 +302,7 @@ object va_debitos: Tva_debitos
               Size.PlatformDefault = False
               TextSettings.HorzAlign = Center
               Text = 'LabelA2'
-              TabOrder = 40
+              TabOrder = 39
             end
           end
           object ListBoxItem3: TListBoxItem
@@ -357,16 +357,15 @@ object va_debitos: Tva_debitos
                     000049454E44AE426082}
                   FileName = 'D:\99Coders\Curso99Money2\Fontes\Images\cat-combustivel.png'
                 end>
-              Align = Center
               Margins.Left = 12.000000000000000000
               Margins.Top = 12.000000000000000000
               Margins.Right = 12.000000000000000000
               Margins.Bottom = 12.000000000000000000
-              Size.Width = 50.000000000000000000
-              Size.Height = 50.000000000000000000
+              Position.X = 25.000000000000000000
+              Position.Y = 17.000000000000000000
+              Size.Width = 45.000000000000000000
+              Size.Height = 45.000000000000000000
               Size.PlatformDefault = False
-              WrapMode = Center
-              OnClick = ImageA1Click
             end
             object LabelA3: TLabel
               Align = Bottom
@@ -376,7 +375,7 @@ object va_debitos: Tva_debitos
               Size.PlatformDefault = False
               TextSettings.HorzAlign = Center
               Text = 'LabelA3'
-              TabOrder = 40
+              TabOrder = 39
             end
           end
           object ListBoxItem4: TListBoxItem
@@ -387,6 +386,16 @@ object va_debitos: Tva_debitos
             Size.Height = 101.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 3
+            object LabelA4: TLabel
+              Align = Bottom
+              Position.Y = 84.000000000000000000
+              Size.Width = 100.000000000000000000
+              Size.Height = 17.000000000000000000
+              Size.PlatformDefault = False
+              TextSettings.HorzAlign = Center
+              Text = 'ImageA4'
+              TabOrder = 39
+            end
             object ImageA4: TImage
               Tag = 4
               MultiResBitmap.Height = 64
@@ -427,17 +436,6 @@ object va_debitos: Tva_debitos
               Size.Width = 50.000000000000000000
               Size.Height = 50.000000000000000000
               Size.PlatformDefault = False
-              OnClick = ImageA1Click
-            end
-            object LabelA4: TLabel
-              Align = Bottom
-              Position.Y = 84.000000000000000000
-              Size.Width = 100.000000000000000000
-              Size.Height = 17.000000000000000000
-              Size.PlatformDefault = False
-              TextSettings.HorzAlign = Center
-              Text = 'ImageA4'
-              TabOrder = 40
             end
           end
           object ListBoxItem5: TListBoxItem
@@ -605,7 +603,6 @@ object va_debitos: Tva_debitos
               Size.Width = 50.000000000000000000
               Size.Height = 50.000000000000000000
               Size.PlatformDefault = False
-              OnClick = ImageA1Click
             end
             object LabelB1: TLabel
               Align = Bottom
@@ -615,7 +612,7 @@ object va_debitos: Tva_debitos
               Size.PlatformDefault = False
               TextSettings.HorzAlign = Center
               Text = 'ImageB1'
-              TabOrder = 40
+              TabOrder = 39
             end
           end
           object ListBoxItem6: TListBoxItem
@@ -701,7 +698,6 @@ object va_debitos: Tva_debitos
               Size.Width = 50.000000000000000000
               Size.Height = 50.000000000000000000
               Size.PlatformDefault = False
-              OnClick = ImageA1Click
             end
             object LabelB2: TLabel
               Align = Bottom
@@ -711,7 +707,7 @@ object va_debitos: Tva_debitos
               Size.PlatformDefault = False
               TextSettings.HorzAlign = Center
               Text = 'ImageB2'
-              TabOrder = 40
+              TabOrder = 39
             end
           end
           object ListBoxItem7: TListBoxItem
@@ -767,7 +763,6 @@ object va_debitos: Tva_debitos
               Size.Width = 50.000000000000000000
               Size.Height = 50.000000000000000000
               Size.PlatformDefault = False
-              OnClick = ImageA1Click
             end
             object LabelB3: TLabel
               Align = Bottom
@@ -777,7 +772,7 @@ object va_debitos: Tva_debitos
               Size.PlatformDefault = False
               TextSettings.HorzAlign = Center
               Text = 'LabelB3'
-              TabOrder = 40
+              TabOrder = 39
             end
           end
           object ListBoxItem8: TListBoxItem
@@ -836,7 +831,6 @@ object va_debitos: Tva_debitos
               Size.Width = 50.000000000000000000
               Size.Height = 50.000000000000000000
               Size.PlatformDefault = False
-              OnClick = ImageA1Click
             end
             object LabelB4: TLabel
               Align = Bottom
@@ -846,7 +840,7 @@ object va_debitos: Tva_debitos
               Size.PlatformDefault = False
               TextSettings.HorzAlign = Center
               Text = 'LabelB4'
-              TabOrder = 40
+              TabOrder = 39
             end
           end
           object ListBoxItem9: TListBoxItem
@@ -904,7 +898,6 @@ object va_debitos: Tva_debitos
               Size.Width = 50.000000000000000000
               Size.Height = 50.000000000000000000
               Size.PlatformDefault = False
-              OnClick = ImageA1Click
             end
             object LabelC1: TLabel
               Align = Bottom
@@ -914,7 +907,7 @@ object va_debitos: Tva_debitos
               Size.PlatformDefault = False
               TextSettings.HorzAlign = Center
               Text = 'LabelC1'
-              TabOrder = 40
+              TabOrder = 39
             end
           end
           object ListBoxItem10: TListBoxItem
@@ -966,10 +959,9 @@ object va_debitos: Tva_debitos
               Margins.Top = 12.000000000000000000
               Margins.Right = 12.000000000000000000
               Margins.Bottom = 12.000000000000000000
-              Size.Width = 50.000000000000000000
-              Size.Height = 50.000000000000000000
+              Size.Width = 45.000000000000000000
+              Size.Height = 45.000000000000000000
               Size.PlatformDefault = False
-              OnClick = ImageA1Click
             end
             object LabelC2: TLabel
               Align = Bottom
@@ -979,7 +971,7 @@ object va_debitos: Tva_debitos
               Size.PlatformDefault = False
               TextSettings.HorzAlign = Center
               Text = 'LabelC2'
-              TabOrder = 40
+              TabOrder = 39
             end
           end
           object ListBoxItem11: TListBoxItem
@@ -1060,7 +1052,6 @@ object va_debitos: Tva_debitos
               Size.Width = 50.000000000000000000
               Size.Height = 50.000000000000000000
               Size.PlatformDefault = False
-              OnClick = ImageA1Click
             end
             object LabelC3: TLabel
               Align = Bottom
@@ -1070,7 +1061,7 @@ object va_debitos: Tva_debitos
               Size.PlatformDefault = False
               TextSettings.HorzAlign = Center
               Text = 'LabelC3'
-              TabOrder = 40
+              TabOrder = 39
             end
           end
           object ListBoxItem12: TListBoxItem
@@ -1126,7 +1117,6 @@ object va_debitos: Tva_debitos
               Size.Width = 50.000000000000000000
               Size.Height = 50.000000000000000000
               Size.PlatformDefault = False
-              OnClick = ImageA1Click
             end
             object LabelC4: TLabel
               Align = Bottom
@@ -1136,7 +1126,7 @@ object va_debitos: Tva_debitos
               Size.PlatformDefault = False
               TextSettings.HorzAlign = Center
               Text = 'LabelC4'
-              TabOrder = 40
+              TabOrder = 39
             end
           end
           object ListBoxItem13: TListBoxItem
@@ -1205,7 +1195,6 @@ object va_debitos: Tva_debitos
               Size.Width = 50.000000000000000000
               Size.Height = 50.000000000000000000
               Size.PlatformDefault = False
-              OnClick = ImageA1Click
             end
             object LabelD1: TLabel
               Align = Bottom
@@ -1215,7 +1204,7 @@ object va_debitos: Tva_debitos
               Size.PlatformDefault = False
               TextSettings.HorzAlign = Center
               Text = 'LabelD1'
-              TabOrder = 40
+              TabOrder = 39
             end
           end
           object ListBoxItem14: TListBoxItem
@@ -1254,7 +1243,6 @@ object va_debitos: Tva_debitos
               Size.Width = 50.000000000000000000
               Size.Height = 50.000000000000000000
               Size.PlatformDefault = False
-              OnClick = ImageA1Click
             end
             object LabelD2: TLabel
               Align = Bottom
@@ -1264,7 +1252,7 @@ object va_debitos: Tva_debitos
               Size.PlatformDefault = False
               TextSettings.HorzAlign = Center
               Text = 'LabelD2'
-              TabOrder = 40
+              TabOrder = 39
             end
           end
           object ListBoxItem15: TListBoxItem
@@ -1317,7 +1305,6 @@ object va_debitos: Tva_debitos
               Size.Width = 50.000000000000000000
               Size.Height = 50.000000000000000000
               Size.PlatformDefault = False
-              OnClick = ImageA1Click
             end
             object LabelD3: TLabel
               Align = Bottom
@@ -1327,7 +1314,7 @@ object va_debitos: Tva_debitos
               Size.PlatformDefault = False
               TextSettings.HorzAlign = Center
               Text = 'LabelD3'
-              TabOrder = 40
+              TabOrder = 39
             end
           end
           object ListBoxItem16: TListBoxItem
@@ -1396,7 +1383,6 @@ object va_debitos: Tva_debitos
               Size.Width = 50.000000000000000000
               Size.Height = 50.000000000000000000
               Size.PlatformDefault = False
-              OnClick = ImageA1Click
             end
             object LabelD4: TLabel
               Align = Bottom
@@ -1406,7 +1392,7 @@ object va_debitos: Tva_debitos
               Size.PlatformDefault = False
               TextSettings.HorzAlign = Center
               Text = 'LabelD4'
-              TabOrder = 40
+              TabOrder = 39
             end
           end
           object ListBoxItem1: TListBoxItem
@@ -1476,13 +1462,14 @@ object va_debitos: Tva_debitos
                     1948EAD726510000000049454E44AE426082}
                   FileName = 'D:\99Coders\Curso99Money2\Fontes\Images\cat-brinquedo.png'
                 end>
-              Align = Contents
               Margins.Left = 12.000000000000000000
               Margins.Top = 12.000000000000000000
               Margins.Right = 12.000000000000000000
               Margins.Bottom = 12.000000000000000000
-              Size.Width = 76.000000000000000000
-              Size.Height = 77.000000000000000000
+              Position.X = 12.000000000000000000
+              Position.Y = 12.000000000000000000
+              Size.Width = 45.000000000000000000
+              Size.Height = 45.000000000000000000
               Size.PlatformDefault = False
               OnClick = ImageA1Click
             end
@@ -1536,16 +1523,19 @@ object va_debitos: Tva_debitos
         end
         object lbCategoria: TListBox
           Align = Client
+          Locked = True
           Size.Width = 440.000000000000000000
           Size.Height = 105.000000000000000000
           Size.PlatformDefault = False
           StyleLookup = 'transparentlistboxstyle'
           TabOrder = 3
+          ShowScrollBars = False
           DisableFocusEffect = True
           DefaultItemStyles.ItemStyle = ''
           DefaultItemStyles.GroupHeaderStyle = ''
           DefaultItemStyles.GroupFooterStyle = ''
           ListStyle = Horizontal
+          OnItemClick = lbCategoriaItemClick
           Viewport.Width = 440.000000000000000000
           Viewport.Height = 105.000000000000000000
         end
@@ -2167,7 +2157,7 @@ object va_debitos: Tva_debitos
     Size.Width = 440.000000000000000000
     Size.Height = 82.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 30
+    TabOrder = 33
     object RectX_rodape: TRectangle
       Align = Client
       Fill.Color = claAliceblue

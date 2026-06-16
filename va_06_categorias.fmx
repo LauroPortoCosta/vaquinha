@@ -172,6 +172,7 @@ object va_categorias: Tva_categorias
           Size.Width = 30.000000000000000000
           Size.Height = 30.000000000000000000
           Size.PlatformDefault = False
+          OnClick = Img1_esquerdaClick
         end
       end
       object Label16: TLabel

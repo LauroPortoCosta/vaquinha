@@ -116,6 +116,11 @@ procedure Tva_cat_CAD.Image1Click(Sender: TObject);
 var
   cc  : String  ;
 begin
+   if edt_descricao.Text = '' then
+       begin
+             ShowMessage('Nada foi informado');
+             exit;
+       end;
 
 descricao := edt_descricao.Text;
 //ShowMessage('descricao : '+descricao+'-------'+id+'--------'+id_img+'  modo '+modo );
@@ -195,13 +200,14 @@ end;
 
 procedure Tva_cat_CAD.SelecionaIcone(img: TImage);              // UMA PROCEDURE . trata a imagem   // NESTE PROGRAMA privada
 begin
-    icone_selecionado  := img.Bitmap;                          // variavel criada PRIVATE   icone_selecionado: TBitmap;
+    icone_selecionado  := img.Bitmap;                         // variavel criada PRIVATE   icone_selecionado: TBitmap;
     indice_selecionado := TListBoxItem(img.Parent).Index;    //  indice_selecionado: Integer; VARIAVEL  private
     img_selecao.Parent := img.Parent;
-//  ShowMessage(IntToStr(id_cat)+' = id_cat que é o ID_CATEGORIA');
-//  ShowMessage(edt_descricao.Text+ ' = é o edit dentro do formulario ');
-//  ShowMessage((intToStr(indice_selecionado))+ ' = capturado o indice da figura - INDICE_ICONE');
-    id_img := intToStr(indice_selecionado);  // Quando voce escolhe um icone, ele é atualizado aqui .
+    id_img := intToStr(indice_selecionado);                // Quando voce escolhe um icone, ele é atualizado aqui .
+  //  ShowMessage(IntToStr(id_cat)+' = id_cat que é o ID_CATEGORIA');
+ //   ShowMessage(edt_descricao.Text+ ' = é o edit dentro do formulario ');
+//    ShowMessage((intToStr(indice_selecionado))+ ' = capturado o indice da figura - INDICE_ICONE');
+
 end;
 
 
@@ -222,6 +228,7 @@ var
    cc : String ;
 begin
     id:= IntToStr(StrToInt(id)+1);
+    va_05_dm.DM.RESTRequest_contador.Params.Clear;
     va_05_dm.DM.RESTClient_contador.BaseURL :='https://vaquinha-8e06e-default-rtdb.firebaseio.com/tab_contador/cod_contador/0.json?auth=AIzaSyBVLql1yRfz_h9yenkJYdH8VJl-JlPcnCI';
     va_05_dm.DM.RESTRequest_contador.Method := TRESTRequestMethod.rmPATCH;
     cc := '{'+'"categoria":"'+id+'"'+'}';
@@ -285,3 +292,6 @@ begin
 end;
 
 end.
+
+// Dentro do RESTRequest.categoria o metodo rmPATCH
+// Resource = {id}.json?

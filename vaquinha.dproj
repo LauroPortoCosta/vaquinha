@@ -312,10 +312,6 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="va_00_menu.pas">
-            <Form>menu</Form>
-            <FormType>fmx</FormType>
-        </DCCReference>
         <DCCReference Include="va_01_abertura.pas">
             <Form>va_abertura</Form>
             <FormType>fmx</FormType>
@@ -348,6 +344,18 @@
         </DCCReference>
         <DCCReference Include="va_06_categorias.pas">
             <Form>va_categorias</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="va_08_grupos_cad.pas">
+            <Form>va_08_grupo_c</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="va_09_grupos_inc.pas">
+            <Form>va_09_grupos_in</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="va_00_menu.pas">
+            <Form>menu</Form>
             <FormType>fmx</FormType>
         </DCCReference>
         <BuildConfiguration Include="Base">

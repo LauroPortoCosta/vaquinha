@@ -55,7 +55,6 @@ type
     ListBoxItem3: TListBoxItem;
     ImageA3: TImage;
     ListBoxItem4: TListBoxItem;
-    ImageA4: TImage;
     ListBoxItem5: TListBoxItem;
     ImageB1: TImage;
     ListBoxItem6: TListBoxItem;
@@ -99,16 +98,19 @@ type
     img_selecao: TImage;
     ImageA1: TImage;
     lbCategoria: TListBox;
+    ImageA4: TImage;
     procedure Img2_direitaClick(Sender: TObject);
     procedure ImageA1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure lbCategoriaItemClick(const Sender: TCustomListBox;
+      const Item: TListBoxItem);
   private
     icone_selecionado  : TBitmap;                                               // USADA NA  ==>  procedure img_saveClick(Sender: TObject); E NA procedure SelecionaIcone(img: TImage)
     indice_selecionado : Integer;                                               // USADA NA   ==>  procedure SelecionaIcone(img: TImage)
     procedure SelecionaIcone(img: TImage);
     procedure ListarCategorias;
     procedure ThreadProdutosTerminate(Sender: TObject);
-    procedure AddCategoria(id_categoria: integer; descricao: string);
+    procedure AddCategoria(id,icone: integer; descricao: string);
     { Private declarations }
   public
   descricao : string;
@@ -126,10 +128,7 @@ uses va_05_dm;
 
 procedure Tva_debitos.FormCreate(Sender: TObject);
 begin
-
   ListarCategorias;
-  teste;
-
 end;
 
 procedure Tva_debitos.ImageA1Click(Sender: TObject);
@@ -142,12 +141,28 @@ begin
   close;
 end;
 
+procedure Tva_debitos.lbCategoriaItemClick(const Sender: TCustomListBox;
+  const Item: TListBoxItem);
+  var
+  x:integer;
+  y:string;
+begin
+     x:= Item.tag;
+     y:=lbCategoria.ItemIndex.ToString;     // retorna 1
+     ShowMessage(y+' fui selecionado  '+ IntToStr(x));
+end;
+
 procedure Tva_debitos.SelecionaIcone(img: TImage);
 begin
     icone_selecionado  := img.Bitmap;
     indice_selecionado := TListBoxItem(img.Parent).Index;
     img_selecao.Parent := img.Parent;
+
 //  ShowMessage((intToStr(indice_selecionado))+ ' - INDICE_ICONE  -');
+//  ShowMessage(IntToStr(id_cat)+' = id_cat que é o ID_CATEGORIA');
+//  ShowMessage(edt_descricao.Text+ ' = é o edit dentro do formulario ');
+  ShowMessage((intToStr(indice_selecionado))+ ' =  - INDICE_ICONE');
+
 end;
 
 
@@ -163,7 +178,7 @@ begin
             begin
                  begin
                    descricao := va_05_dm.DM.FDMemTable1descricao.Value;
-                   AddCategoria(fieldbyname('icone').asinteger, fieldbyname('descricao').asstring);
+                   AddCategoria(fieldbyname('id').asinteger,fieldbyname('icone').asinteger, fieldbyname('descricao').asstring);
                  end;
             end );
             Next;
@@ -183,20 +198,21 @@ begin
 end;
 
 
-procedure Tva_debitos.AddCategoria(id_categoria: integer; descricao: string);   // 2 //
+procedure Tva_debitos.AddCategoria(id, icone : integer; descricao: string);   // 2 //
 var
-    item: TListBoxItem;
-    rect: TRectangle;
-    lbl: TLabel;
+    item    : TListBoxItem;
+    rect    : TRectangle;
+    lbl     : TLabel;
     img_box : TImage;
 begin
 //------------------------------------------------------------------------------
     item := TListBoxItem.Create(lbCategoria);
-    item.Selectable := false ;
+    item.HitTest    := false;
+    item.Selectable := True ;
     item.Height     := 60  ;
     item.Width      := 130 ;
     item.Text       := ' ';
-    item.Tag        := id_categoria; // o que está dentro da variável é o valor do icone
+    item.Tag        := id; // o que está dentro da variável é o valor do icone
     item.Align      := TAlignLayout.Client;
 //------------------------------------------------------------------------------
     rect            := TRectangle.Create(item);
@@ -216,7 +232,7 @@ begin
     img_box.Height  := 50  ;
     img_box.Width   := 50 ;
 
-       case id_categoria of
+       case icone of
             0:
             img_box := ImageA1;
             1:
@@ -254,8 +270,10 @@ begin
 
        end;
     img_box.Align   := TAlignLayout.Center;
+    img_box.HitTest := false;
 //------------------------------------------------------------------------------
     lbl                 := TLabel.Create(rect);
+    lbl.HitTest         := false;
     lbl.Align           := TAlignLayout.Bottom;
     lbl.Text            := descricao;
     lbl.TextSettings.HorzAlign := TTextAlign.Center;

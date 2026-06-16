@@ -1,0 +1,293 @@
+unit va_08_grupos_cad;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
+  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts, FMX.Edit, FMX.ListBox,
+  FireDAC.Comp.Client, FireDAC.DApt, FMX.DialogService, REST.Types, System.JSON,
+  FMX.Memo.Types, FMX.ScrollBox, FMX.Memo;
+   // coloquei o REST.Types para funcionar o REST , System.JSON
+
+type
+  Tva_08_grupo_c = class(TForm)
+    Label1: TLabel;
+    Layout1: TLayout;
+    lbl_titulo: TLabel;
+    img_voltar: TImage;
+    Image1: TImage;
+    Layout2: TLayout;
+    Label2: TLabel;
+    edt_descricao: TEdit;
+    Line1: TLine;
+    lb_icone: TListBox;
+    ListBoxItem1: TListBoxItem;
+    img_selecao: TImage;
+    ImageA1: TImage;
+    ListBoxItem2: TListBoxItem;
+    ImageA2: TImage;
+    ListBoxItem3: TListBoxItem;
+    ImageA3: TImage;
+    ListBoxItem4: TListBoxItem;
+    ImageA4: TImage;
+    ListBoxItem5: TListBoxItem;
+    ImageB1: TImage;
+    ListBoxItem6: TListBoxItem;
+    ImageB2: TImage;
+    ListBoxItem7: TListBoxItem;
+    ImageB3: TImage;
+    ListBoxItem8: TListBoxItem;
+    ImageB4: TImage;
+    ListBoxItem9: TListBoxItem;
+    ImageC1: TImage;
+    ListBoxItem10: TListBoxItem;
+    ImageC2: TImage;
+    ListBoxItem11: TListBoxItem;
+    ImageC3: TImage;
+    ListBoxItem12: TListBoxItem;
+    ImageC4: TImage;
+    ListBoxItem13: TListBoxItem;
+    ImageD1: TImage;
+    ListBoxItem14: TListBoxItem;
+    ImageD2: TImage;
+    ListBoxItem15: TListBoxItem;
+    ImageD3: TImage;
+    ListBoxItem16: TListBoxItem;
+    ImageD4: TImage;
+    Rectangle1: TRectangle;
+    img_add: TImage;
+    procedure Image1Click(Sender: TObject);
+    procedure img_addClick(Sender: TObject);
+    procedure ImageA1Click(Sender: TObject);
+    procedure img_voltarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+  private
+      icone_selecionado  : TBitmap;             // USADA NA  ==>  procedure img_saveClick(Sender: TObject); E NA procedure SelecionaIcone(img: TImage)
+      indice_selecionado : Integer;            // USADA NA   ==>  procedure SelecionaIcone(img: TImage)
+    procedure confirma;
+    procedure contador;
+    procedure grava;
+    procedure SelecionaIcone(img: TImage); // controla a passgem la no grava
+    { Private declarations }
+  public
+    { Public declarations }
+      modo      : string; // I (Inclusao) ou A (Alteracao)
+      id_img    : string; // indica quem é a imagem que está relacionado a categoria
+      descricao : string; // serve para passar a descrição para uma outra tela
+      id        : string; // vai controlar em que registro estou dentro do banco de dados
+      controlador : integer; // controla a passgem la no grava
+
+  end;
+
+var
+  va_08_grupo_c: Tva_08_grupo_c;
+
+implementation
+
+{$R *.fmx}
+
+uses va_05_dm, va_09_grupos_inc;
+
+procedure Tva_08_grupo_c.Image1Click(Sender: TObject);
+var
+  cc  : String  ;
+begin
+
+    if edt_descricao.Text = '' then
+       begin
+             ShowMessage('Nada foi informado');
+             exit;
+       end;
+
+
+
+    descricao := edt_descricao.Text;
+    if modo='I'  then
+    begin
+       contador;    // responsavel pelo numero do ID
+       grava;      // responsavel 1+id  e grava
+       va_05_dm.DM.RESTClient2_grupo.BaseURL :='https://vaquinha-8e06e-default-rtdb.firebaseio.com/tab_grupo/cod_grupo/'+id+'.json?auth=AIzaSyBVLql1yRfz_h9yenkJYdH8VJl-JlPcnCI';
+       va_05_dm.DM.RESTRequest2_grupo.Params.AddItem;                                                     // adiciona item
+       va_05_dm.DM.RESTRequest2_grupo.Params.Items[0].name  := 'param';                                   // item = param
+       cc:= '{"id":"'+id+'","devedor":"0","credor":"0","data":"01/06/2026","participante":"0","descricao":"'+edt_descricao.Text+'","icone":"'+id_img+'","status":"s"}';
+       va_05_dm.DM.RESTRequest2_grupo.Params.Items[0].value :=cc;                                         // colocado dentro do RESTRequest1 o conteudo de cc
+       va_05_dm.DM.RESTRequest2_grupo.Params.Items[0].ContentType := ctAPPLICATION_JSON;                  // ct application
+       va_05_dm.DM.RESTRequest2_grupo.Params.Items[0].Kind := TRESTRequestParameterKind.pkGETorPOST;      // recebe um pk GET ou POST ( se não existir atualize )
+       va_05_dm.DM.RESTRequest2_grupo.Execute;
+
+    end
+    Else
+    begin
+       va_05_dm.DM.RESTClient2_grupo.BaseURL :='https://vaquinha-8e06e-default-rtdb.firebaseio.com/tab_grupo/cod_grupo/'+id+'.json?auth=AIzaSyBVLql1yRfz_h9yenkJYdH8VJl-JlPcnCI';
+       va_05_dm.DM.RESTRequest2_grupo.Params.AddItem;                                                     // adiciona item
+       va_05_dm.DM.RESTRequest2_grupo.Params.Items[0].name  := 'param';                                   // item = param
+       cc:= '{"id":"'+id+'","descricao":"'+edt_descricao.Text+'","icone":"'+id_img+'","status":"s"}';
+       va_05_dm.DM.RESTRequest2_grupo.Params.Items[0].value :=cc;                                         // colocado dentro do RESTRequest1 o conteudo de cc
+       va_05_dm.DM.RESTRequest2_grupo.Params.Items[0].ContentType := ctAPPLICATION_JSON;                  // ct application
+       va_05_dm.DM.RESTRequest2_grupo.Params.Items[0].Kind := TRESTRequestParameterKind.pkGETorPOST;      // recebe um pk GET ou POST ( se não existir atualize )
+       va_05_dm.DM.RESTRequest2_grupo.Execute;
+    end;
+
+   if not Assigned(va_09_grupos_in) then
+          Application.CreateForm(Tva_09_grupos_in ,va_09_grupos_in);
+          va_09_grupos_in.Show;
+          va_08_grupo_c.Close;
+
+end;
+
+procedure Tva_08_grupo_c.ImageA1Click(Sender: TObject);
+begin
+    SelecionaIcone(TImage(Sender));
+end;
+
+procedure Tva_08_grupo_c.img_addClick(Sender: TObject);
+var
+   cat : string;
+begin
+    TDialogService.MessageDialog('Confirma exclusão da categoria?',
+                     TMsgDlgType.mtConfirmation,
+                     [TMsgDlgBtn.mbYes, TMsgDlgBtn.mbNo],
+                     TMsgDlgBtn.mbNo,
+                     0,
+     procedure(const AResult: TModalResult)
+     begin
+        if AResult = mrYes then
+        begin
+            try
+                cat := 'TCategoria.Create(dm.conn)';
+                begin
+                    confirma;
+                    va_08_grupo_c.Close;
+                    if not Assigned(va_09_grupos_in) then
+                           Application.CreateForm(Tva_09_grupos_in ,va_09_grupos_in);
+                           va_09_grupos_in.Show;
+                    exit;
+                end;
+                close;
+            finally
+               // cat.DisposeOf;
+            end;
+         end;
+      end     );
+
+end;
+
+
+procedure Tva_08_grupo_c.img_voltarClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure Tva_08_grupo_c.SelecionaIcone(img: TImage);              // UMA PROCEDURE . trata a imagem   // NESTE PROGRAMA privada
+begin
+    icone_selecionado  := img.Bitmap;                         // variavel criada PRIVATE   icone_selecionado: TBitmap;
+    indice_selecionado := TListBoxItem(img.Parent).Index;    //  indice_selecionado: Integer; VARIAVEL  private
+    img_selecao.Parent := img.Parent;
+    id_img := intToStr(indice_selecionado);                // Quando voce escolhe um icone, ele é atualizado aqui .
+
+end;
+
+
+//================================================================================================================================
+procedure Tva_08_grupo_c.confirma;
+var
+   cc : String ;
+begin
+    va_05_dm.DM.RESTRequest2_grupo.Method := TRESTRequestMethod.rmPATCH;
+    va_05_dm.DM.RESTRequest2_grupo.Params.ParameterByName('id').Value :=id;
+    cc := '{'+'"status":"n"'+'}';
+    va_05_dm.DM.RESTRequest2_grupo.Body.ClearBody;
+    va_05_dm.DM.RESTRequest2_grupo.AddBody(cc,ctAPPLICATION_JSON);
+    va_05_dm.DM.RESTRequest2_grupo.Execute;
+end;
+//================================================================================================================================
+
+
+
+procedure Tva_08_grupo_c.grava;
+var
+   cc : String ;
+begin
+    id:= IntToStr(StrToInt(id)+1);
+    va_05_dm.DM.RESTClient_contador.BaseURL :='https://vaquinha-8e06e-default-rtdb.firebaseio.com/tab_contador/cod_contador/0.json?auth=AIzaSyBVLql1yRfz_h9yenkJYdH8VJl-JlPcnCI';
+    va_05_dm.DM.RESTRequest_contador.Method := TRESTRequestMethod.rmPATCH;
+    cc := '{'+'"grupo":"'+id+'"'+'}';
+    va_05_dm.DM.RESTRequest_contador.Body.ClearBody;
+    va_05_dm.DM.RESTRequest_contador.AddBody(cc,ctAPPLICATION_JSON);
+    va_05_dm.DM.RESTRequest_contador.Execute;
+end;
+
+
+
+procedure Tva_08_grupo_c.contador;
+var
+  jsonArray    : TJSONArray   ;
+  jsonString   : string       ;
+  jsonObject   : TJSONObject  ;
+  jsonPair     : TJSONPair    ;
+  jsonValue    : TJSONValue   ;
+  i,j          : Integer      ;
+begin
+
+  va_05_dm.DM.RESTRequest_contador.Execute;
+  jsonString := va_05_dm.DM.RESTRequest_contador.Response.Content ;             // o conteudo está dentro de um ARRAY
+
+   if controlador = 2 then   jsonString := '['+jsonString+']';                   // lá no RESTRequest no .json gera um arquivo ARRAY
+   if controlador <> 2 then controlador:=2;                                      // para resolver gerei um variavel public controlador para criar um ARRAY
+
+// ShowMessage('dentro do json  '+jsonString);                                  // há um erro, problema gerado pelo ARRAY e OBJECT
+  jsonArray := TJSONObject.ParseJSONValue(jsonString) as TJSONArray;
+ //ShowMessage('2');
+
+  try                                                                            // Verificar se o array JSON foi criado com sucesso
+    if Assigned(jsonArray) then
+    begin
+      for i := 0 to jsonArray.Count - 1 do                                       // este ARQUIVO  só tem 1 registro SEMPRE .... // Iterar sobre cada objeto no array
+       begin
+        jsonObject := jsonArray.Items[i] as TJSONObject;                        // Obter o objeto JSON atual
+
+        if Assigned(jsonObject) then
+        begin
+          jsonPair := jsonObject.Get('grupo');                              // Obter o par chave-valor "dados"
+
+          if Assigned(jsonPair) then
+          begin
+            jsonValue := jsonPair.JsonValue;                                    // Obter o valor associado à chave "dados"
+
+            if Assigned(jsonValue) then
+            begin
+             id := jsonvalue.ToString;
+             id := Trim(id);
+             id := id.Replace('"',''); // retira as " aspas do campo ID
+
+            end;
+          end;
+        end;
+      end;
+    end;
+  finally
+    // Liberar o array JSON
+    jsonArray.Free;
+  end;
+end;
+
+
+procedure Tva_08_grupo_c.FormShow(Sender: TObject);
+begin
+  if modo = 'A' then
+     begin
+      edt_descricao.Text := descricao;
+     end;
+end;
+
+end.
+
+// ----------------------------------- va_05_dm.DM.RESTRequest2_grupo ----------
+// va_05_dm.DM.RESTRequest2_grupo.Params.ParameterByName('id').Value :=id;
+// Dentro do RESTRequest2.grupo o metodo rmPATCH
+// Resource = {id}.json?
+// neste caso tenho que passar o valor de id
+// no metodo PATCH só vai atualizar o que eu passar , no caso ( status , 'n')
+
+

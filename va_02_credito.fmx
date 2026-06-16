@@ -16,7 +16,7 @@ object va_credito: Tva_credito
     TabOrder = 0
     object Rect1_cabecalho: TRectangle
       Align = Center
-      Fill.Color = claWhite
+      Fill.Color = xFF2E7D32
       Size.Width = 429.000000000000000000
       Size.Height = 100.000000000000000000
       Size.PlatformDefault = False

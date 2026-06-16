@@ -1,0 +1,256 @@
+unit va_06_categorias;
+
+interface
+
+uses
+ System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+ FMX.Types, FMX.Controls,  FMX.Forms,  FMX.Graphics,  FMX.Dialogs,  FMX.Controls.Presentation,
+ FMX.Edit,  FMX.Objects,  FMX.Layouts,  FMX.StdCtrls,  FMX.Ani,   FMX.ScrollBox,
+ FMX.Memo,  FMX.TabControl,  FMX.Grid,  FMX.ListView.Types,  FMX.ListView.Appearances,
+ FMX.ListView.Adapters.Base,  FMX.ListView,  FMX.VirtualKeyboard,  FMX.Platform, System.Actions,
+ FMX.ActnList,  Fmx.Bind.Editors,  REST.Types,  FireDAC.Stan.Intf,  FireDAC.Stan.Option,
+ FireDAC.Stan.Param,  FireDAC.Stan.Error,  FireDAC.DatS,  FireDAC.Phys.Intf,  FireDAC.DApt.Intf,
+ REST.Client,  REST.Authenticator.Basic,  Data.DB,  FireDAC.Comp.DataSet,  FireDAC.Comp.Client,
+ REST.Response.Adapter,  Data.Bind.Components,  Data.Bind.ObjectScope,  System.Json.Types,
+ System.Json.Readers,  System.Json.Writers,  System.Json,
+ System.Rtti,   FMX.Grid.Style,  Data.Bind.EngExt,  Fmx.Bind.DBEngExt,  Fmx.Bind.Grid,
+ System.Bindings.Outputs,  Data.Bind.Grid,   Data.Bind.DBScope, FMX.DialogService,
+  FMX.DateTimeCtrls, FMX.Memo.Types, FMX.ListBox,  FireDac.DApt;
+
+
+type
+  Tva_categorias = class(TForm)
+    Lay1_cabecalho: TLayout;
+    Rect1_cabecalho: TRectangle;
+    Lay2_direito: TLayout;
+    Img2_direita: TImage;
+    Lay1_esquerdo: TLayout;
+    Img1_esquerda: TImage;
+    Label16: TLabel;
+    Layout1: TLayout;
+    Rectangle1: TRectangle;
+    Label1: TLabel;
+    Label2: TLabel;
+    Image1: TImage;
+    Lay2_rodape: TLayout;
+    Rectangle2: TRectangle;
+    Label3: TLabel;
+    Lay3_corpo: TLayout;
+    Label4: TLabel;
+    Label5: TLabel;
+    ListView1: TListView;
+    lb_icone: TListBox;
+    ListBoxItem1: TListBoxItem;
+    img_selecao: TImage;
+    ImageA1: TImage;
+    ListBoxItem2: TListBoxItem;
+    ImageA2: TImage;
+    ListBoxItem3: TListBoxItem;
+    ImageA3: TImage;
+    ListBoxItem4: TListBoxItem;
+    ImageA4: TImage;
+    ListBoxItem5: TListBoxItem;
+    ImageB1: TImage;
+    ListBoxItem6: TListBoxItem;
+    ImageB2: TImage;
+    ListBoxItem7: TListBoxItem;
+    ImageB3: TImage;
+    ListBoxItem8: TListBoxItem;
+    ImageB4: TImage;
+    ListBoxItem9: TListBoxItem;
+    ImageC1: TImage;
+    ListBoxItem10: TListBoxItem;
+    ImageC2: TImage;
+    ListBoxItem11: TListBoxItem;
+    ImageC3: TImage;
+    ListBoxItem12: TListBoxItem;
+    ImageC4: TImage;
+    ListBoxItem13: TListBoxItem;
+    ImageD1: TImage;
+    ListBoxItem14: TListBoxItem;
+    ImageD2: TImage;
+    ListBoxItem15: TListBoxItem;
+    ImageD3: TImage;
+    ListBoxItem16: TListBoxItem;
+    ImageD4: TImage;
+    Label6: TLabel;
+    procedure Img2_direitaClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure Rectangle2Click(Sender: TObject);
+    procedure ListView1ItemClick(const Sender: TObject;
+      const AItem: TListViewItem);
+    procedure FormShow(Sender: TObject);
+  private
+    procedure addcategoria(var1, var2, var3: string);
+    procedure Carrega;
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  va_categorias: Tva_categorias;
+
+implementation
+
+{$R *.fmx}
+
+uses va_05_dm, va_07_categ_cad;
+
+procedure Tva_categorias.Img2_direitaClick(Sender: TObject);
+begin
+  close;
+end;
+
+
+
+procedure Tva_categorias.ListView1ItemClick(const Sender: TObject;
+  const AItem: TListViewItem);
+begin   // se vou passar a variável A tenho que criar o formulário
+                va_categorias.Close;
+         if not Assigned(va_cat_CAD) then
+                va_cat_CAD           := Tva_cat_CAD.Create(nil);
+                va_cat_CAD.modo      := 'A';
+                va_cat_CAD.id_img    := AItem.Objects.FindObjectT<TListItemText>('Text3').Text;
+                va_cat_CAD.descricao := AItem.Objects.FindObjectT<TListItemText>('Text1').Text;
+                va_cat_CAD.id        := AItem.TagString;
+ //             ShowMessage(AItem.TagString);
+                va_cat_CAD.Show;
+end;
+
+procedure Tva_categorias.Rectangle2Click(Sender: TObject);
+begin
+
+   if   not Assigned(va_cat_CAD) then                                    // pergunta se o programa ja existe, se nao cria
+            Application.CreateForm(Tva_cat_CAD ,va_cat_CAD);            // cria o formulario
+            va_cat_CAD.modo  := 'I';
+            va_cat_CAD.Show;
+            va_categorias.Close;
+
+end;
+
+
+procedure Tva_categorias.FormCreate(Sender: TObject);
+begin
+ //   ShowMessage(' 1 - create  ');   // estava fazendo testes para migrar de um formulário para outro
+//     carrega;
+end;
+
+
+
+procedure Tva_categorias.FormShow(Sender: TObject);
+begin
+   //   ShowMessage(' 1 -  Show ');   // aqui a eficiencida e maior pois ele limpa minha list view e inicia um novo
+      ListView1.items.Clear;
+      carrega;
+end;
+
+procedure Tva_categorias.addcategoria(var1, var2, var3: string);
+begin
+
+  if  var1 <> '' then
+  begin
+
+
+    with ListView1.Items.Add do
+    begin
+
+       // descrição
+       TListItemText(Objects.FindDrawable('Text1')).Text := var1;
+       TListItemText(Objects.FindDrawable('Text3')).Text := var2;
+       ListView1.TagString:=var3;
+       TagString := var3;
+
+       case StrToIntDef(var2, 0) of
+
+         0:
+         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageA1.Bitmap;
+         1:
+         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageA2.Bitmap;
+         2:
+         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageA3.Bitmap;
+         3:
+         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageA4.Bitmap;
+         4:
+         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageB1.Bitmap;
+         5:
+         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageB2.Bitmap;
+         6:
+         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageB3.Bitmap;
+         7:
+         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageB4.Bitmap;
+         8:
+         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageC1.Bitmap;
+         9:
+         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageC2.Bitmap;
+        10:
+         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageC3.Bitmap;
+        11:
+         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageC4.Bitmap;
+        12:
+         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageD1.Bitmap;
+        13:
+         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageD2.Bitmap;
+        14:
+         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageD3.Bitmap;
+        15:
+         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageD4.Bitmap;
+       else
+         TListItemImage(Objects.FindDrawable('Image2')).Bitmap := Image1.Bitmap;
+       end;
+    end;
+  end;
+end;
+
+
+procedure Tva_categorias.Carrega;   // vou pegar o RESTResponse e transformar em FDMAmTable porque estou usando   no RESTRequest .json?orderBy="status"&equalTo="s" .Se tirar , não preciso usar o CARREGA
+var
+  JObject : TJSONObject;
+  Pair    : TJSONPair;
+  Item    : TJSONObject;
+  x : integer;
+  y : string;
+begin
+  va_05_dm.DM.FDMemTable_categoria_G.Close;
+  va_05_dm.DM.FDMemTable_categoria_G.Open;
+  va_05_dm.DM.FDMemTable_categoria_G.EmptyDataSet;
+  va_05_dm.DM.RESTReq_categoria_G.execute;
+
+
+  JObject := TJSONObject.ParseJSONValue(va_05_dm.DM.RESTReq_categoria_G.Response.Content ) as TJSONObject;
+  try
+    for Pair in JObject do
+    begin
+      Item := Pair.JsonValue as TJSONObject;
+      va_05_dm.DM.FDMemTable_categoria_G.Append;
+      va_05_dm.DM.FDMemTable_categoria_G.FieldByName('descricao').AsString :=
+      Item.GetValue<string>('descricao');
+      va_05_dm.DM.FDMemTable_categoria_G.FieldByName('icone').AsInteger :=
+      Item.GetValue<Integer>('icone');
+      va_05_dm.DM.FDMemTable_categoria_G.FieldByName('id').AsString :=
+      Item.GetValue<string>('id');
+      va_05_dm.DM.FDMemTable_categoria_G.Post;
+    end;
+
+    x:=va_05_dm.DM.FDMemTable_categoria_G.RecordCount;
+    label2.Text := intToStr(x-1);
+  finally
+    JObject.Free;
+  end;
+
+//---------------------------CARREGA OS DADOS NO LIST VIEW------------------------------------
+     va_05_dm.DM.FDMemTable_categoria_G.First;
+     while Not va_05_dm.DM.FDMemTable_categoria_G.Eof  do
+     begin
+          addcategoria(
+          va_05_dm.DM.FDMemTable_categoria_G.FieldByName('descricao').AsString,
+          va_05_dm.DM.FDMemTable_categoria_G.FieldByName('icone').AsString,
+          va_05_dm.DM.FDMemTable_categoria_G.FieldByName('id').AsString
+              );
+           va_05_dm.DM.FDMemTable_categoria_G.Next;
+     end ;
+//------------------------------------------------------------------------------------------- }
+end;
+
+
+end.

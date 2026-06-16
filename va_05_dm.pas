@@ -12,24 +12,11 @@ uses
 
 type
   TDM = class(TDataModule)
-    RESTClient_grupo: TRESTClient;
-    RESTRequest_grupo: TRESTRequest;
-    RESTResponse_grupo: TRESTResponse;
-    RESTResponseDataSetAdapter_grupo: TRESTResponseDataSetAdapter;
-    FDMemTable_grupo: TFDMemTable;
     RESTClient_usuario: TRESTClient;
     RESTRequest_usuario: TRESTRequest;
     RESTResponse_usuario: TRESTResponse;
     RESTResponseDataSetAdapter_usuario: TRESTResponseDataSetAdapter;
     FDMemTable_usuario: TFDMemTable;
-    FDMemTable_grupocredor: TFloatField;
-    FDMemTable_grupodata: TWideStringField;
-    FDMemTable_grupodescricao: TWideStringField;
-    FDMemTable_grupodevedor: TFloatField;
-    FDMemTable_grupoid_grupo: TFloatField;
-    FDMemTable_grupoparcela: TFloatField;
-    FDMemTable_grupoparticipantes: TFloatField;
-    FDMemTable_grupostatus: TWideStringField;
     RESTReq_categoria_G: TRESTRequest;
     RESTClient_categoria: TRESTClient;
     RESTRequest_categoria: TRESTRequest;
@@ -65,6 +52,41 @@ type
     FDMemTable1icone: TIntegerField;
     FDMemTable1id: TIntegerField;
     FDMemTable1status: TWideStringField;
+    RESTClient_grupo: TRESTClient;
+    RESTRequest_grupo: TRESTRequest;
+    RESTResponse_grupo: TRESTResponse;
+    RESTResponseDataSetAdapter_grupo: TRESTResponseDataSetAdapter;
+    FDMemTable_grupo: TFDMemTable;
+    FDMemTable_grupocredor: TFloatField;
+    FDMemTable_grupodata: TWideStringField;
+    FDMemTable_grupodescricao: TWideStringField;
+    FDMemTable_grupodevedor: TFloatField;
+    FDMemTable_grupoicone: TFloatField;
+    FDMemTable_grupoid: TFloatField;
+    FDMemTable_grupoparcela: TFloatField;
+    FDMemTable_grupoparticipantes: TFloatField;
+    FDMemTable_grupostatus: TWideStringField;
+    RESTClient2_grupo: TRESTClient;
+    RESTRequest2_grupo: TRESTRequest;
+    RESTResponse2_grupo: TRESTResponse;
+    RESTResponseDataSetAdapter2_grupo: TRESTResponseDataSetAdapter;
+    FDMemTable2_grupo: TFDMemTable;
+    RESTClient_contadorT: TRESTClient;
+    RESTRequest_contadorT: TRESTRequest;
+    RESTResponse_contadorT: TRESTResponse;
+    RESTResponseDataSetAdapter_contadorT: TRESTResponseDataSetAdapter;
+    FDMemTable_contadorT: TFDMemTable;
+    FDMemTable_contadorTcategoria: TFloatField;
+    FDMemTable_contadorTgrupo: TIntegerField;
+    FDMemTable_contadorTid: TFloatField;
+    FDMemTable_contadorTlancamento: TFloatField;
+    FDMemTable_contadorTstatus: TWideStringField;
+    FDMemTable_contadorTusuario: TFloatField;
+    RESTClient_contadorX: TRESTClient;
+    RESTRequest_contadorX: TRESTRequest;
+    RESTResponse_contadorX: TRESTResponse;
+    RESTResponseDataSetAdapter_contadorX: TRESTResponseDataSetAdapter;
+    FDMemTable_contadorX: TFDMemTable;
   private
     { Private declarations }
   public
