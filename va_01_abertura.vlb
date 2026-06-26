@@ -31,9 +31,6 @@ Coordinates=206,392,60,36
 [Lay06_rodape]
 Coordinates=100,392,96,36
 
-[TXT_CREDOR]
-Coordinates=276,10,101,58
-
 [Rectangle4]
 Coordinates=10,392,80,36
 
@@ -42,9 +39,6 @@ Coordinates=673,346,138,36
 
 [ListBoxItem3]
 Coordinates=574,346,89,36
-
-[Lay01_cabecalho]
-Coordinates=449,346,115,36
 
 [Rectangle12]
 Coordinates=352,346,87,36
@@ -58,14 +52,8 @@ Coordinates=262,346,80,36
 [TXT_DATA]
 Coordinates=77,232,80,58
 
-[Circle1]
-Coordinates=197,346,55,36
-
 [Rectangle10]
 Coordinates=100,346,87,36
-
-[Label6]
-Coordinates=416,232,53,58
 
 [Rectangle7]
 Coordinates=748,300,80,36
@@ -79,9 +67,6 @@ Coordinates=581,300,87,36
 [Image6]
 Coordinates=167,232,57,58
 
-[ListView1]
-Coordinates=159,10,107,168
-
 [ListBoxItem1]
 Coordinates=482,300,89,36
 
@@ -93,9 +78,6 @@ Coordinates=576,10,53,58
 
 [Rectangle1]
 Coordinates=302,300,80,36
-
-[TXT_DEVEDOR]
-Coordinates=297,232,109,58
 
 [Lay02_saldo]
 Coordinates=205,300,87,36
@@ -131,9 +113,21 @@ Coordinates=234,232,53,58
 Coordinates=773,10,57,58
 
 []
-Coordinates=609,232,87,36
+Coordinates=159,10,107,168
 Visible=True
 
 [Rect6_cab]
 Coordinates=10,346,80,36
+
+[lbl_receita]
+Coordinates=297,232,109,58
+
+[lbl_despesa]
+Coordinates=276,10,101,58
+
+[lbl_saldo]
+Coordinates=416,232,53,58
+
+[layout_principal]
+Coordinates=449,346,115,36
 

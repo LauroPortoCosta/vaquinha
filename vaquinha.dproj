@@ -358,6 +358,15 @@
             <Form>menu</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="Units\uFormat.pas"/>
+        <DCCReference Include="UnitLogin.pas">
+            <Form>FrmLogin</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="u99Permissions.pas"/>
+        <DCCReference Include="cUsuario.pas"/>
+        <DCCReference Include="cLancamento.pas"/>
+        <DCCReference Include="cCategoria.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

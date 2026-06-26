@@ -191,35 +191,6 @@ begin
     va_05_dm.DM.RESTRequest_contadorX.Execute;
 end;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Com certeza! Para encontrar sua Web API Key para o projeto Firebase "VAQUINHA", siga estes passos simples no Console do Firebase:
 
 Acesse as Configurações do Projeto: 
@@ -396,6 +367,7 @@ begin
   end;
 end;
 Abrir
+
 Pontos Importantes para o Delphi:
 
 Unidades: Você precisará das unidades System.Net.HttpClient, System.Net.URLClient, System.JSON, System.SysUtils (para TStringStream), entre outras que possam ser necessárias para a UI.
@@ -421,6 +393,148 @@ Como eu adicionaria dados (POST/PUT/PATCH) ao Realtime Database usando a API RES
 Existem componentes ou bibliotecas Delphi de terceiros recomendadas para trabalhar com APIs REST ou Firebase especificamente?
 
 Entrada da mensagem
+
+
+===================================================================================================================================
+
+
+    frame.lblValor.text := FormatFloat('R$ #,##0.00', valor);
+    frame.lblQtd.text := qtd.ToString + ' x ' + FormatFloat('R$ #,##0.00', valor_unit);
+    frame.lblValor.text := FormatFloat('R$ #,##0.00', qtd * valor_unit);
+
+    // Zerar os itens...
+    for x := 0 to lbCategoria.Items.Count - 1 do
+    begin
+        item_loop := lbCategoria.ItemByIndex(x);
+
+        rect := TRectangle(item_loop.Components[0]);
+        rect.Fill.Color := $FFE2E2E2;
+
+        lbl := TLabel(rect.Components[0]);
+        lbl.FontColor := $FF3A3A3A;
+    end;
+
+
+                lblTitulo.Text := fieldbyname('nome').asstring;
+                lblEndereco.Text := fieldbyname('endereco').asstring;
+                lblEntrega.Text := 'Tx. Entrega: ' + FormatFloat('R$#,##0.00', fieldbyname('vl_entrega').asfloat);
+                lblPedMin.Text := 'Compra Mín: ' + FormatFloat('R$#,##0.00', fieldbyname('vl_compra_min').asfloat);
+
+         Formatar(edt_valor, TFormato.Valor);   //procedure Formatar(Obj: TObject; Formato : TFormato; Extra : string = ''); esta no uFormat
+        // para que este processo funcione tem que baixar a uFormat dentro da unit
+        // sua função e facilitar a digitacao de numeros na tela .... tipo 00,45 a medita que se digita os valores vao subindo
+
+
+
+
+procedure Tva_debitos.ListView1ItemClick(const Sender: TObject;
+  const AItem: TListViewItem);
+begin
+//-/---/-/-/-/--/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-
+   modo      := 'A';
+   id_img    := AItem.Objects.FindObjectT<TListItemText>('Text3').Text;
+   descricao := AItem.Objects.FindObjectT<TListItemText>('Text1').Text;
+   id        := AItem.TagString;
+
+   ShowMessage('valores ...> '+modo+'   - '+id_img+'   -  '+descricao+'  -  '+id);
+
+   meu_grupo := id;
+end;
+
+///////////////////////////////////////////////////////////////////
+procedure Tva_debitos.PosicionaCategoria;
+var
+  i : Integer;
+begin
+  for i := 0 to lbCategoria.Count - 1 do
+  begin
+    if lbCategoria.ListItems[i].Tag = categoria_u then
+    begin
+      lbCategoria.ItemIndex := i;
+      Break;
+    end;
+  end;
+end;
+
+//------------------------------------------------------------------------------------------------------------------------------------//
+
+
+
+        property ID        : Integer read FID         write FID ;
+        property ID_USUARIO: Integer read FID_USUARIO write FID_USUARIO;
+        property NOME      : string  read FNOME       write FNOME;
+        property EMAIL     : string  read FEMAIL      write FEMAIL;
+        property SENHA     : string  read FSENHA      write FSENHA;
+        property IND_LOGIN : string  read FIND_LOGIN  write FIND_LOGIN;
+        property FOTO      : TBitmap read FFOTO       write FFOTO;
+
+
+
+if FDMemTable_usuario.Locate(
+     'ID;STATUS',
+     VarArrayOf([5, 's']),
+     []
+   ) then
+
+//----------------------------------------------------------------------------------------
+if FDMemTable_usuario.Locate(
+     'ID;STATUS',
+     VarArrayOf([5, 's']),
+     []
+   ) then
+begin
+   ID := FDMemTable_usuario.FieldByName('usuario').AsString;
+
+   ShowMessage('Usuário encontrado: ' + ID);
+end
+else
+begin
+   ShowMessage('Registro não encontrado');
+end;
+
+
+
+{
+
+   va_05_dm.DM.RESTRequest_contador.Execute;
+   jsonString := va_05_dm.DM.RESTRequest_contador.Response.Content ;             // o conteudo está dentro de um ARRAY
+   if controlador = 2 then   jsonString := '['+jsonString+']';                   // lá no RESTRequest no .json gera um arquivo ARRAY
+   if controlador <> 2 then controlador:=2;                                      // para resolver gerei um variavel public controlador para criar um ARRAY
+   jsonArray := TJSONObject.ParseJSONValue(jsonString) as TJSONArray;
+
+  try                                                                            // Verificar se o array JSON foi criado com sucesso
+    if Assigned(jsonArray) then
+     begin
+      for i := 0 to jsonArray.Count - 1 do                                       // este ARQUIVO  só tem 1 registro SEMPRE .... // Iterar sobre cada objeto no array
+       begin
+        jsonObject := jsonArray.Items[i] as TJSONObject;                        // Obter o objeto JSON atual
+
+        if Assigned(jsonObject) then
+        begin
+          jsonPair := jsonObject.Get('usuario');                              // Obter o par chave-valor "dados"
+
+          if Assigned(jsonPair) then
+          begin
+            jsonValue := jsonPair.JsonValue;                                    // Obter o valor associado à chave "dados"
+
+            if Assigned(jsonValue) then
+            begin
+             xx := jsonvalue.ToString;
+             xx := Trim(xx);
+             xx := xx.Replace('"',''); // retira as " aspas do campo ID
+             ID := StrToInt(xx);
+            end;
+          end;
+        end;
+      end;
+    end;
+  finally
+    // Liberar o array JSON
+    jsonArray.Free;
+  end;
+
+  }
+
 
 
 

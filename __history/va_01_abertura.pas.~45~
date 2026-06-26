@@ -1,0 +1,221 @@
+unit va_01_abertura;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
+  FMX.Layouts, FMX.Controls.Presentation, FMX.StdCtrls, FMX.ListBox,
+  FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base,
+  FMX.ListView, FMX.Ani,
+  FireDAC.Comp.Client, Data.DB,
+  System.DateUtils;
+
+
+type
+  Tva_abertura = class(TForm)
+    Lay01_cabecalho: TLayout;
+    Lay02_saldo: TLayout;
+    Lay03_debito_credito: TLayout;
+    Lay04_menu: TLayout;
+    Lay06_rodape: TLayout;
+    Lay05_outros: TLayout;
+    Circle1: TCircle;
+    Rectangle1: TRectangle;
+    Rectangle2: TRectangle;
+    Layout1: TLayout;
+    Layout2: TLayout;
+    Image2: TImage;
+    Rectangle3: TRectangle;
+    Image1: TImage;
+    Label1: TLabel;
+    Label2: TLabel;
+    Rectangle4: TRectangle;
+    Rectangle5: TRectangle;
+    lbl_receita: TLabel;
+    lbl_despesa: TLabel;
+    Rect6_cab: TRectangle;
+    Label3: TLabel;
+    TXT_DATA: TLabel;
+    Lay07_LISTEBOX: TLayout;
+    Rectangle7: TRectangle;
+    Label4: TLabel;
+    ListBox1: TListBox;
+    ListBoxItem1: TListBoxItem;
+    ListBoxItem2: TListBoxItem;
+    ListBoxItem3: TListBoxItem;
+    ListBoxItem4: TListBoxItem;
+    Rectangle8: TRectangle;
+    Rectangle9: TRectangle;
+    Rectangle10: TRectangle;
+    Rectangle11: TRectangle;
+    Image3: TImage;
+    Image4: TImage;
+    Image5: TImage;
+    Image6: TImage;
+    Label5: TLabel;
+    lbl_saldo: TLabel;
+    Rectangle12: TRectangle;
+    Label7: TLabel;
+    ListView1: TListView;
+    Rectangle13: TRectangle;
+    GradientAnimation1: TGradientAnimation;
+    Rect7_cab: TRectangle;
+    Img2_direita: TImage;
+    procedure Image4Click(Sender: TObject);
+    procedure Image5Click(Sender: TObject);
+    procedure Image3Click(Sender: TObject);
+    procedure Image6Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+  private
+    procedure MontaPainel;
+    { Private declarations }
+  public
+  ID_PUBLICO:String;
+    { Public declarations }
+  end;
+
+var
+  va_abertura: Tva_abertura;
+
+implementation
+
+{$R *.fmx}
+
+uses va_02_creditos, va_00_menu, va_03_debitos, va_04_grupos, va_05_dm,
+  va_02_credito, va_06_categorias, va_07_categ_cad, va_08_grupos_cad,
+  va_09_grupos_inc, UnitLogin, cLancamento;
+
+
+procedure Tva_abertura.FormCreate(Sender: TObject);
+begin
+//   MontaPainel;
+    Label3.Text :=   FrmLogin.NOME_PUBLICO;
+    ID_PUBLICO  :=   FrmLogin.ID_PUBLICO;
+// ShowMessage('Este é o valor do seu ID :'+ID_PUBLICO+' - '+Label3.Text);
+ end;
+
+procedure Tva_abertura.FormShow(Sender: TObject);
+var
+  u    :TLancamento;
+  erro :string;
+  qry  : TFDQuery;
+  x    : integer;
+begin
+            try
+            //------------- BANCO DE DADOS ----------------
+                u:=TLancamento.Create(va_05_dm.DM.conn2);
+                u.ID:=StrToInt(ID_PUBLICO);
+                qry  := u.ListarResumo(erro);
+            //----------------------------------------------
+              while NOT qry.Eof do
+              begin
+                   lbl_receita.Text :=  FloatToStr(qry.FieldByName('VALOR').AsFloat - qry.FieldByName('VALOR2').AsFloat) ;
+                   qry.Next;
+              end;
+
+            finally
+                u.DisposeOf;
+            end;
+
+end;
+
+procedure Tva_abertura.Image3Click(Sender: TObject);
+begin
+
+   if   not Assigned(va_debitos) then                              // pergunta se o programa ja existe, se nao cria
+            Application.CreateForm(Tva_debitos ,va_debitos);                   // cria o formulario
+            va_debitos.Show;
+
+end;
+
+procedure Tva_abertura.Image4Click(Sender: TObject);
+begin
+     if not Assigned(va_credito) then
+            Application.CreateForm(Tva_credito ,va_credito);
+            va_credito.Show;
+end;
+
+procedure Tva_abertura.Image5Click(Sender: TObject);
+begin
+     if not Assigned(va_09_grupos_in) then
+            Application.CreateForm(Tva_09_grupos_in ,va_09_grupos_in);
+            va_09_grupos_in.Show;
+end;
+
+procedure Tva_abertura.Image6Click(Sender: TObject);
+begin
+
+      if not Assigned(va_categorias) then
+             Application.CreateForm(Tva_categorias ,va_categorias);
+             va_categorias.Show;
+ end;
+
+
+
+
+//                M O N T A  P A I N E L
+//  serve para somar os valores no inicio do programa  UNIT1 ( AQUI )
+//______________________________________________________________________________________________________________________________________________________________________________________________
+procedure Tva_abertura.MontaPainel;
+var
+  lanc : Tlancamento;
+  qry  : TFDQuery;
+  erro : String;
+  vl_receita, vl_despesa : double;
+begin
+
+     try
+
+     lanc := Tlancamento.Create(va_05_dm.DM.conn);
+     qry  := TFDQuery.create(nil);
+     qry := lanc.ListarResumo(erro);
+
+
+
+            if erro <> '' then
+            begin
+              ShowMessage(erro);
+              exit;
+            end;
+
+            vl_receita:=0.00;
+            vl_despesa:=0.00;
+
+            while Not qry.Eof do
+            begin
+            ShowMessage( qry.FieldByName('valor').ClassName );
+//               ShowMessage(  'lancamento2: ' +  va_05_dm.DM.FDQuery_lancamento2.FieldByName('descricao').AsString);
+ //              ShowMessage(  'Descriçao da Compra  : ' +  qry.FieldByName('descricao').AsString);
+//               ShowMessage(  'Valor da Compra ' +         qry.FieldByName('valor').AsString );
+
+//            if qry.FieldByName('valor').AsFloat > 0 then                           // este parametro serve para o sistema saber se voce digitou um valor negativo ou positivo
+//            if qry.FieldByName('valor').AsFloat > 0 then                           // este parametro serve para o sistema saber se voce digitou um valor negativo ou positivo
+//               vl_receita := vl_receita + qry.FieldByName('valor').AsFloat       // se o sinal é de mais , então é valor recebido
+//            else                                                                 // se nao for ( ELSE )
+//                vl_despesa := vl_despesa + qry.FieldByName('valor').AsFloat;    // entao o valor é positivo
+                qry.Next;
+            end;
+
+        lbl_receita.Text := FormatFloat('#,##0.00', vl_receita);     // o cambo do formulário lbl_rec que é texto recebe minha variavel convertida para texto vl_rec
+        lbl_despesa.Text := FormatFloat('#,##0.00', vl_despesa);   // meu campo lbl_desp do formulário que é texto recebe o valor despesa vl_desp
+        lbl_saldo.Text := FormatFloat('#,##0.00', vl_receita + vl_despesa); // no campo saldo , soma-se o rec com desp '''''que é o total
+     finally
+       lanc.DisposeOf;
+       qry.DisposeOf;
+     end;
+end;
+
+
+
+
+
+
+
+
+
+
+
+
+end.

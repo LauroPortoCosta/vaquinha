@@ -1,14 +1,14 @@
 object DM: TDM
-  Height = 830
-  Width = 1106
+  Height = 914
+  Width = 1230
   object RESTClient_usuario: TRESTClient
     Accept = 'application/json, text/plain;q=0.9, text/html;q=0.8'
     AcceptCharset = 'utf-8, *;q=0.8'
     BaseURL = 'https://vaquinha-8e06e-default-rtdb.firebaseio.com'
     Params = <>
     SynchronizedEvents = False
-    Left = 56
-    Top = 112
+    Left = 568
+    Top = 632
   end
   object RESTRequest_usuario: TRESTRequest
     AssignedValues = [rvConnectTimeout, rvReadTimeout]
@@ -21,13 +21,13 @@ object DM: TDM
     Resource = 'tab_usuario/cod_usuario/.json?'
     Response = RESTResponse_usuario
     SynchronizedEvents = False
-    Left = 184
-    Top = 112
+    Left = 72
+    Top = 652
   end
   object RESTResponse_usuario: TRESTResponse
     ContentType = 'application/json'
-    Left = 184
-    Top = 56
+    Left = 224
+    Top = 637
   end
   object RESTResponseDataSetAdapter_usuario: TRESTResponseDataSetAdapter
     Active = True
@@ -35,11 +35,16 @@ object DM: TDM
     FieldDefs = <>
     Response = RESTResponse_usuario
     TypesMode = Rich
-    Left = 112
+    Left = 784
   end
   object FDMemTable_usuario: TFDMemTable
     Active = True
     FieldDefs = <
+      item
+        Name = 'IND_LOGIN'
+        DataType = ftWideString
+        Size = 1
+      end
       item
         Name = 'data'
         DataType = ftWideString
@@ -52,6 +57,14 @@ object DM: TDM
       end
       item
         Name = 'id'
+        DataType = ftFloat
+      end
+      item
+        Name = 'id_categoria'
+        DataType = ftFloat
+      end
+      item
+        Name = 'id_grupo'
         DataType = ftFloat
       end
       item
@@ -83,9 +96,46 @@ object DM: TDM
     UpdateOptions.LockWait = True
     UpdateOptions.FetchGeneratorsPoint = gpNone
     UpdateOptions.CheckRequired = False
+    LocalSQL = FDLocalSQL_usuario
     StoreDefs = True
-    Left = 56
-    Top = 56
+    Left = 392
+    Top = 656
+    object FDMemTable_usuariodata: TWideStringField
+      FieldName = 'data'
+      Size = 10
+    end
+    object FDMemTable_usuarioIND_LOGIN: TWideStringField
+      FieldName = 'IND_LOGIN'
+      Size = 1
+    end
+    object FDMemTable_usuarioemail: TWideStringField
+      FieldName = 'email'
+    end
+    object FDMemTable_usuarioid: TFloatField
+      FieldName = 'id'
+    end
+    object FDMemTable_usuarioid_categoria: TFloatField
+      FieldName = 'id_categoria'
+    end
+    object FDMemTable_usuarioid_grupo: TFloatField
+      FieldName = 'id_grupo'
+    end
+    object FDMemTable_usuarionome: TWideStringField
+      FieldName = 'nome'
+      Size = 26
+    end
+    object FDMemTable_usuariosenha: TWideStringField
+      FieldName = 'senha'
+      Size = 15
+    end
+    object FDMemTable_usuariostatus: TWideStringField
+      FieldName = 'status'
+      Size = 1
+    end
+    object FDMemTable_usuariotelefone: TWideStringField
+      FieldName = 'telefone'
+      Size = 12
+    end
   end
   object RESTReq_categoria_G: TRESTRequest
     Client = RESTClient_categoria_G
@@ -98,8 +148,8 @@ object DM: TDM
     ResourceSuffix = '.json?orderBy="status"&equalTo="s"'
     Response = RESTResp_categoria_G
     SynchronizedEvents = False
-    Left = 200
-    Top = 736
+    Left = 72
+    Top = 474
   end
   object RESTClient_categoria: TRESTClient
     Accept = 'application/json, text/plain;q=0.9, text/html;q=0.8'
@@ -108,8 +158,8 @@ object DM: TDM
     ContentType = 'application/x-www-form-urlencoded'
     Params = <>
     SynchronizedEvents = False
-    Left = 56
-    Top = 320
+    Left = 568
+    Top = 287
   end
   object RESTRequest_categoria: TRESTRequest
     AssignedValues = [rvConnectTimeout, rvReadTimeout]
@@ -129,13 +179,13 @@ object DM: TDM
     ResourceSuffix = '{id}.json?'
     Response = RESTResponse_categoria
     SynchronizedEvents = False
-    Left = 208
-    Top = 320
+    Left = 72
+    Top = 533
   end
   object RESTResponse_categoria: TRESTResponse
     ContentType = 'application/json'
-    Left = 208
-    Top = 264
+    Left = 224
+    Top = 173
   end
   object RESTResponseDataSetAdapter_categoria: TRESTResponseDataSetAdapter
     Active = True
@@ -143,8 +193,8 @@ object DM: TDM
     FieldDefs = <>
     Response = RESTResponse_categoria
     TypesMode = Rich
-    Left = 128
-    Top = 208
+    Left = 784
+    Top = 448
   end
   object FDMemTable_categoria: TFDMemTable
     Active = True
@@ -186,8 +236,8 @@ object DM: TDM
     UpdateOptions.FetchGeneratorsPoint = gpNone
     UpdateOptions.CheckRequired = False
     StoreDefs = True
-    Left = 64
-    Top = 264
+    Left = 392
+    Top = 62
     object FDMemTable_categoriadescricao: TWideStringField
       FieldName = 'descricao'
       Size = 12
@@ -206,90 +256,18 @@ object DM: TDM
       Size = 1
     end
   end
-  object FDMemTable_categoria_G: TFDMemTable
-    Active = True
-    FieldDefs = <
-      item
-        Name = '0'
-        DataType = ftWideString
-        Size = 255
-      end
-      item
-        Name = '1'
-        DataType = ftWideString
-        Size = 255
-      end
-      item
-        Name = '2'
-        DataType = ftWideString
-        Size = 255
-      end
-      item
-        Name = 'descricao'
-        DataType = ftWideString
-        Size = 12
-      end
-      item
-        Name = 'icone'
-        DataType = ftFloat
-      end
-      item
-        Name = 'id'
-        DataType = ftFloat
-      end
-      item
-        Name = 'registro'
-        DataType = ftFloat
-      end
-      item
-        Name = 'status'
-        DataType = ftWideString
-        Size = 1
-      end>
-    IndexDefs = <>
-    FetchOptions.AssignedValues = [evMode]
-    FetchOptions.Mode = fmAll
-    ResourceOptions.AssignedValues = [rvSilentMode]
-    ResourceOptions.SilentMode = True
-    UpdateOptions.AssignedValues = [uvUpdateChngFields, uvUpdateMode, uvLockMode, uvLockPoint, uvLockWait, uvRefreshMode, uvFetchGeneratorsPoint, uvCheckRequired, uvCheckReadOnly, uvCheckUpdatable, uvAutoCommitUpdates]
-    UpdateOptions.LockWait = True
-    UpdateOptions.FetchGeneratorsPoint = gpNone
-    UpdateOptions.CheckRequired = False
-    UpdateOptions.AutoCommitUpdates = True
-    StoreDefs = True
-    Left = 56
-    Top = 680
-    object FDMemTable_categoria_Gdescricao: TWideStringField
-      FieldName = 'descricao'
-      Size = 12
-    end
-    object FDMemTable_categoria_Gicone: TFloatField
-      FieldName = 'icone'
-    end
-    object FDMemTable_categoria_Gid: TFloatField
-      FieldName = 'id'
-    end
-    object FDMemTable_categoria_Gregistro: TFloatField
-      FieldName = 'registro'
-    end
-    object FDMemTable_categoria_Gstatus: TWideStringField
-      FieldName = 'status'
-      Size = 1
-    end
-  end
   object RESTResp_categoria_G: TRESTResponse
     ContentType = 'application/json'
-    Left = 200
-    Top = 680
+    Left = 224
+    Top = 231
   end
   object RESTResponseDataSetAdapter_categoria_G: TRESTResponseDataSetAdapter
-    Active = True
     Dataset = FDMemTable_categoria_G
     FieldDefs = <>
     Response = RESTResp_categoria_G
     TypesMode = Rich
-    Left = 120
-    Top = 624
+    Left = 784
+    Top = 168
   end
   object RESTClient_categoria_G: TRESTClient
     Accept = 'application/json, text/plain;q=0.9, text/html;q=0.8'
@@ -297,8 +275,8 @@ object DM: TDM
     BaseURL = 'https://vaquinha-8e06e-default-rtdb.firebaseio.com'
     Params = <>
     SynchronizedEvents = False
-    Left = 56
-    Top = 736
+    Left = 568
+    Top = 459
   end
   object RESTClient_contador: TRESTClient
     Accept = 'application/json, text/plain;q=0.9, text/html;q=0.8'
@@ -306,8 +284,7 @@ object DM: TDM
     BaseURL = 'https://vaquinha-8e06e-default-rtdb.firebaseio.com'
     Params = <>
     SynchronizedEvents = False
-    Left = 368
-    Top = 184
+    Left = 568
   end
   object RESTRequest_contador: TRESTRequest
     AssignedValues = [rvConnectTimeout, rvReadTimeout]
@@ -320,13 +297,11 @@ object DM: TDM
     Resource = 'tab_contador/cod_contador/.json?'
     Response = RESTResponse_contador
     SynchronizedEvents = False
-    Left = 504
-    Top = 184
+    Left = 72
   end
   object RESTResponse_contador: TRESTResponse
     ContentType = 'application/json'
-    Left = 504
-    Top = 128
+    Left = 224
   end
   object RESTResponseDataSetAdapter_contador: TRESTResponseDataSetAdapter
     Active = True
@@ -334,15 +309,15 @@ object DM: TDM
     FieldDefs = <>
     Response = RESTResponse_contador
     TypesMode = Rich
-    Left = 440
-    Top = 72
+    Left = 784
+    Top = 504
   end
   object FDMemTable_contador: TFDMemTable
     Active = True
     FieldDefs = <
       item
         Name = 'categoria'
-        DataType = ftFloat
+        DataType = ftInteger
       end
       item
         Name = 'grupo'
@@ -363,7 +338,7 @@ object DM: TDM
       end
       item
         Name = 'usuario'
-        DataType = ftFloat
+        DataType = ftInteger
       end>
     IndexDefs = <>
     FetchOptions.AssignedValues = [evMode]
@@ -375,8 +350,8 @@ object DM: TDM
     UpdateOptions.FetchGeneratorsPoint = gpNone
     UpdateOptions.CheckRequired = False
     StoreDefs = True
-    Left = 368
-    Top = 128
+    Left = 392
+    Top = 121
   end
   object RESTRequest_contador_G: TRESTRequest
     Client = RESTClient_contador
@@ -389,8 +364,8 @@ object DM: TDM
     ResourceSuffix = '0.json?'
     Response = RESTResponse_contador
     SynchronizedEvents = False
-    Left = 504
-    Top = 240
+    Left = 72
+    Top = 59
   end
   object RESTClient1: TRESTClient
     Accept = 'application/json, text/plain;q=0.9, text/html;q=0.8'
@@ -398,8 +373,8 @@ object DM: TDM
     BaseURL = 'https://vaquinha-8e06e-default-rtdb.firebaseio.com'
     Params = <>
     SynchronizedEvents = False
-    Left = 376
-    Top = 752
+    Left = 568
+    Top = 344
   end
   object RESTRequest1: TRESTRequest
     AssignedValues = [rvConnectTimeout, rvReadTimeout]
@@ -412,13 +387,13 @@ object DM: TDM
     Resource = 'tab_categoria/cod_categoria/.json?'
     Response = RESTResponse1
     SynchronizedEvents = False
-    Left = 464
-    Top = 752
+    Left = 72
+    Top = 414
   end
   object RESTResponse1: TRESTResponse
     ContentType = 'application/json'
-    Left = 464
-    Top = 696
+    Left = 224
+    Top = 463
   end
   object RESTResponseDataSetAdapter1: TRESTResponseDataSetAdapter
     Active = True
@@ -426,8 +401,8 @@ object DM: TDM
     FieldDefs = <>
     Response = RESTResponse1
     TypesMode = Rich
-    Left = 416
-    Top = 640
+    Left = 784
+    Top = 560
   end
   object FDMemTable1: TFDMemTable
     Active = True
@@ -460,8 +435,8 @@ object DM: TDM
     UpdateOptions.FetchGeneratorsPoint = gpNone
     UpdateOptions.CheckRequired = False
     StoreDefs = True
-    Left = 376
-    Top = 696
+    Left = 392
+    Top = 299
     object FDMemTable1descricao: TWideStringField
       FieldName = 'descricao'
       Size = 18
@@ -483,8 +458,8 @@ object DM: TDM
     BaseURL = 'https://vaquinha-8e06e-default-rtdb.firebaseio.com'
     Params = <>
     SynchronizedEvents = False
-    Left = 352
-    Top = 472
+    Left = 568
+    Top = 172
   end
   object RESTRequest_grupo: TRESTRequest
     AssignedValues = [rvConnectTimeout, rvReadTimeout]
@@ -498,13 +473,13 @@ object DM: TDM
     ResourceSuffix = '.json?orderBy="status"&equalTo="s"'
     Response = RESTResponse_grupo
     SynchronizedEvents = False
-    Left = 480
-    Top = 472
+    Left = 72
+    Top = 296
   end
   object RESTResponse_grupo: TRESTResponse
     ContentType = 'application/json'
-    Left = 480
-    Top = 416
+    Left = 224
+    Top = 347
   end
   object RESTResponseDataSetAdapter_grupo: TRESTResponseDataSetAdapter
     Active = True
@@ -512,8 +487,8 @@ object DM: TDM
     FieldDefs = <>
     Response = RESTResponse_grupo
     TypesMode = Rich
-    Left = 424
-    Top = 360
+    Left = 784
+    Top = 280
   end
   object FDMemTable_grupo: TFDMemTable
     Active = True
@@ -582,8 +557,8 @@ object DM: TDM
     UpdateOptions.FetchGeneratorsPoint = gpNone
     UpdateOptions.CheckRequired = False
     StoreDefs = True
-    Left = 352
-    Top = 416
+    Left = 392
+    Top = 359
     object FDMemTable_grupocredor: TFloatField
       FieldName = 'credor'
     end
@@ -622,8 +597,8 @@ object DM: TDM
     ContentType = 'application/x-www-form-urlencoded'
     Params = <>
     SynchronizedEvents = False
-    Left = 64
-    Top = 528
+    Left = 568
+    Top = 114
   end
   object RESTRequest2_grupo: TRESTRequest
     AssignedValues = [rvConnectTimeout, rvReadTimeout]
@@ -643,13 +618,13 @@ object DM: TDM
     ResourceSuffix = '{id}.json?'
     Response = RESTResponse2_grupo
     SynchronizedEvents = False
-    Left = 192
-    Top = 528
+    Left = 72
+    Top = 355
   end
   object RESTResponse2_grupo: TRESTResponse
     ContentType = 'application/json'
-    Left = 192
-    Top = 472
+    Left = 224
+    Top = 289
   end
   object RESTResponseDataSetAdapter2_grupo: TRESTResponseDataSetAdapter
     Active = True
@@ -657,8 +632,8 @@ object DM: TDM
     FieldDefs = <>
     Response = RESTResponse2_grupo
     TypesMode = Rich
-    Left = 128
-    Top = 416
+    Left = 784
+    Top = 112
   end
   object FDMemTable2_grupo: TFDMemTable
     Active = True
@@ -678,8 +653,8 @@ object DM: TDM
     UpdateOptions.FetchGeneratorsPoint = gpNone
     UpdateOptions.CheckRequired = False
     StoreDefs = True
-    Left = 64
-    Top = 472
+    Left = 392
+    Top = 3
   end
   object RESTClient_contadorT: TRESTClient
     Accept = 'application/json, text/plain;q=0.9, text/html;q=0.8'
@@ -689,8 +664,8 @@ object DM: TDM
       'cod_contador/.json?auth=AIzaSyBVLql1yRfz_h9yenkJYdH8VJl-JlPcnCI'
     Params = <>
     SynchronizedEvents = False
-    Left = 688
-    Top = 768
+    Left = 568
+    Top = 517
   end
   object RESTRequest_contadorT: TRESTRequest
     AssignedValues = [rvConnectTimeout, rvReadTimeout]
@@ -698,13 +673,13 @@ object DM: TDM
     Params = <>
     Response = RESTResponse_contadorT
     SynchronizedEvents = False
-    Left = 688
-    Top = 712
+    Left = 72
+    Top = 177
   end
   object RESTResponse_contadorT: TRESTResponse
     ContentType = 'application/json'
-    Left = 688
-    Top = 656
+    Left = 224
+    Top = 115
   end
   object RESTResponseDataSetAdapter_contadorT: TRESTResponseDataSetAdapter
     Active = True
@@ -712,8 +687,8 @@ object DM: TDM
     FieldDefs = <>
     Response = RESTResponse_contadorT
     TypesMode = Rich
-    Left = 688
-    Top = 544
+    Left = 784
+    Top = 336
   end
   object FDMemTable_contadorT: TFDMemTable
     Active = True
@@ -753,8 +728,8 @@ object DM: TDM
     UpdateOptions.FetchGeneratorsPoint = gpNone
     UpdateOptions.CheckRequired = False
     StoreDefs = True
-    Left = 688
-    Top = 600
+    Left = 392
+    Top = 240
     object FDMemTable_contadorTcategoria: TFloatField
       FieldName = 'categoria'
     end
@@ -779,7 +754,8 @@ object DM: TDM
     BaseURL = 'https://vaquinha-8e06e-default-rtdb.firebaseio.com'
     Params = <>
     SynchronizedEvents = False
-    Left = 928
+    Left = 568
+    Top = 57
   end
   object RESTRequest_contadorX: TRESTRequest
     AssignedValues = [rvConnectTimeout, rvReadTimeout]
@@ -794,17 +770,20 @@ object DM: TDM
     ResourceSuffix = '0.json?'
     Response = RESTResponse_contadorX
     SynchronizedEvents = False
-    Left = 760
+    Left = 72
+    Top = 118
   end
   object RESTResponse_contadorX: TRESTResponse
-    Left = 616
+    Left = 224
+    Top = 57
   end
   object RESTResponseDataSetAdapter_contadorX: TRESTResponseDataSetAdapter
     Dataset = FDMemTable_contadorX
     FieldDefs = <>
     Response = RESTResponse_contadorX
     TypesMode = Rich
-    Left = 424
+    Left = 784
+    Top = 392
   end
   object FDMemTable_contadorX: TFDMemTable
     FetchOptions.AssignedValues = [evMode]
@@ -815,6 +794,547 @@ object DM: TDM
     UpdateOptions.LockWait = True
     UpdateOptions.FetchGeneratorsPoint = gpNone
     UpdateOptions.CheckRequired = False
-    Left = 288
+    Left = 392
+    Top = 181
+  end
+  object FDQuery_usuario: TFDQuery
+    Connection = conn
+    SQL.Strings = (
+      'Select * from usuario')
+    Left = 24
+    Top = 824
+  end
+  object FDLocalSQL_usuario: TFDLocalSQL
+    Connection = conn
+    Active = True
+    DataSets = <
+      item
+        DataSet = FDMemTable_usuario
+        SchemaName = 'FDMemTable_usuario;'
+        Name = 'usuario'
+      end>
+    Left = 912
+    Top = 832
+  end
+  object RESTClient_usuarioT: TRESTClient
+    Accept = 'application/json, text/plain;q=0.9, text/html;q=0.8'
+    AcceptCharset = 'utf-8, *;q=0.8'
+    BaseURL = 'https://vaquinha-8e06e-default-rtdb.firebaseio.com'
+    ContentType = 'application/x-www-form-urlencoded'
+    Params = <>
+    SynchronizedEvents = False
+    Left = 568
+    Top = 402
+  end
+  object RESTRequest_usuarioT: TRESTRequest
+    AssignedValues = [rvConnectTimeout, rvReadTimeout]
+    Client = RESTClient_usuarioT
+    Method = rmPATCH
+    Params = <
+      item
+        Name = 'auth'
+        Value = 'AIzaSyBVLql1yRfz_h9yenkJYdH8VJl-JlPcnCI'
+      end
+      item
+        Kind = pkURLSEGMENT
+        Name = 'ID'
+        Options = [poAutoCreated]
+      end>
+    Resource = 'tab_usuario/cod_usuario/'
+    ResourceSuffix = '{ID}.json?'
+    Response = RESTResponse__usuarioT
+    SynchronizedEvents = False
+    Left = 72
+    Top = 592
+  end
+  object RESTResponse__usuarioT: TRESTResponse
+    ContentType = 'application/json'
+    Left = 224
+    Top = 521
+  end
+  object RESTResponseDataSetAdapter_usuarioT: TRESTResponseDataSetAdapter
+    Active = True
+    Dataset = FDMemTable_usuarioT
+    FieldDefs = <>
+    Response = RESTResponse__usuarioT
+    TypesMode = Rich
+    Left = 784
+    Top = 224
+  end
+  object FDMemTable_usuarioT: TFDMemTable
+    Active = True
+    FieldDefs = <
+      item
+        Name = 'error'
+        DataType = ftWideString
+        Size = 93
+      end>
+    IndexDefs = <>
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvUpdateChngFields, uvUpdateMode, uvLockMode, uvLockPoint, uvLockWait, uvRefreshMode, uvFetchGeneratorsPoint, uvCheckRequired, uvCheckReadOnly, uvCheckUpdatable]
+    UpdateOptions.LockWait = True
+    UpdateOptions.FetchGeneratorsPoint = gpNone
+    UpdateOptions.CheckRequired = False
+    StoreDefs = True
+    Left = 392
+    Top = 418
+  end
+  object conn: TFDConnection
+    Params.Strings = (
+      'DriverID=SQLite')
+    Connected = True
+    LoginPrompt = False
+    Left = 696
+    Top = 816
+  end
+  object FDStanStorageXMLLink1: TFDStanStorageXMLLink
+    Left = 771
+    Top = 730
+  end
+  object RESTClient_lancamento: TRESTClient
+    Accept = 'application/json, text/plain;q=0.9, text/html;q=0.8'
+    AcceptCharset = 'utf-8, *;q=0.8'
+    BaseURL = 'https://vaquinha-8e06e-default-rtdb.firebaseio.com'
+    Params = <>
+    SynchronizedEvents = False
+    Left = 568
+    Top = 229
+  end
+  object RESTRequest_lancamento: TRESTRequest
+    AssignedValues = [rvConnectTimeout, rvReadTimeout]
+    Client = RESTClient_lancamento
+    Method = rmPATCH
+    Params = <
+      item
+        Name = 'auth'
+        Value = 'AIzaSyBVLql1yRfz_h9yenkJYdH8VJl-JlPcnCI'
+      end
+      item
+        Kind = pkURLSEGMENT
+        Name = 'x'
+      end>
+    Resource = 'tab_lancamento/cod_lancamento/{x}.json?'
+    Response = RESTResponse_lancamento
+    SynchronizedEvents = False
+    Left = 72
+    Top = 237
+  end
+  object RESTResponse_lancamento: TRESTResponse
+    ContentType = 'application/json'
+    Left = 224
+    Top = 405
+  end
+  object RESTResponseDataSetAdapter_lancamento: TRESTResponseDataSetAdapter
+    Active = True
+    Dataset = FDMemTable_lancamento
+    FieldDefs = <>
+    Response = RESTResponse_lancamento
+    TypesMode = Rich
+    Left = 784
+    Top = 56
+  end
+  object FDMemTable_lancamento: TFDMemTable
+    Active = True
+    FieldDefs = <
+      item
+        Name = 'categoria'
+        DataType = ftInteger
+      end
+      item
+        Name = 'controle'
+        DataType = ftFloat
+      end
+      item
+        Name = 'credito_debito'
+        DataType = ftFloat
+      end
+      item
+        Name = 'data'
+        DataType = ftWideString
+        Size = 10
+      end
+      item
+        Name = 'descricao'
+        DataType = ftWideString
+        Size = 40
+      end
+      item
+        Name = 'grupo'
+        DataType = ftInteger
+      end
+      item
+        Name = 'id'
+        DataType = ftFloat
+      end
+      item
+        Name = 'status'
+        DataType = ftWideString
+        Size = 1
+      end
+      item
+        Name = 'usuario'
+        DataType = ftFloat
+      end
+      item
+        Name = 'valor'
+        DataType = ftBoolean
+      end
+      item
+        Name = 'valor2'
+        DataType = ftBoolean
+      end
+      item
+        Name = 'valor_parcial'
+        DataType = ftBoolean
+      end>
+    IndexDefs = <>
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvUpdateChngFields, uvUpdateMode, uvLockMode, uvLockPoint, uvLockWait, uvRefreshMode, uvFetchGeneratorsPoint, uvCheckRequired, uvCheckReadOnly, uvCheckUpdatable]
+    UpdateOptions.LockWait = True
+    UpdateOptions.FetchGeneratorsPoint = gpNone
+    UpdateOptions.CheckRequired = False
+    StoreDefs = True
+    Left = 392
+    Top = 477
+    object FDMemTable_lancamentocategoria: TIntegerField
+      FieldName = 'categoria'
+    end
+    object FDMemTable_lancamentocontrole: TFloatField
+      FieldName = 'controle'
+    end
+    object FDMemTable_lancamentocredito_debito: TFloatField
+      FieldName = 'credito_debito'
+    end
+    object FDMemTable_lancamentodata: TWideStringField
+      FieldName = 'data'
+      Size = 10
+    end
+    object FDMemTable_lancamentodescricao: TWideStringField
+      FieldName = 'descricao'
+      Size = 40
+    end
+    object FDMemTable_lancamentogrupo: TIntegerField
+      FieldName = 'grupo'
+    end
+    object FDMemTable_lancamentoid: TFloatField
+      FieldName = 'id'
+    end
+    object FDMemTable_lancamentostatus: TWideStringField
+      FieldName = 'status'
+      Size = 1
+    end
+    object FDMemTable_lancamentousuario: TFloatField
+      FieldName = 'usuario'
+    end
+    object FDMemTable_lancamentovalor: TBooleanField
+      FieldName = 'valor'
+    end
+    object FDMemTable_lancamentovalor2: TBooleanField
+      FieldName = 'valor2'
+    end
+    object FDMemTable_lancamentovalor_parcial: TBooleanField
+      FieldName = 'valor_parcial'
+    end
+  end
+  object conn2: TFDConnection
+    Params.Strings = (
+      'DriverID=SQLite')
+    Connected = True
+    LoginPrompt = False
+    Left = 592
+    Top = 816
+  end
+  object RESTClient_lancamento2: TRESTClient
+    Accept = 'application/json, text/plain;q=0.9, text/html;q=0.8'
+    AcceptCharset = 'utf-8, *;q=0.8'
+    BaseURL = 'https://vaquinha-8e06e-default-rtdb.firebaseio.com'
+    Params = <>
+    SynchronizedEvents = False
+    Left = 568
+    Top = 574
+  end
+  object RESTRequest_lancamento2: TRESTRequest
+    AssignedValues = [rvConnectTimeout, rvReadTimeout]
+    Client = RESTClient_lancamento2
+    Params = <
+      item
+        Name = 'auth'
+        Value = 'AIzaSyBVLql1yRfz_h9yenkJYdH8VJl-JlPcnCI'
+      end>
+    Resource = 'tab_lancamento/cod_lancamento/.json?'
+    Response = RESTResponse_lancamento2
+    SynchronizedEvents = False
+    Left = 72
+    Top = 712
+  end
+  object RESTResponse_lancamento2: TRESTResponse
+    ContentType = 'application/json'
+    Left = 224
+    Top = 579
+  end
+  object RESTResponseDataSetAdapter_lancamento2: TRESTResponseDataSetAdapter
+    Active = True
+    Dataset = FDMemTable_lancamento2
+    FieldDefs = <>
+    Response = RESTResponse_lancamento2
+    TypesMode = Rich
+    Left = 784
+    Top = 616
+  end
+  object FDMemTable_lancamento2: TFDMemTable
+    Active = True
+    FieldDefs = <
+      item
+        Name = 'categoria'
+        DataType = ftFloat
+      end
+      item
+        Name = 'controle'
+        DataType = ftFloat
+      end
+      item
+        Name = 'credito_debito'
+        DataType = ftFloat
+      end
+      item
+        Name = 'data'
+        DataType = ftWideString
+        Size = 10
+      end
+      item
+        Name = 'descricao'
+        DataType = ftWideString
+        Size = 33
+      end
+      item
+        Name = 'grupo'
+        DataType = ftFloat
+      end
+      item
+        Name = 'id'
+        DataType = ftFloat
+      end
+      item
+        Name = 'status'
+        DataType = ftWideString
+        Size = 1
+      end
+      item
+        Name = 'usuario'
+        DataType = ftFloat
+      end
+      item
+        Name = 'valor'
+        DataType = ftFloat
+      end
+      item
+        Name = 'valor2'
+        DataType = ftFloat
+      end
+      item
+        Name = 'valor_parcial'
+        DataType = ftFloat
+      end>
+    IndexDefs = <>
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvUpdateChngFields, uvUpdateMode, uvLockMode, uvLockPoint, uvLockWait, uvRefreshMode, uvFetchGeneratorsPoint, uvCheckRequired, uvCheckReadOnly, uvCheckUpdatable]
+    UpdateOptions.LockWait = True
+    UpdateOptions.FetchGeneratorsPoint = gpNone
+    UpdateOptions.CheckRequired = False
+    LocalSQL = FDLocalSQL_lancamento2
+    StoreDefs = True
+    Left = 392
+    Top = 596
+    object FDMemTable_lancamento2categoria: TFloatField
+      FieldName = 'categoria'
+    end
+    object FDMemTable_lancamento2controle: TFloatField
+      FieldName = 'controle'
+    end
+    object FDMemTable_lancamento2credito_debito: TFloatField
+      FieldName = 'credito_debito'
+    end
+    object FDMemTable_lancamento2data: TWideStringField
+      FieldName = 'data'
+      Size = 10
+    end
+    object FDMemTable_lancamento2descricao: TWideStringField
+      FieldName = 'descricao'
+      Size = 33
+    end
+    object FDMemTable_lancamento2grupo: TFloatField
+      FieldName = 'grupo'
+    end
+    object FDMemTable_lancamento2id: TFloatField
+      FieldName = 'id'
+    end
+    object FDMemTable_lancamento2status: TWideStringField
+      FieldName = 'status'
+      Size = 1
+    end
+    object FDMemTable_lancamento2usuario: TFloatField
+      FieldName = 'usuario'
+    end
+    object FDMemTable_lancamento2valor: TFloatField
+      FieldName = 'valor'
+    end
+    object FDMemTable_lancamento2valor2: TFloatField
+      FieldName = 'valor2'
+    end
+    object FDMemTable_lancamento2valor_parcial: TFloatField
+      FieldName = 'valor_parcial'
+    end
+  end
+  object FDLocalSQL_lancamento2: TFDLocalSQL
+    Connection = conn2
+    Active = True
+    DataSets = <
+      item
+        DataSet = FDMemTable_lancamento2
+        SchemaName = 'FDMemTable_lancamento2;'
+        Name = 'lancamento2'
+      end>
+    Left = 1072
+    Top = 832
+  end
+  object FDQuery_lancamento2: TFDQuery
+    Connection = conn2
+    SQL.Strings = (
+      'Select * From lancamento2')
+    Left = 120
+    Top = 824
+  end
+  object RESTClient_categoriaX: TRESTClient
+    Accept = 'application/json, text/plain;q=0.9, text/html;q=0.8'
+    AcceptCharset = 'utf-8, *;q=0.8'
+    BaseURL = 'https://vaquinha-8e06e-default-rtdb.firebaseio.com'
+    Params = <>
+    SynchronizedEvents = False
+    Left = 1074
+    Top = 409
+  end
+  object RESTRequest_categoriaX: TRESTRequest
+    AssignedValues = [rvConnectTimeout, rvReadTimeout]
+    Client = RESTClient_categoriaX
+    Params = <
+      item
+        Name = 'auth'
+        Value = 'AIzaSyBVLql1yRfz_h9yenkJYdH8VJl-JlPcnCI'
+      end>
+    Resource = 'tab_categoria/cod_categoria/.json?'
+    Response = RESTResponse_categoriaX
+    SynchronizedEvents = False
+    Left = 1062
+    Top = 26
+  end
+  object RESTResponse_categoriaX: TRESTResponse
+    ContentType = 'application/json'
+    Left = 1064
+    Top = 88
+  end
+  object RESTResponseDataSetAdapter_categoriaX: TRESTResponseDataSetAdapter
+    Active = True
+    Dataset = FDMemTable_categoriaX
+    FieldDefs = <>
+    Response = RESTResponse_categoriaX
+    TypesMode = Rich
+    Left = 1072
+    Top = 472
+  end
+  object FDMemTable_categoriaX: TFDMemTable
+    Active = True
+    FieldDefs = <
+      item
+        Name = 'descricao'
+        DataType = ftWideString
+        Size = 7
+      end
+      item
+        Name = 'icone'
+        DataType = ftInteger
+      end
+      item
+        Name = 'id'
+        DataType = ftInteger
+      end
+      item
+        Name = 'status'
+        DataType = ftWideString
+        Size = 1
+      end>
+    IndexDefs = <>
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvUpdateChngFields, uvUpdateMode, uvLockMode, uvLockPoint, uvLockWait, uvRefreshMode, uvFetchGeneratorsPoint, uvCheckRequired, uvCheckReadOnly, uvCheckUpdatable]
+    UpdateOptions.LockWait = True
+    UpdateOptions.FetchGeneratorsPoint = gpNone
+    UpdateOptions.CheckRequired = False
+    LocalSQL = FDLocalSQL_categoriaX
+    StoreDefs = True
+    Left = 1064
+    Top = 152
+    object FDMemTable_categoriaXdescricao: TWideStringField
+      FieldName = 'descricao'
+      Size = 7
+    end
+    object FDMemTable_categoriaXicone: TIntegerField
+      FieldName = 'icone'
+    end
+    object FDMemTable_categoriaXid: TIntegerField
+      FieldName = 'id'
+    end
+    object FDMemTable_categoriaXstatus: TWideStringField
+      FieldName = 'status'
+      Size = 1
+    end
+  end
+  object conn3: TFDConnection
+    Params.Strings = (
+      'DriverID=SQLite')
+    Connected = True
+    LoginPrompt = False
+    Left = 1072
+    Top = 352
+  end
+  object FDLocalSQL_categoriaX: TFDLocalSQL
+    Connection = conn3
+    Active = True
+    DataSets = <
+      item
+        DataSet = FDMemTable_categoriaX
+        SchemaName = 'FDMemTable_categoriaX;'
+        Name = 'categoriaX'
+      end>
+    Left = 1064
+    Top = 216
+  end
+  object FDQuery_categoriaX: TFDQuery
+    Connection = conn3
+    SQL.Strings = (
+      'Select * FROM categoriaX')
+    Left = 1072
+    Top = 280
+  end
+  object FDMemTable_categoria_G: TFDMemTable
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    Left = 392
+    Top = 712
   end
 end

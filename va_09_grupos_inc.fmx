@@ -176,12 +176,13 @@ object va_09_grupos_in: Tva_09_grupos_in
       end
       object Label16: TLabel
         Align = Center
-        StyledSettings = [Family, FontColor]
+        StyledSettings = [Family]
         Size.Width = 91.000000000000000000
         Size.Height = 34.000000000000000000
         Size.PlatformDefault = False
         TextSettings.Font.Size = 18.000000000000000000
         TextSettings.Font.StyleExt = {00070000000000000004000000}
+        TextSettings.FontColor = xFF2E7D32
         Text = 'GRUPOS'
         TabOrder = 3
       end
@@ -444,7 +445,7 @@ object va_09_grupos_in: Tva_09_grupos_in
         TextSettings.Font.Size = 18.000000000000000000
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claWhite
-        Text = 'Ativas'
+        Text = 'Ativos'
         TabOrder = 1
       end
     end

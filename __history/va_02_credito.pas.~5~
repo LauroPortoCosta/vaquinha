@@ -1,0 +1,109 @@
+unit va_02_credito;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
+  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects, FMX.Layouts,
+  FireDAC.Comp.Client, FireDAC.DApt,  FireDAC.Comp.DataSet;
+
+
+
+type
+  Tva_credito = class(TForm)
+    Lay01_cabecalho: TLayout;
+    Rect1_cabecalho: TRectangle;
+    Lay2_direito: TLayout;
+    Img2_direita: TImage;
+    Lay1_esquerdo: TLayout;
+    Img1_esquerda: TImage;
+    Lay02_saldo: TLayout;
+    Rectangle2: TRectangle;
+    Layout1: TLayout;
+    Rectangle3: TRectangle;
+    Label1: TLabel;
+    Label3: TLabel;
+    Layout2: TLayout;
+    Rectangle4: TRectangle;
+    Label2: TLabel;
+    Label4: TLabel;
+    Lay06_rodape: TLayout;
+    RectX_rodape: TRectangle;
+    Label15: TLabel;
+    Rect_central: TRectangle;
+    Layout3: TLayout;
+    Label5: TLabel;
+    Label6: TLabel;
+    Rectangle5: TRectangle;
+    Image1: TImage;
+    Label7: TLabel;
+    Rectangle6: TRectangle;
+    Label8: TLabel;
+    Layout4: TLayout;
+    Label9: TLabel;
+    Rectangle7: TRectangle;
+    Image2: TImage;
+    Layout5: TLayout;
+    Label10: TLabel;
+    Rectangle8: TRectangle;
+    Label11: TLabel;
+    Image3: TImage;
+    Layout6: TLayout;
+    Rectangle9: TRectangle;
+    Label12: TLabel;
+    Image4: TImage;
+    Rectangle10: TRectangle;
+    Image5: TImage;
+    Label13: TLabel;
+    Label14: TLabel;
+    Label16: TLabel;
+    procedure Img2_direitaClick(Sender: TObject);
+    procedure Image4Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  va_credito: Tva_credito;
+
+implementation
+
+{$R *.fmx}
+
+uses va_05_dm;
+
+
+
+
+procedure Tva_credito.Image4Click(Sender: TObject);
+var
+  Item: TFDLocalSQLDataSet;
+begin
+     va_05_dm.DM.conn.Connected := True;
+     va_05_dm.DM.FDLocalSQL_usuario.Active := True;
+     va_05_dm.DM.FDLocalSQL_usuario.DataSets.Clear;
+
+     Item         := va_05_dm.DM.FDLocalSQL_usuario.DataSets.Add;
+     Item.Name    := 'usuario';
+     Item.DataSet := va_05_dm.DM.FDMemTable_usuario;
+//--------------------------------------------------------------------
+     va_05_dm.DM.RESTRequest_usuario.Execute;
+     va_05_dm.DM.FDQuery_usuario.Connection := va_05_dm.DM.conn;
+     va_05_dm.DM.FDQuery_usuario.SQL.Text   :=  'SELECT * FROM usuario WHERE status=''s''';
+     va_05_dm.DM.FDQuery_usuario.Open;
+
+     ShowMessage(  'Nome: ' +  va_05_dm.DM.FDQuery_usuario.FieldByName('nome').AsString);
+
+end;
+
+
+
+procedure Tva_credito.Img2_direitaClick(Sender: TObject);
+begin
+  close;
+end;
+
+end.

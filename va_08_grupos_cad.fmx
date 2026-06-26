@@ -41,7 +41,7 @@ object va_08_grupo_c: Tva_08_grupo_c
       Size.Height = 57.000000000000000000
       Size.PlatformDefault = False
       TextSettings.Font.Size = 16.000000000000000000
-      TextSettings.FontColor = xFF9BA2B4
+      TextSettings.FontColor = xFF2E7D32
       TextSettings.HorzAlign = Center
       TextSettings.Trimming = None
       Text = 'Novos Grupos'
@@ -383,7 +383,7 @@ object va_08_grupo_c: Tva_08_grupo_c
         Size.Height = 80.000000000000000000
         Size.PlatformDefault = False
       end
-      object ImageA1: TImage
+      object ImageXA1: TImage
         Tag = 1
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
@@ -548,7 +548,7 @@ object va_08_grupo_c: Tva_08_grupo_c
         Size.Width = 84.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        OnClick = ImageA1Click
+        OnClick = ImageXA1Click
       end
     end
     object ListBoxItem2: TListBoxItem
@@ -558,7 +558,7 @@ object va_08_grupo_c: Tva_08_grupo_c
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 1
-      object ImageA2: TImage
+      object ImageXA2: TImage
         Tag = 2
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
@@ -697,7 +697,7 @@ object va_08_grupo_c: Tva_08_grupo_c
         Size.Width = 84.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        OnClick = ImageA1Click
+        OnClick = ImageXA1Click
       end
     end
     object ListBoxItem3: TListBoxItem
@@ -707,7 +707,7 @@ object va_08_grupo_c: Tva_08_grupo_c
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 2
-      object ImageA3: TImage
+      object ImageXA3: TImage
         Tag = 3
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
@@ -900,7 +900,7 @@ object va_08_grupo_c: Tva_08_grupo_c
         Size.Width = 84.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        OnClick = ImageA1Click
+        OnClick = ImageXA1Click
       end
     end
     object ListBoxItem4: TListBoxItem
@@ -910,7 +910,7 @@ object va_08_grupo_c: Tva_08_grupo_c
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 3
-      object ImageA4: TImage
+      object ImageXA4: TImage
         Tag = 4
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
@@ -1080,7 +1080,7 @@ object va_08_grupo_c: Tva_08_grupo_c
         Size.Width = 84.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        OnClick = ImageA1Click
+        OnClick = ImageXA1Click
       end
     end
     object ListBoxItem5: TListBoxItem
@@ -1090,7 +1090,7 @@ object va_08_grupo_c: Tva_08_grupo_c
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 4
-      object ImageB1: TImage
+      object ImageXB1: TImage
         Tag = 5
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
@@ -1278,7 +1278,7 @@ object va_08_grupo_c: Tva_08_grupo_c
         Size.Width = 84.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        OnClick = ImageA1Click
+        OnClick = ImageXA1Click
       end
     end
     object ListBoxItem6: TListBoxItem
@@ -1289,7 +1289,7 @@ object va_08_grupo_c: Tva_08_grupo_c
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 5
-      object ImageB2: TImage
+      object ImageXB2: TImage
         Tag = 6
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
@@ -1435,7 +1435,7 @@ object va_08_grupo_c: Tva_08_grupo_c
         Size.Width = 84.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        OnClick = ImageA1Click
+        OnClick = ImageXA1Click
       end
     end
     object ListBoxItem7: TListBoxItem
@@ -1446,7 +1446,7 @@ object va_08_grupo_c: Tva_08_grupo_c
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 6
-      object ImageB3: TImage
+      object ImageXB3: TImage
         Tag = 7
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
@@ -1690,7 +1690,7 @@ object va_08_grupo_c: Tva_08_grupo_c
         Size.Width = 84.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        OnClick = ImageA1Click
+        OnClick = ImageXA1Click
       end
     end
     object ListBoxItem8: TListBoxItem
@@ -1701,7 +1701,7 @@ object va_08_grupo_c: Tva_08_grupo_c
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 7
-      object ImageB4: TImage
+      object ImageXB4: TImage
         Tag = 8
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
@@ -1968,7 +1968,7 @@ object va_08_grupo_c: Tva_08_grupo_c
         Size.Width = 84.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        OnClick = ImageA1Click
+        OnClick = ImageXA1Click
       end
     end
     object ListBoxItem9: TListBoxItem
@@ -1978,7 +1978,7 @@ object va_08_grupo_c: Tva_08_grupo_c
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 8
-      object ImageC1: TImage
+      object ImageXC1: TImage
         Tag = 9
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
@@ -2142,7 +2142,7 @@ object va_08_grupo_c: Tva_08_grupo_c
         Size.Width = 84.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        OnClick = ImageA1Click
+        OnClick = ImageXA1Click
       end
     end
     object ListBoxItem10: TListBoxItem
@@ -2153,7 +2153,7 @@ object va_08_grupo_c: Tva_08_grupo_c
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 9
-      object ImageC2: TImage
+      object ImageXC2: TImage
         Tag = 10
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
@@ -2306,7 +2306,7 @@ object va_08_grupo_c: Tva_08_grupo_c
         Size.Width = 84.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        OnClick = ImageA1Click
+        OnClick = ImageXA1Click
       end
     end
     object ListBoxItem11: TListBoxItem
@@ -2317,7 +2317,7 @@ object va_08_grupo_c: Tva_08_grupo_c
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 10
-      object ImageC3: TImage
+      object ImageXC3: TImage
         Tag = 11
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
@@ -2450,7 +2450,7 @@ object va_08_grupo_c: Tva_08_grupo_c
         Size.Width = 84.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        OnClick = ImageA1Click
+        OnClick = ImageXA1Click
       end
     end
     object ListBoxItem12: TListBoxItem
@@ -2461,7 +2461,7 @@ object va_08_grupo_c: Tva_08_grupo_c
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 11
-      object ImageC4: TImage
+      object ImageXC4: TImage
         Tag = 12
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
@@ -2590,7 +2590,7 @@ object va_08_grupo_c: Tva_08_grupo_c
         Size.Width = 84.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        OnClick = ImageA1Click
+        OnClick = ImageXA1Click
       end
     end
     object ListBoxItem13: TListBoxItem
@@ -2600,7 +2600,7 @@ object va_08_grupo_c: Tva_08_grupo_c
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 12
-      object ImageD1: TImage
+      object ImageXD1: TImage
         Tag = 13
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
@@ -2737,7 +2737,7 @@ object va_08_grupo_c: Tva_08_grupo_c
         Size.Width = 84.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        OnClick = ImageA1Click
+        OnClick = ImageXA1Click
       end
     end
     object ListBoxItem14: TListBoxItem
@@ -2748,7 +2748,7 @@ object va_08_grupo_c: Tva_08_grupo_c
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 13
-      object ImageD2: TImage
+      object ImageXD2: TImage
         Tag = 14
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
@@ -2836,7 +2836,7 @@ object va_08_grupo_c: Tva_08_grupo_c
         Size.Width = 84.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        OnClick = ImageA1Click
+        OnClick = ImageXA1Click
       end
     end
     object ListBoxItem15: TListBoxItem
@@ -2847,7 +2847,7 @@ object va_08_grupo_c: Tva_08_grupo_c
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 14
-      object ImageD3: TImage
+      object ImageXD3: TImage
         Tag = 15
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
@@ -3126,7 +3126,7 @@ object va_08_grupo_c: Tva_08_grupo_c
         Size.Width = 84.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        OnClick = ImageA1Click
+        OnClick = ImageXA1Click
       end
     end
     object ListBoxItem16: TListBoxItem
@@ -3137,7 +3137,7 @@ object va_08_grupo_c: Tva_08_grupo_c
       Size.Height = 80.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 15
-      object ImageD4: TImage
+      object ImageXD4: TImage
         Tag = 16
         MultiResBitmap.Height = 64
         MultiResBitmap.Width = 64
@@ -3225,7 +3225,7 @@ object va_08_grupo_c: Tva_08_grupo_c
         Size.Width = 84.000000000000000000
         Size.Height = 56.000000000000000000
         Size.PlatformDefault = False
-        OnClick = ImageA1Click
+        OnClick = ImageXA1Click
       end
     end
   end

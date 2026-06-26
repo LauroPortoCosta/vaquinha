@@ -40,7 +40,7 @@ object va_cat_CAD: Tva_cat_CAD
       Size.Height = 57.000000000000000000
       Size.PlatformDefault = False
       TextSettings.Font.Size = 16.000000000000000000
-      TextSettings.FontColor = xFF9BA2B4
+      TextSettings.FontColor = xFF2E7D32
       TextSettings.HorzAlign = Center
       TextSettings.Trimming = None
       Text = 'Nova Despesa'

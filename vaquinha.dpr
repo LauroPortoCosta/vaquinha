@@ -13,13 +13,19 @@ uses
   va_06_categorias in 'va_06_categorias.pas' {va_categorias},
   va_08_grupos_cad in 'va_08_grupos_cad.pas' {va_08_grupo_c},
   va_09_grupos_inc in 'va_09_grupos_inc.pas' {va_09_grupos_in},
-  va_00_menu in 'va_00_menu.pas' {menu};
+  va_00_menu in 'va_00_menu.pas' {menu},
+  uFormat in 'Units\uFormat.pas',
+  UnitLogin in 'UnitLogin.pas' {FrmLogin},
+  u99Permissions in 'u99Permissions.pas',
+  cUsuario in 'cUsuario.pas',
+  cLancamento in 'cLancamento.pas',
+  cCategoria in 'cCategoria.pas';
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.CreateForm(TDM, DM);
-  Application.CreateForm(Tmenu, menu);
+  Application.CreateForm(TFrmLogin, FrmLogin);
   Application.Run;
 end.

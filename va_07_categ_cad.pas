@@ -4,8 +4,7 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
   FMX.Controls.Presentation, FMX.StdCtrls, FMX.Layouts, FMX.Edit, FMX.ListBox,
-  FireDAC.Comp.Client, FireDAC.DApt, FMX.DialogService, REST.Types, System.JSON,
-  FMX.Memo.Types, FMX.ScrollBox, FMX.Memo;
+  FireDAC.Comp.Client, FireDAC.DApt, FMX.DialogService, REST.Types, System.JSON, FMX.Memo.Types, FMX.ScrollBox, FMX.Memo;
    // coloquei o REST.Types para funcionar o REST , System.JSON
 type
   Tva_cat_CAD = class(TForm)

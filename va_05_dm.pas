@@ -8,7 +8,11 @@ uses
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   REST.Response.Adapter, REST.Client, Data.Bind.Components,
-  Data.Bind.ObjectScope, REST.Authenticator.OAuth;
+  Data.Bind.ObjectScope, REST.Authenticator.OAuth, FireDAC.Stan.Async,
+  FireDAC.DApt, FireDAC.UI.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool,
+  FireDAC.Phys, FireDAC.Phys.SQLite, FireDAC.Phys.SQLiteDef,
+  FireDAC.Stan.ExprFuncs, FireDAC.Phys.SQLiteWrapper.Stat, FireDAC.FMXUI.Wait,
+  FireDAC.Phys.SQLiteVDataSet, FireDAC.Stan.StorageXML;
 
 type
   TDM = class(TDataModule)
@@ -28,15 +32,9 @@ type
     FDMemTable_categoriaid: TFloatField;
     FDMemTable_categoriaregistro: TFloatField;
     FDMemTable_categoriastatus: TWideStringField;
-    FDMemTable_categoria_G: TFDMemTable;
     RESTResp_categoria_G: TRESTResponse;
     RESTResponseDataSetAdapter_categoria_G: TRESTResponseDataSetAdapter;
     RESTClient_categoria_G: TRESTClient;
-    FDMemTable_categoria_Gdescricao: TWideStringField;
-    FDMemTable_categoria_Gicone: TFloatField;
-    FDMemTable_categoria_Gid: TFloatField;
-    FDMemTable_categoria_Gregistro: TFloatField;
-    FDMemTable_categoria_Gstatus: TWideStringField;
     RESTClient_contador: TRESTClient;
     RESTRequest_contador: TRESTRequest;
     RESTResponse_contador: TRESTResponse;
@@ -87,6 +85,75 @@ type
     RESTResponse_contadorX: TRESTResponse;
     RESTResponseDataSetAdapter_contadorX: TRESTResponseDataSetAdapter;
     FDMemTable_contadorX: TFDMemTable;
+    FDQuery_usuario: TFDQuery;
+    FDLocalSQL_usuario: TFDLocalSQL;
+    RESTClient_usuarioT: TRESTClient;
+    RESTRequest_usuarioT: TRESTRequest;
+    RESTResponse__usuarioT: TRESTResponse;
+    RESTResponseDataSetAdapter_usuarioT: TRESTResponseDataSetAdapter;
+    FDMemTable_usuarioT: TFDMemTable;
+    FDMemTable_usuarioIND_LOGIN: TWideStringField;
+    FDMemTable_usuariodata: TWideStringField;
+    FDMemTable_usuarioemail: TWideStringField;
+    FDMemTable_usuarioid: TFloatField;
+    FDMemTable_usuarioid_categoria: TFloatField;
+    FDMemTable_usuarioid_grupo: TFloatField;
+    FDMemTable_usuarionome: TWideStringField;
+    FDMemTable_usuariosenha: TWideStringField;
+    FDMemTable_usuariostatus: TWideStringField;
+    FDMemTable_usuariotelefone: TWideStringField;
+    conn: TFDConnection;
+    FDStanStorageXMLLink1: TFDStanStorageXMLLink;
+    RESTClient_lancamento: TRESTClient;
+    RESTRequest_lancamento: TRESTRequest;
+    RESTResponse_lancamento: TRESTResponse;
+    RESTResponseDataSetAdapter_lancamento: TRESTResponseDataSetAdapter;
+    FDMemTable_lancamento: TFDMemTable;
+    FDMemTable_lancamentocategoria: TIntegerField;
+    FDMemTable_lancamentocontrole: TFloatField;
+    FDMemTable_lancamentocredito_debito: TFloatField;
+    FDMemTable_lancamentodata: TWideStringField;
+    FDMemTable_lancamentodescricao: TWideStringField;
+    FDMemTable_lancamentogrupo: TIntegerField;
+    FDMemTable_lancamentoid: TFloatField;
+    FDMemTable_lancamentostatus: TWideStringField;
+    FDMemTable_lancamentousuario: TFloatField;
+    FDMemTable_lancamentovalor: TBooleanField;
+    FDMemTable_lancamentovalor2: TBooleanField;
+    FDMemTable_lancamentovalor_parcial: TBooleanField;
+    conn2: TFDConnection;
+    RESTClient_lancamento2: TRESTClient;
+    RESTRequest_lancamento2: TRESTRequest;
+    RESTResponse_lancamento2: TRESTResponse;
+    RESTResponseDataSetAdapter_lancamento2: TRESTResponseDataSetAdapter;
+    FDMemTable_lancamento2: TFDMemTable;
+    FDLocalSQL_lancamento2: TFDLocalSQL;
+    FDQuery_lancamento2: TFDQuery;
+    FDMemTable_lancamento2categoria: TFloatField;
+    FDMemTable_lancamento2controle: TFloatField;
+    FDMemTable_lancamento2credito_debito: TFloatField;
+    FDMemTable_lancamento2data: TWideStringField;
+    FDMemTable_lancamento2descricao: TWideStringField;
+    FDMemTable_lancamento2grupo: TFloatField;
+    FDMemTable_lancamento2id: TFloatField;
+    FDMemTable_lancamento2status: TWideStringField;
+    FDMemTable_lancamento2usuario: TFloatField;
+    FDMemTable_lancamento2valor: TFloatField;
+    FDMemTable_lancamento2valor2: TFloatField;
+    FDMemTable_lancamento2valor_parcial: TFloatField;
+    RESTClient_categoriaX: TRESTClient;
+    RESTRequest_categoriaX: TRESTRequest;
+    RESTResponse_categoriaX: TRESTResponse;
+    RESTResponseDataSetAdapter_categoriaX: TRESTResponseDataSetAdapter;
+    FDMemTable_categoriaX: TFDMemTable;
+    conn3: TFDConnection;
+    FDLocalSQL_categoriaX: TFDLocalSQL;
+    FDQuery_categoriaX: TFDQuery;
+    FDMemTable_categoriaXdescricao: TWideStringField;
+    FDMemTable_categoriaXicone: TIntegerField;
+    FDMemTable_categoriaXid: TIntegerField;
+    FDMemTable_categoriaXstatus: TWideStringField;
+    FDMemTable_categoria_G: TFDMemTable;
   private
     { Private declarations }
   public

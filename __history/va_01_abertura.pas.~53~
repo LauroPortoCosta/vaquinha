@@ -1,0 +1,413 @@
+unit va_01_abertura;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
+  FMX.Layouts, FMX.Controls.Presentation, FMX.StdCtrls, FMX.ListBox,
+  FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base,
+  FMX.ListView, FMX.Ani,
+  FireDAC.Comp.Client, Data.DB,
+  System.DateUtils;
+
+
+type
+  Tva_abertura = class(TForm)
+    layout_principal: TLayout;
+    Lay02_saldo: TLayout;
+    Lay03_debito_credito: TLayout;
+    Lay04_menu: TLayout;
+    Lay06_rodape: TLayout;
+    Lay05_outros: TLayout;
+    Rectangle1: TRectangle;
+    Rectangle2: TRectangle;
+    Layout1: TLayout;
+    Layout2: TLayout;
+    Image2: TImage;
+    Rectangle3: TRectangle;
+    Image1: TImage;
+    Label1: TLabel;
+    Label2: TLabel;
+    Rectangle4: TRectangle;
+    Rectangle5: TRectangle;
+    lbl_receita: TLabel;
+    lbl_despesa: TLabel;
+    Rect6_cab: TRectangle;
+    Label3: TLabel;
+    TXT_DATA: TLabel;
+    Lay07_LISTEBOX: TLayout;
+    Rectangle7: TRectangle;
+    Label4: TLabel;
+    ListBox1: TListBox;
+    ListBoxItem1: TListBoxItem;
+    ListBoxItem2: TListBoxItem;
+    ListBoxItem3: TListBoxItem;
+    ListBoxItem4: TListBoxItem;
+    Rectangle8: TRectangle;
+    Rectangle9: TRectangle;
+    Rectangle10: TRectangle;
+    Rectangle11: TRectangle;
+    Image3: TImage;
+    Image4: TImage;
+    Image5: TImage;
+    Image6: TImage;
+    Label5: TLabel;
+    lbl_saldo: TLabel;
+    Rectangle12: TRectangle;
+    Label7: TLabel;
+    Rectangle13: TRectangle;
+    GradientAnimation1: TGradientAnimation;
+    rect_menu: TRectangle;
+    Layout3: TLayout;
+    Label6: TLabel;
+    img_menu: TImage;
+    Circle2: TCircle;
+    Image7: TImage;
+    AnimationMenu: TFloatAnimation;
+    lv_lancamento: TListView;
+    lb_icone: TListBox;
+    ListBoxItem5: TListBoxItem;
+    img_selecao: TImage;
+    ImageA1: TImage;
+    ListBoxItem6: TListBoxItem;
+    ImageA2: TImage;
+    ListBoxItem7: TListBoxItem;
+    ImageA3: TImage;
+    ListBoxItem8: TListBoxItem;
+    ImageA4: TImage;
+    ListBoxItem9: TListBoxItem;
+    ImageB1: TImage;
+    ListBoxItem10: TListBoxItem;
+    ImageB2: TImage;
+    ListBoxItem11: TListBoxItem;
+    ImageB3: TImage;
+    ListBoxItem12: TListBoxItem;
+    ImageB4: TImage;
+    ListBoxItem13: TListBoxItem;
+    ImageC1: TImage;
+    ListBoxItem14: TListBoxItem;
+    ImageC2: TImage;
+    ListBoxItem15: TListBoxItem;
+    ImageC3: TImage;
+    ListBoxItem16: TListBoxItem;
+    ImageC4: TImage;
+    ListBoxItem17: TListBoxItem;
+    ImageD1: TImage;
+    ListBoxItem18: TListBoxItem;
+    ImageD2: TImage;
+    ListBoxItem19: TListBoxItem;
+    ImageD3: TImage;
+    ListBoxItem20: TListBoxItem;
+    ImageD4: TImage;
+    procedure Image4Click(Sender: TObject);
+    procedure Image5Click(Sender: TObject);
+    procedure Image3Click(Sender: TObject);
+    procedure Image6Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure img_menuClick(Sender: TObject);
+    procedure AnimationMenuProcess(Sender: TObject);
+    procedure AnimationMenuFinish(Sender: TObject);
+    procedure lv_lancamentoItemClick(const Sender: TObject;
+      const AItem: TListViewItem);
+    procedure lv_lancamentoItemClickEx(const Sender: TObject;
+      ItemIndex: Integer; const LocalClickPos: TPointF;
+      const ItemObject: TListItemDrawable);
+  private
+    procedure MontaPainel;
+    procedure ListarUltLanc;
+    procedure AddLancamento(lv_lancamento: TListView; id_lancamento, descricao, categoria: string; valor: double; dt: TDateTime; grupo: string);
+
+    { Private declarations }
+  public
+  ID_PUBLICO:String;
+    { Public declarations }
+  end;
+
+var
+  va_abertura: Tva_abertura;
+
+implementation
+
+{$R *.fmx}
+
+uses va_02_creditos, va_00_menu, va_03_debitos, va_04_grupos, va_05_dm,
+  va_02_credito, va_06_categorias, va_07_categ_cad, va_08_grupos_cad,
+  va_09_grupos_inc, UnitLogin, cLancamento, cCategoria;
+
+
+procedure Tva_abertura.AnimationMenuFinish(Sender: TObject);
+begin
+    layout_principal.Enabled := AnimationMenu.Inverse;
+    AnimationMenu.Inverse := NOT AnimationMenu.Inverse;
+
+end;
+
+procedure Tva_abertura.AnimationMenuProcess(Sender: TObject);
+begin
+    layout_principal.Margins.Right := -260 - rect_menu.Margins.Left;
+
+end;
+
+procedure Tva_abertura.FormCreate(Sender: TObject);
+begin
+
+    Label3.Text :=   FrmLogin.NOME_PUBLICO;
+    ID_PUBLICO  :=   FrmLogin.ID_PUBLICO;
+    ListarUltLanc;
+
+// ShowMessage('FormCreate :'+ID_PUBLICO+' - '+Label3.Text);
+ end;
+
+procedure Tva_abertura.FormShow(Sender: TObject);
+var
+  u    :TLancamento;
+  erro :string;
+  qry  : TFDQuery;
+  x    : integer;
+begin
+            try
+            //------------- BANCO DE DADOS ----------------
+                u:=TLancamento.Create(va_05_dm.DM.conn2);
+                u.ID:=StrToInt(ID_PUBLICO);
+                qry  := u.ListarResumo(erro);
+            //----------------------------------------------
+//              while NOT qry.Eof do
+//              begin
+                   lbl_saldo.Text :=  FloatToStr(qry.FieldByName('VALOR').AsFloat - qry.FieldByName('VALOR2').AsFloat) ;
+                   qry.Next;
+//              end;
+
+            finally
+                u.DisposeOf;
+            end;
+
+end;
+
+procedure Tva_abertura.Image3Click(Sender: TObject);
+begin
+
+   if   not Assigned(va_debitos) then                              // pergunta se o programa ja existe, se nao cria
+            Application.CreateForm(Tva_debitos ,va_debitos);                   // cria o formulario
+            va_debitos.Show;
+
+end;
+
+procedure Tva_abertura.Image4Click(Sender: TObject);
+begin
+     if not Assigned(va_credito) then
+            Application.CreateForm(Tva_credito ,va_credito);
+            va_credito.Show;
+end;
+
+procedure Tva_abertura.Image5Click(Sender: TObject);
+begin
+     if not Assigned(va_09_grupos_in) then
+            Application.CreateForm(Tva_09_grupos_in ,va_09_grupos_in);
+            va_09_grupos_in.Show;
+end;
+
+procedure Tva_abertura.Image6Click(Sender: TObject);
+begin
+
+      if not Assigned(va_categorias) then
+             Application.CreateForm(Tva_categorias ,va_categorias);
+             va_categorias.Show;
+ end;
+
+
+
+
+procedure Tva_abertura.img_menuClick(Sender: TObject);
+begin
+//AnimationMenu.Start;
+end;
+
+//-------------------------------------------------------------------
+// busquei em outro aplicativo...... favor corrigir os erro
+procedure Tva_abertura.lv_lancamentoItemClick(const Sender: TObject;
+  const AItem: TListViewItem);
+begin
+    if not Assigned(va_debitos) then
+    Application.CreateForm(Tva_debitos, va_debitos);
+ //   FrmLancamentosCad.modo := 'A';
+//    FrmLancamentosCad.id_lanc := AItem.TagString.ToInteger;
+    va_debitos.ShowModal( procedure( ModalResult : TmodalResult )
+    begin
+      ListarUltLanc;
+    end);
+
+end;
+
+procedure Tva_abertura.lv_lancamentoItemClickEx(const Sender: TObject;
+  ItemIndex: Integer; const LocalClickPos: TPointF;
+  const ItemObject: TListItemDrawable);
+begin
+// list view no item /// nao provoca NADA
+
+    if TListView(Sender).Selected <> nil then
+    begin
+        if ItemObject is TListItemImage then
+        begin
+            Image3.Bitmap := TListItemImage(ItemObject).Bitmap;
+        end;
+
+        if ItemObject is TListItemText then
+        begin
+            Label3.Text := TListItemText(ItemObject).Text;
+        end;
+    end;
+
+end;
+
+//                M O N T A  P A I N E L
+//  serve para somar os valores no inicio do programa  UNIT1 ( AQUI )
+//______________________________________________________________________________________________________________________________________________________________________________________________
+procedure Tva_abertura.MontaPainel;
+var
+  lanc : Tlancamento;
+  qry  : TFDQuery;
+  erro : String;
+  vl_receita, vl_despesa : double;
+begin
+
+     try
+
+     lanc := Tlancamento.Create(va_05_dm.DM.conn);
+     qry  := TFDQuery.create(nil);
+     qry := lanc.ListarResumo(erro);
+
+            if erro <> '' then
+            begin
+              ShowMessage(erro);
+              exit;
+            end;
+
+            vl_receita:=0.00;
+            vl_despesa:=0.00;
+
+            while Not qry.Eof do
+            begin
+            ShowMessage( qry.FieldByName('valor').ClassName );
+//               ShowMessage(  'lancamento2: ' +  va_05_dm.DM.FDQuery_lancamento2.FieldByName('descricao').AsString);
+ //              ShowMessage(  'Descriçao da Compra  : ' +  qry.FieldByName('descricao').AsString);
+//               ShowMessage(  'Valor da Compra ' +         qry.FieldByName('valor').AsString );
+
+//            if qry.FieldByName('valor').AsFloat > 0 then                           // este parametro serve para o sistema saber se voce digitou um valor negativo ou positivo
+//            if qry.FieldByName('valor').AsFloat > 0 then                           // este parametro serve para o sistema saber se voce digitou um valor negativo ou positivo
+//               vl_receita := vl_receita + qry.FieldByName('valor').AsFloat       // se o sinal é de mais , então é valor recebido
+//            else                                                                 // se nao for ( ELSE )
+//                vl_despesa := vl_despesa + qry.FieldByName('valor').AsFloat;    // entao o valor é positivo
+                qry.Next;
+            end;
+
+        lbl_receita.Text := FormatFloat('#,##0.00', vl_receita);     // o cambo do formulário lbl_rec que é texto recebe minha variavel convertida para texto vl_rec
+        lbl_despesa.Text := FormatFloat('#,##0.00', vl_despesa);   // meu campo lbl_desp do formulário que é texto recebe o valor despesa vl_desp
+        lbl_saldo.Text := FormatFloat('#,##0.00', vl_receita + vl_despesa); // no campo saldo , soma-se o rec com desp '''''que é o total
+     finally
+       lanc.DisposeOf;
+       qry.DisposeOf;
+     end;
+end;
+
+
+
+
+procedure Tva_abertura.AddLancamento(lv_lancamento: TListView; id_lancamento, descricao, categoria: string; valor: double; dt: TDateTime; grupo: string);
+var
+      u : TCategoria;
+    txt : TListItemText;
+    img : TListItemImage;
+    bmp : TBitmap;
+   qry  : TFDQuery;
+   erro : string;
+   resp : string;
+begin
+       u:=TCategoria.Create(va_05_dm.DM.conn3);
+       u.ID_CATEGORIA:=StrToInt(categoria);
+       qry  := TFDQuery.create(nil);
+       qry  := u.ListarCategoria(erro);
+
+
+       ShowMessage(categoria);
+ //     if qry.FieldByName('categoria').AsString <> '' then ShowMessage('vazio');
+
+//*******************************************************************************************************************************************************************************
+    with lv_lancamento.Items.Add do
+    begin
+        TagString := id_lancamento;
+        txt := TListItemText(Objects.FindDrawable('TxtDescricao'));
+        txt.Text := descricao;
+        TListItemText(Objects.FindDrawable('TxtCategoria')).Text := categoria;
+        TListItemText(Objects.FindDrawable('TxtValor')).Text := FormatFloat('#,##0.00', valor);
+        TListItemText(Objects.FindDrawable('TxtData')).Text := FormatDateTime('dd/mm', dt);
+
+        resp:=IntToStr(1);
+
+       case StrToIntDef(resp, 0) of
+         0: TListItemImage(Objects.FindDrawable('ImgIcone')).Bitmap := ImageA1.Bitmap;
+         1: TListItemImage(Objects.FindDrawable('ImgIcone')).Bitmap := ImageA2.Bitmap;
+         2: TListItemImage(Objects.FindDrawable('ImgIcone')).Bitmap := ImageA3.Bitmap;
+         3: TListItemImage(Objects.FindDrawable('ImgIcone')).Bitmap := ImageA4.Bitmap;
+         4: TListItemImage(Objects.FindDrawable('ImgIcone')).Bitmap := ImageB1.Bitmap;
+         5: TListItemImage(Objects.FindDrawable('ImgIcone')).Bitmap := ImageB2.Bitmap;
+         6: TListItemImage(Objects.FindDrawable('ImgIcone')).Bitmap := ImageB3.Bitmap;
+         7: TListItemImage(Objects.FindDrawable('ImgIcone')).Bitmap := ImageB4.Bitmap;
+         8: TListItemImage(Objects.FindDrawable('ImgIcone')).Bitmap := ImageC1.Bitmap;
+         9: TListItemImage(Objects.FindDrawable('ImgIcone')).Bitmap := ImageC2.Bitmap;
+        10: TListItemImage(Objects.FindDrawable('ImgIcone')).Bitmap := ImageC3.Bitmap;
+        11: TListItemImage(Objects.FindDrawable('ImgIcone')).Bitmap := ImageC4.Bitmap;
+        12: TListItemImage(Objects.FindDrawable('ImgIcone')).Bitmap := ImageD1.Bitmap;
+        13: TListItemImage(Objects.FindDrawable('ImgIcone')).Bitmap := ImageD2.Bitmap;
+        14: TListItemImage(Objects.FindDrawable('ImgIcone')).Bitmap := ImageD3.Bitmap;
+        15: TListItemImage(Objects.FindDrawable('ImgIcone')).Bitmap := ImageD4.Bitmap;
+       else
+         TListItemImage(Objects.FindDrawable('ImgIcone')).Bitmap := Image1.Bitmap;
+       end;
+    end;
+end;
+
+
+
+//------------------------------------------------------------------------------
+//       C R I A D A    P A R A    M O S T R A R      L A N C A M E N T O S
+//______________________________________________________________________________________________________________________________________________________________________________________________
+procedure Tva_abertura.ListarUltLanc;
+var
+      lanc : Tlancamento;                                                       // TLancamento = class está em cLancamento
+      x    : Integer;
+      qry  : TFDQuery;
+      erro : String;
+begin
+         try
+           lv_lancamento.items.Clear;                                            // limpa os items da list View
+           lanc := Tlancamento.Create(va_05_dm.DM.conn2);                        // funçao no meu arquivo clancamento
+           lanc.ID :=StrToInt(ID_PUBLICO);                                       // variavel global ID_PUBLICO
+           qry  := lanc.ListarLancamento(0,erro);                                // chamo minha função listar lancamento
+
+           if erro <> '' then
+           begin
+             ShowMessage(erro);
+             exit;
+           end;
+
+           while NOT qry.Eof do
+           begin
+            AddLancamento(lv_lancamento               ,
+              qry.FieldByName('id')       .AsString   ,
+              qry.FieldByName('descricao').AsString   ,
+              qry.FieldByName('categoria').AsString   ,
+              qry.FieldByName('valor')    .AsFloat    ,
+              qry.FieldByName('data')     .AsDateTime ,
+              qry.FieldByName('grupo')    .AsString
+                          );
+            qry.Next;
+           end;
+
+         finally
+          lanc.DisposeOf;
+       end;
+end;
+
+end.

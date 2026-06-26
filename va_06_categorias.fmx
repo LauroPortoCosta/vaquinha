@@ -177,12 +177,13 @@ object va_categorias: Tva_categorias
       end
       object Label16: TLabel
         Align = Center
-        StyledSettings = [Family, FontColor]
+        StyledSettings = [Family]
         Size.Width = 145.000000000000000000
         Size.Height = 34.000000000000000000
         Size.PlatformDefault = False
         TextSettings.Font.Size = 18.000000000000000000
         TextSettings.Font.StyleExt = {00070000000000000004000000}
+        TextSettings.FontColor = xFF2E7D32
         Text = 'Categorias'
         TabOrder = 3
       end

@@ -5,7 +5,12 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
-  FMX.Layouts, FMX.Controls.Presentation, FMX.StdCtrls, FMX.ListBox;
+  FMX.Layouts, FMX.Controls.Presentation, FMX.StdCtrls, FMX.ListBox, System.JSON,
+  FMX.Edit,
+  FMX.ListView,
+  FMX.ListView.Types,
+  FMX.ListView.Appearances,
+  FMX.ListView.Adapters.Base, FMX.Ani;
 
 type
   Tva_debitos = class(TForm)
@@ -16,32 +21,19 @@ type
     Lay1_esquerdo: TLayout;
     Img1_esquerda: TImage;
     lbl: TLabel;
-    Rect_cobertura_fundo: TRectangle;
+    Rect_Central: TRectangle;
     Lay02_saldo: TLayout;
     Rectangle2: TRectangle;
-    Layout1: TLayout;
-    Rectangle3: TRectangle;
-    Label2: TLabel;
-    Label3: TLabel;
-    Layout2: TLayout;
-    Rectangle4: TRectangle;
-    Label4: TLabel;
-    Label5: TLabel;
-    Lay1: TLayout;
-    Rectangle6: TRectangle;
-    Lay2: TLayout;
-    Label10: TLabel;
-    Rectangle7: TRectangle;
-    Image2: TImage;
+    Lay1_ListBox: TLayout;
+    Rect_ListBox: TRectangle;
+    Lay2_Valor: TLayout;
+    Rect_do_Valor1: TRectangle;
     Lay3: TLayout;
     Label11: TLabel;
     Rectangle8: TRectangle;
-    Label12: TLabel;
-    Image3: TImage;
     Lay4: TLayout;
     Rectangle9: TRectangle;
     Label13: TLabel;
-    Image4: TImage;
     Rectangle10: TRectangle;
     Image5: TImage;
     Label14: TLabel;
@@ -99,18 +91,86 @@ type
     ImageA1: TImage;
     lbCategoria: TListBox;
     ImageA4: TImage;
+    Edit_VALOR: TEdit;
+    Label_listBox: TLabel;
+    ListView1: TListView;
+    ListBox1: TListBox;
+    ListBoxItem17: TListBoxItem;
+    Image1: TImage;
+    ImageXA1: TImage;
+    ListBoxItem18: TListBoxItem;
+    ImageXA2: TImage;
+    ListBoxItem19: TListBoxItem;
+    ImageXA3: TImage;
+    ListBoxItem20: TListBoxItem;
+    ImageXA4: TImage;
+    ListBoxItem21: TListBoxItem;
+    ImageXB1: TImage;
+    ListBoxItem22: TListBoxItem;
+    ImageXB2: TImage;
+    ListBoxItem23: TListBoxItem;
+    ImageXB3: TImage;
+    ListBoxItem24: TListBoxItem;
+    ImageXB4: TImage;
+    ListBoxItem25: TListBoxItem;
+    ImageXC1: TImage;
+    ListBoxItem26: TListBoxItem;
+    ImageXC2: TImage;
+    ListBoxItem27: TListBoxItem;
+    ImageXC3: TImage;
+    ListBoxItem28: TListBoxItem;
+    ImageXC4: TImage;
+    ListBoxItem29: TListBoxItem;
+    ImageXD1: TImage;
+    ListBoxItem30: TListBoxItem;
+    ImageXD2: TImage;
+    ListBoxItem31: TListBoxItem;
+    ImageXD3: TImage;
+    ListBoxItem32: TListBoxItem;
+    ImageXD4: TImage;
+    ArcDial1: TArcDial;
+    Edit1_VALOR_PAR: TEdit;
+    Edit_DESCRIAO: TEdit;
+    Rect_do_Valor2: TRectangle;
+    Line1: TLine;
+    Image2: TImage;
+    Image3: TImage;
+    RoundRect3: TRoundRect;
+    AnimationLarg: TFloatAnimation;
+    lbl_arc: TLabel;
     procedure Img2_direitaClick(Sender: TObject);
     procedure ImageA1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure lbCategoriaItemClick(const Sender: TCustomListBox;
-      const Item: TListBoxItem);
+    procedure lbCategoriaItemClick(const Sender: TCustomListBox;    const Item: TListBoxItem);
+    procedure Edit_VALORTyping(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure ListView1ItemClick(const Sender: TObject;    const AItem: TListViewItem);
+    procedure Edit1_VALOR_PARTyping(Sender: TObject);
+    procedure Rectangle9DblClick(Sender: TObject);
+    procedure img_addClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure RoundRect3Click(Sender: TObject);
   private
     icone_selecionado  : TBitmap;                                               // USADA NA  ==>  procedure img_saveClick(Sender: TObject); E NA procedure SelecionaIcone(img: TImage)
     indice_selecionado : Integer;                                               // USADA NA   ==>  procedure SelecionaIcone(img: TImage)
+
+   // O que vai ser quardado para o usuário
+  // ---------------------------------------
+ // modo         : String;
+    id_img       : String;
+    id           : String;
+    id_usuario   : String;
+    meu_grupo    : String;
+    categoria_u  : Integer;
+    grupo_u      : Integer;
+
     procedure SelecionaIcone(img: TImage);
     procedure ListarCategorias;
-    procedure ThreadProdutosTerminate(Sender: TObject);
     procedure AddCategoria(id,icone: integer; descricao: string);
+    procedure Carrega;
+    procedure addcategoria2(var1, var2, var3: string);
+    procedure PosicionaCategoria;
+    procedure PosicionaGrupo;
     { Private declarations }
   public
   descricao : string;
@@ -124,11 +184,75 @@ implementation
 
 {$R *.fmx}
 
-uses va_05_dm;
+uses va_05_dm, uFormat, cLancamento, cUsuario, UnitLogin, va_01_abertura;
+
+procedure Tva_debitos.Edit1_VALOR_PARTyping(Sender: TObject);
+begin
+  Formatar(Edit1_VALOR_PAR, TFormato.Valor);                                    //procedure Formatar(Obj: TObject; Formato : TFormato; Extra : string = ''); esta no uFormat
+
+end;
+
+procedure Tva_debitos.Edit_VALORTyping(Sender: TObject);
+begin
+  Formatar(Edit_VALOR, TFormato.Valor);                                         //procedure Formatar(Obj: TObject; Formato : TFormato; Extra : string = ''); esta no uFormat
+end;
+
+
+procedure Tva_debitos.FormClose(Sender: TObject; var Action: TCloseAction);
+var
+  u    : TUsuario;
+  erro : string;
+begin
+    try
+      u              := TUsuario.Create(va_05_dm.DM.conn);
+      u.ID_USUARIO   := StrToInt(id_usuario);
+      u.ID_GRUPO     := grupo_u;
+      u.ID_CATEGORIA := categoria_u;
+
+        if NOT u.GRAVA_ID(erro) then
+           begin
+              showmessage(erro);
+              exit;
+           end;
+
+    finally
+         u.DisposeOf;
+    end;
+end;
 
 procedure Tva_debitos.FormCreate(Sender: TObject);
+var
+  u       : TUsuario ;
+  erro    : String   ;
+  bb      : integer  ;
 begin
-  ListarCategorias;
+    u            := TUsuario.Create(va_05_dm.DM.conn) ;
+    u.ID_USUARIO := StrToInt(va_abertura.ID_PUBLICO)  ;
+    id_usuario   := va_abertura.ID_PUBLICO            ;
+
+    if NOT u.Busca_ID(erro) then
+       begin
+         exit;
+       end;
+
+    PosicionaCategoria ;
+    PosicionaGrupo     ;
+    ListarCategorias   ;
+    carrega            ;
+    grupo_u      := u.ID_GRUPO;
+    categoria_u  := u.ID_CATEGORIA;
+
+end;
+
+procedure Tva_debitos.FormShow(Sender: TObject);
+var
+  u       : TUsuario ;
+begin
+   u:= TUsuario.Create(va_05_dm.DM.conn) ;
+   u.ID_USUARIO := StrToInt(va_abertura.ID_PUBLICO)  ;
+   PosicionaCategoria ;
+   PosicionaGrupo ;
+   carrega      ;
 end;
 
 procedure Tva_debitos.ImageA1Click(Sender: TObject);
@@ -141,15 +265,15 @@ begin
   close;
 end;
 
-procedure Tva_debitos.lbCategoriaItemClick(const Sender: TCustomListBox;
-  const Item: TListBoxItem);
-  var
-  x:integer;
-  y:string;
+procedure Tva_debitos.img_addClick(Sender: TObject);
 begin
-     x:= Item.tag;
-     y:=lbCategoria.ItemIndex.ToString;     // retorna 1
-     ShowMessage(y+' fui selecionado  '+ IntToStr(x));
+    ShowMessage('linha 283');
+end;
+
+procedure Tva_debitos.lbCategoriaItemClick(const Sender: TCustomListBox;
+  const Item: TListBoxItem); // pega o índice da categoria no list Box
+begin
+     categoria_u := lbCategoria.ItemIndex;
 end;
 
 procedure Tva_debitos.SelecionaIcone(img: TImage);
@@ -161,40 +285,67 @@ begin
 //  ShowMessage((intToStr(indice_selecionado))+ ' - INDICE_ICONE  -');
 //  ShowMessage(IntToStr(id_cat)+' = id_cat que é o ID_CATEGORIA');
 //  ShowMessage(edt_descricao.Text+ ' = é o edit dentro do formulario ');
-  ShowMessage((intToStr(indice_selecionado))+ ' =  - INDICE_ICONE');
+//  ShowMessage((intToStr(indice_selecionado))+ 'linha 304 =  - INDICE_ICONE');
 
 end;
 
-
+//--------------------------------------------------------------------------------------------------------------------
 procedure Tva_debitos.ListarCategorias;                                         // 1 //
+var
+  JObject : TJSONObject;
+  Pair    : TJSONPair;
+  Item    : TJSONObject;
+  x       : integer;
+  y       : string;
 begin
-         va_05_dm.DM.RESTRequest1.Execute;
-         va_05_dm.DM.FDMemTable1.First;
-    with va_05_dm.DM.FDMemTable1   do
+  va_05_dm.DM.FDMemTable_categoria_G.Close;
+  va_05_dm.DM.FDMemTable_categoria_G.Open;
+  va_05_dm.DM.FDMemTable_categoria_G.EmptyDataSet;
+  va_05_dm.DM.RESTReq_categoria_G.Params.Clear;
+  va_05_dm.DM.RESTReq_categoria_G.execute;
+
+  x:=va_05_dm.DM.FDMemTable_categoria_G.RecordCount;
+  JObject := TJSONObject.ParseJSONValue(va_05_dm.DM.RESTReq_categoria_G.Response.Content ) as TJSONObject;
+
+  try
+    for Pair in JObject do
     begin
-        while NOT Eof do
-        begin
-            TThread.Synchronize(TThread.CurrentThread, procedure
-            begin
-                 begin
-                   descricao := va_05_dm.DM.FDMemTable1descricao.Value;
-                   AddCategoria(fieldbyname('id').asinteger,fieldbyname('icone').asinteger, fieldbyname('descricao').asstring);
-                 end;
-            end );
-            Next;
-        end;
+      Item := Pair.JsonValue as TJSONObject;
+      va_05_dm.DM.FDMemTable_categoria_G.Append;
+      va_05_dm.DM.FDMemTable_categoria_G.FieldByName('descricao').AsString := Item.GetValue<string>('descricao');
+      va_05_dm.DM.FDMemTable_categoria_G.FieldByName('icone').AsInteger    := Item.GetValue<Integer>('icone');
+      va_05_dm.DM.FDMemTable_categoria_G.FieldByName('id').AsString        := Item.GetValue<string>('id');
+      va_05_dm.DM.FDMemTable_categoria_G.Post;
     end;
-    if lbCategoria.Items.Count > 0 then
-        TThread.Synchronize(TThread.CurrentThread, procedure
-            begin
-               // SelecionarCategoria(lbCategoria.ItemByIndex(0));
-            end)
+    x := va_05_dm.DM.FDMemTable_categoria_G.RecordCount;
+  finally
+    JObject.Free;
+  end;
+
+   with va_05_dm.DM.FDMemTable_categoria_G   do
+   begin
+               First;
+     while Not Eof  do
+     begin
+       if FieldByName('descricao').AsString <> '' then
+          begin
+             addcategoria( FieldByName('id').AsInteger, FieldByName('icone').AsInteger,FieldByName('descricao').AsString );
+          end;
+       Next;
+     end ;
+   end;
 end;
 
 
-procedure Tva_debitos.ThreadProdutosTerminate(Sender: TObject);
+procedure Tva_debitos.ListView1ItemClick(const Sender: TObject;
+  const AItem: TListViewItem); // Carrega o ID do GRUPO
+var
+  I: Integer;
 begin
-
+   id_img     := AItem.Objects.FindObjectT<TListItemText>('Text3').Text;
+   descricao  := AItem.Objects.FindObjectT<TListItemText>('Text1').Text;
+   id         := IntToStr(ListView1.ItemIndex);
+   grupo_u    := StrToInt(AItem.TagString);
 end;
 
 
@@ -224,7 +375,8 @@ begin
     rect.Margins.Left   := 8;
     rect.Margins.Right  := 8;
     rect.Margins.Bottom := 8;
-    rect.XRadius        := 6;
+    rect.XRadius        := 10;
+    rect.YRadius        := 10;
     rect.Stroke.Kind    := TBrushKind.None;
 
 //------------------------------------------------------------------------------
@@ -233,40 +385,23 @@ begin
     img_box.Width   := 50 ;
 
        case icone of
-            0:
-            img_box := ImageA1;
-            1:
-            img_box := ImageA2;
-            2:
-            img_box := ImageA3;
-            3:
-            img_box := ImageA4;
-            4:
-            img_box := ImageB1;
-            5:
-            img_box := ImageB2;
-            6:
-            img_box := ImageB3;
-            7:
-            img_box := ImageB4;
-            8:
-            img_box := ImageC1;
-            9:
-            img_box := ImageC2;
-            10:
-            img_box := ImageC3;
-            11:
-            img_box := ImageC4;
-            12:
-            img_box := ImageD1;
-            13:
-            img_box := ImageD2;
-            14:
-            img_box := ImageD3;
-            15:
-            img_box := ImageD4;
-            16:
-            img_box := img_selecao;
+            0:  img_box := ImageA1;
+            1:  img_box := ImageA2;
+            2:  img_box := ImageA3;
+            3:  img_box := ImageA4;
+            4:  img_box := ImageB1;
+            5:  img_box := ImageB2;
+            6:  img_box := ImageB3;
+            7:  img_box := ImageB4;
+            8:  img_box := ImageC1;
+            9:  img_box := ImageC2;
+            10: img_box := ImageC3;
+            11: img_box := ImageC4;
+            12: img_box := ImageD1;
+            13: img_box := ImageD2;
+            14: img_box := ImageD3;
+            15: img_box := ImageD4;
+            16: img_box := img_selecao;
 
        end;
     img_box.Align   := TAlignLayout.Center;
@@ -289,6 +424,185 @@ begin
 
 end;
 
+
+procedure Tva_debitos.Carrega;   // vou pegar o RESTResponse e transformar em FDMAmTable porque estou usando   no RESTRequest .json?orderBy="status"&equalTo="s" .Se tirar , não preciso usar o CARREGA
+var
+  JObject : TJSONObject;
+  Pair    : TJSONPair;
+  Item    : TJSONObject;
+  x       : integer;
+  y       : string;
+begin
+  va_05_dm.DM.FDMemTable_grupo.Close;
+  va_05_dm.DM.FDMemTable_grupo.Open;
+  va_05_dm.DM.FDMemTable_grupo.EmptyDataSet;
+  va_05_dm.DM.RESTRequest_grupo.Params.Clear;
+  va_05_dm.DM.RESTRequest_grupo.execute;
+
+
+  JObject := TJSONObject.ParseJSONValue(va_05_dm.DM.RESTRequest_grupo.Response.Content ) as TJSONObject;
+  try
+    for Pair in JObject do
+    begin
+      Item := Pair.JsonValue as TJSONObject;
+      va_05_dm.DM.FDMemTable_grupo.Append;
+      va_05_dm.DM.FDMemTable_grupo.FieldByName('descricao').AsString := Item.GetValue<string>('descricao');
+      va_05_dm.DM.FDMemTable_grupo.FieldByName('icone').AsInteger    := Item.GetValue<Integer>('icone');
+      va_05_dm.DM.FDMemTable_grupo.FieldByName('id').AsString        := Item.GetValue<string>('id');
+      va_05_dm.DM.FDMemTable_grupo.Post;
+    end;
+    x:=va_05_dm.DM.FDMemTable_grupo.RecordCount;
+  finally
+    JObject.Free;
+  end;
+
+//---------------------------CARREGA OS DADOS NO LIST VIEW------------------------------------
+               va_05_dm.DM.FDMemTable_grupo.First;
+     while Not va_05_dm.DM.FDMemTable_grupo.Eof  do
+     begin
+          addcategoria2(
+          va_05_dm.DM.FDMemTable_grupo.FieldByName('descricao').AsString,
+          va_05_dm.DM.FDMemTable_grupo.FieldByName('icone').AsString,
+          va_05_dm.DM.FDMemTable_grupo.FieldByName('id').AsString
+                       );
+          va_05_dm.DM.FDMemTable_grupo.Next;
+     end;
+//------------------------------------------------------------------------------------------- }
+end;
+
+
+
+procedure Tva_debitos.addcategoria2(var1, var2, var3: string);
+begin
+
+  if  var1 <> '' then
+  begin
+
+    with ListView1.Items.Add do
+    begin
+       // descrição
+       TListItemText(Objects.FindDrawable('Text1')).Text :=  var1;
+       TListItemText(Objects.FindDrawable('Text3')).Text :=  var2;
+       TagString := var3;
+       Tag       := StrToInt(var3);
+
+       case StrToIntDef(var2, 0) of
+
+         0:TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageXA1.Bitmap;
+         1:TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageXA2.Bitmap;
+         2:TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageXA3.Bitmap;
+         3:TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageXA4.Bitmap;
+         4:TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageXB1.Bitmap;
+         5:TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageXB2.Bitmap;
+         6:TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageXB3.Bitmap;
+         7:TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageXB4.Bitmap;
+         8:TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageXC1.Bitmap;
+         9:TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageXC2.Bitmap;
+        10:TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageXC3.Bitmap;
+        11:TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageXC4.Bitmap;
+        12:TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageXD1.Bitmap;
+        13:TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageXD2.Bitmap;
+        14:TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageXD3.Bitmap;
+        15:TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageXD4.Bitmap;
+       else
+ //        TListItemImage(Objects.FindDrawable('Image2')).Bitmap := Image1.Bitmap;
+       end;
+    end;
+  end;
+end;
+
+
+procedure Tva_debitos.PosicionaGrupo;
+var
+  I : Integer;
+begin
+  for I := 0 to ListView1.Items.Count - 1 do
+     begin
+
+       if ListView1.Items[I].Tag = grupo_u then
+          begin
+            ListView1.ItemIndex := I;
+            ListView1.ScrollTo(I);
+            Break;
+          end;
+     end;
+end;
+
+
+
+procedure Tva_debitos.Rectangle9DblClick(Sender: TObject);
+begin
+   if StrToInt(Edit1_VALOR_PAR.Text) > StrToInt(Edit_VALOR.Text) then
+      begin
+        exit;
+      end;
+   Edit_VALOR.Text      :='';
+   Edit1_VALOR_PAR.Text :='';
+end;
+
+
+procedure Tva_debitos.RoundRect3Click(Sender: TObject);
+var
+    l  : TLancamento;
+  erro : string;
+begin
+    AnimationLarg.Inverse := false;
+    AnimationLarg.Start;
+    lbl_arc.AnimateFloat('Opacity', 0, 0.4);
+
+    TThread.CreateAnonymousThread(procedure
+    begin
+        Sleep(1000); // Acesso ao banco.. WS... etc...
+    try
+      l              := TLancamento.Create(va_05_dm.DM.conn);
+      if Edit_VALOR.Text      = '' then Edit_VALOR.Text      := '0,00';
+      if Edit1_VALOR_PAR.Text = '' then Edit1_VALOR_PAR.Text := '0,00';
+
+      l.VALOR        := StrToFloat(Edit_VALOR.Text);
+      l.VALOR2       := StrToFloat(Edit1_VALOR_PAR.Text);
+      l.ID_GRUPO     := grupo_u;
+      l.ID_CATEGORIA := categoria_u;
+      l.DATA         := Date;
+      l.DESCRICAO    := Edit_DESCRIAO.Text;
+      l.ID           := StrToInt(id_usuario);
+        if NOT l.inserir(erro) then
+           begin
+              showmessage('Erro ao inserir :: '+erro);
+              exit;
+           end;
+    finally
+         l.DisposeOf;
+         Edit_VALOR.Text := '0,00';
+         Edit1_VALOR_PAR.Text := '0,00';
+         Edit_DESCRIAO.Text   := '';
+    end;
+
+        TThread.Synchronize(nil, procedure
+        begin
+            AnimationLarg.Inverse := true;
+            AnimationLarg.Start;
+            lbl_arc.Text := 'Novo lançamento';
+            lbl_arc.AnimateFloat('Opacity', 1, 0.4);
+        end);
+
+    end).Start;
+
+end;
+
+
+procedure Tva_debitos.PosicionaCategoria;
+var
+  i : Integer;
+begin
+  for i := 0 to lbCategoria.Count - 1 do
+  begin
+    if lbCategoria.ListItems[i].Tag = categoria_u then
+    begin
+      lbCategoria.ItemIndex := i;
+      Break;
+    end;
+  end;
+end;
 
 
 end.

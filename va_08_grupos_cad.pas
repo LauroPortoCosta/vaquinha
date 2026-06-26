@@ -24,42 +24,42 @@ type
     lb_icone: TListBox;
     ListBoxItem1: TListBoxItem;
     img_selecao: TImage;
-    ImageA1: TImage;
+    ImageXA1: TImage;
     ListBoxItem2: TListBoxItem;
-    ImageA2: TImage;
+    ImageXA2: TImage;
     ListBoxItem3: TListBoxItem;
-    ImageA3: TImage;
+    ImageXA3: TImage;
     ListBoxItem4: TListBoxItem;
-    ImageA4: TImage;
+    ImageXA4: TImage;
     ListBoxItem5: TListBoxItem;
-    ImageB1: TImage;
+    ImageXB1: TImage;
     ListBoxItem6: TListBoxItem;
-    ImageB2: TImage;
+    ImageXB2: TImage;
     ListBoxItem7: TListBoxItem;
-    ImageB3: TImage;
+    ImageXB3: TImage;
     ListBoxItem8: TListBoxItem;
-    ImageB4: TImage;
+    ImageXB4: TImage;
     ListBoxItem9: TListBoxItem;
-    ImageC1: TImage;
+    ImageXC1: TImage;
     ListBoxItem10: TListBoxItem;
-    ImageC2: TImage;
+    ImageXC2: TImage;
     ListBoxItem11: TListBoxItem;
-    ImageC3: TImage;
+    ImageXC3: TImage;
     ListBoxItem12: TListBoxItem;
-    ImageC4: TImage;
+    ImageXC4: TImage;
     ListBoxItem13: TListBoxItem;
-    ImageD1: TImage;
+    ImageXD1: TImage;
     ListBoxItem14: TListBoxItem;
-    ImageD2: TImage;
+    ImageXD2: TImage;
     ListBoxItem15: TListBoxItem;
-    ImageD3: TImage;
+    ImageXD3: TImage;
     ListBoxItem16: TListBoxItem;
-    ImageD4: TImage;
+    ImageXD4: TImage;
     Rectangle1: TRectangle;
     img_add: TImage;
     procedure Image1Click(Sender: TObject);
     procedure img_addClick(Sender: TObject);
-    procedure ImageA1Click(Sender: TObject);
+    procedure ImageXA1Click(Sender: TObject);
     procedure img_voltarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -134,7 +134,7 @@ begin
 
 end;
 
-procedure Tva_08_grupo_c.ImageA1Click(Sender: TObject);
+procedure Tva_08_grupo_c.ImageXA1Click(Sender: TObject);
 begin
     SelecionaIcone(TImage(Sender));
 end;
@@ -281,7 +281,7 @@ begin
          edt_descricao.Text  := '';                                             // se for inclusao o campo edit fica em branco // edt_descricao (Tedit) é um campo do FORMULARIO e classificado como texto .Text
          edt_descricao.TextPrompt  := ' Categoria desejada ';                   // se for inclusao o campo edit fica em branco // edt_descricao (Tedit) é um campo do FORMULARIO e classificado como texto .Text
          Rectangle1.Visible  := false;                                          // ativando o retangulo de delecao
-         SelecionaIcone(ImageA1);                                               // e a imagem vai ser a sempre a primeira IMAGEM 1
+         SelecionaIcone(ImageXA1);                                               // e a imagem vai ser a sempre a primeira IMAGEM 1
                                                                                 // procedure TFrmCategoriasCad.SelecionaIcone(img: TImage); //  SelecionaIcone(Image1); ele pega qualquer imagem que for apontado  //Image1 //Image2 //Image3
     end
     else

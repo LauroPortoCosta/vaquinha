@@ -5,7 +5,18 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
-  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects, FMX.Layouts;
+  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects, FMX.Layouts,
+   REST.Types,
+   Data.DB,
+   FireDAC.DApt,
+   FireDAC.Stan.Intf,
+   FireDAC.Comp.DataSet,
+   FireDAC.Comp.Client,
+   XMLDoc,
+   XMLIntf
+   ;
+
+
 
 type
   Tva_credito = class(TForm)
@@ -56,7 +67,9 @@ type
     Label14: TLabel;
     Label16: TLabel;
     procedure Img2_direitaClick(Sender: TObject);
+    procedure Image4Click(Sender: TObject);
   private
+    procedure FormatXML;
     { Private declarations }
   public
     { Public declarations }
@@ -69,9 +82,117 @@ implementation
 
 {$R *.fmx}
 
+uses va_05_dm;
+
+
+
+
+procedure Tva_credito.Image4Click(Sender: TObject);
+var
+  Item: TFDLocalSQLDataSet;
+begin
+
+
+ShowMessage(' COM O LANCAMENTO ');
+
+    with va_05_dm.DM do
+    begin
+       FDLocalSQL_lancamento2.Active := True;
+       RESTRequest_lancamento2.Execute;
+       FDQuery_lancamento2.Connection := conn2;
+       FDQuery_lancamento2.SQL.Text   :=  'SELECT * FROM lancamento2 WHERE status=''s''';
+       FDQuery_lancamento2 .Open;
+    end;
+
+     ShowMessage(  'Resolvido com lancamentos: ' +  va_05_dm.DM.FDQuery_lancamento2.FieldByName('valor').AsString);
+
+
+
+
+
+
+ShowMessage(' projeto 1 do lauro');
+
+    with va_05_dm.DM do
+    begin
+       FDLocalSQL_usuario.Active := True;
+       RESTRequest_usuario.Execute;
+       FDQuery_usuario.Connection := conn;
+       FDQuery_usuario.SQL.Text   :=  'SELECT * FROM usuario WHERE status=''s''';
+       FDQuery_usuario.Open;
+    end;
+     ShowMessage(  'Nome: ' +  va_05_dm.DM.FDQuery_usuario.FieldByName('nome').AsString);
+
+
+ShowMessage('inicio projeto 1');
+//------------------------------------------------------------------------------------------------------------
+     va_05_dm.DM.FDLocalSQL_usuario.Active := True;
+     va_05_dm.DM.FDLocalSQL_usuario.DataSets.Clear;
+     Item         := va_05_dm.DM.FDLocalSQL_usuario.DataSets.Add;
+     Item.Name    := 'usuario';
+     Item.DataSet := va_05_dm.DM.FDMemTable_usuario;
+     va_05_dm.DM.RESTRequest_usuario.Execute;
+     va_05_dm.DM.FDQuery_usuario.Connection := va_05_dm.DM.conn;
+     va_05_dm.DM.FDQuery_usuario.SQL.Text   :=  'SELECT * FROM usuario WHERE status=''s''';
+     va_05_dm.DM.FDQuery_usuario.Open;
+     ShowMessage(  'Nome: ' +  va_05_dm.DM.FDQuery_usuario.FieldByName('nome').AsString);
+
+ShowMessage('fim projeto 1');
+
+//------------------------------------------------------------------------------------------------------------
+ShowMessage('inicio projeto 2');
+
+    with va_05_dm.DM do
+    begin
+
+            FDLocalSQL_usuario.DataSets.Clear;
+            with FDLocalSQL_usuario.DataSets.Add do
+                 begin
+                      Name    := 'usuario';
+                      DataSet := FDMemTable_usuario;
+                 end;
+
+               RESTRequest_usuario.Execute;
+               ShowMessage('MemTable: ' + IntToStr(FDMemTable_usuario.RecordCount));  // O resultado aqui é 4
+               FDLocalSQL_usuario.Active := True;
+               FDQuery_usuario.Close;
+               FDQuery_usuario.SQL.Text := 'SELECT * FROM usuario';
+               FDQuery_usuario.Connection := conn;
+
+          FDQuery_usuario.Close;
+          FDQuery_usuario.Connection := conn;
+          FDQuery_usuario.SQL.Text := 'SELECT * FROM usuario';
+          FDQuery_usuario.Open;
+
+ShowMessage('fim projeto 2');
+
+//--------------------------------------------------------------------------------------------------------------
+
+//       FDMemTable_usuario.SaveToFile('c:\temp\usuario.xml',  sfXML);
+//       FDMemTable_usuario.LoadFromFile('c:\temp\usuario.xml');
+//       ShowMessage('ok');
+    end;
+//    FormatXML;
+end;
+
+
+
 procedure Tva_credito.Img2_direitaClick(Sender: TObject);
 begin
   close;
 end;
+
+
+
+procedure Tva_credito.FormatXML;
+var
+  XML: IXMLDocument;
+begin
+  XML := TXMLDocument.Create(nil);
+  XML.LoadFromFile('C:\Temp\usuario.xml');
+  XML.Active := True;
+  XML.SaveToFile('C:\Temp\usuario_formatado.xml');
+end;
+
 
 end.

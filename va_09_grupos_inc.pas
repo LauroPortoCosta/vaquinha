@@ -157,7 +157,9 @@ begin
   va_05_dm.DM.FDMemTable_grupo.Close;
   va_05_dm.DM.FDMemTable_grupo.Open;
   va_05_dm.DM.FDMemTable_grupo.EmptyDataSet;
+  va_05_dm.DM.RESTRequest_grupo.Params.Clear;
   va_05_dm.DM.RESTRequest_grupo.execute;
+
   JObject := TJSONObject.ParseJSONValue(va_05_dm.DM.RESTRequest_grupo.Response.Content ) as TJSONObject;
   try
     for Pair in JObject do
