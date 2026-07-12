@@ -2,12 +2,11 @@ object va_debitos: Tva_debitos
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 745
+  ClientHeight = 777
   ClientWidth = 468
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
-  OnCreate = FormCreate
   OnClose = FormClose
   OnShow = FormShow
   DesignerMasterStyle = 0
@@ -191,7 +190,7 @@ object va_debitos: Tva_debitos
     Align = Client
     Fill.Color = claWhite
     Size.Width = 468.000000000000000000
-    Size.Height = 558.000000000000000000
+    Size.Height = 590.000000000000000000
     Size.PlatformDefault = False
     Stroke.Color = claWhitesmoke
     object Lay1_ListBox: TLayout
@@ -216,8 +215,8 @@ object va_debitos: Tva_debitos
           Margins.Top = 2.000000000000000000
           Margins.Right = 2.000000000000000000
           Margins.Bottom = 2.000000000000000000
-          Size.Width = 1062.000000000000000000
-          Size.Height = 101.000000000000000000
+          Size.Width = 460.000000000000000000
+          Size.Height = 50.000000000000000000
           Size.PlatformDefault = False
           StyleLookup = 'transparentlistboxstyle'
           TabOrder = 2
@@ -230,13 +229,13 @@ object va_debitos: Tva_debitos
           DefaultItemStyles.GroupHeaderStyle = ''
           DefaultItemStyles.GroupFooterStyle = ''
           ListStyle = Horizontal
-          Viewport.Width = 1062.000000000000000000
-          Viewport.Height = 101.000000000000000000
+          Viewport.Width = 460.000000000000000000
+          Viewport.Height = 50.000000000000000000
           object ListBoxItem2: TListBoxItem
             Cursor = crHandPoint
             Selectable = False
             Size.Width = 100.000000000000000000
-            Size.Height = 101.000000000000000000
+            Size.Height = 50.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 1
             object ImageA2: TImage
@@ -297,7 +296,7 @@ object va_debitos: Tva_debitos
             end
             object LabelA2: TLabel
               Align = Bottom
-              Position.Y = 84.000000000000000000
+              Position.Y = 33.000000000000000000
               Size.Width = 100.000000000000000000
               Size.Height = 17.000000000000000000
               Size.PlatformDefault = False
@@ -312,7 +311,7 @@ object va_debitos: Tva_debitos
             TextSettings.HorzAlign = Center
             Position.X = 100.000000000000000000
             Size.Width = 100.000000000000000000
-            Size.Height = 101.000000000000000000
+            Size.Height = 50.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 2
             object ImageA3: TImage
@@ -370,7 +369,7 @@ object va_debitos: Tva_debitos
             end
             object LabelA3: TLabel
               Align = Bottom
-              Position.Y = 84.000000000000000000
+              Position.Y = 33.000000000000000000
               Size.Width = 100.000000000000000000
               Size.Height = 17.000000000000000000
               Size.PlatformDefault = False
@@ -384,12 +383,12 @@ object va_debitos: Tva_debitos
             Selectable = False
             Position.X = 200.000000000000000000
             Size.Width = 100.000000000000000000
-            Size.Height = 101.000000000000000000
+            Size.Height = 50.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 3
             object LabelA4: TLabel
               Align = Bottom
-              Position.Y = 84.000000000000000000
+              Position.Y = 33.000000000000000000
               Size.Width = 100.000000000000000000
               Size.Height = 17.000000000000000000
               Size.PlatformDefault = False
@@ -444,7 +443,7 @@ object va_debitos: Tva_debitos
             Selectable = False
             Position.X = 300.000000000000000000
             Size.Width = 100.000000000000000000
-            Size.Height = 101.000000000000000000
+            Size.Height = 50.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 4
             object ImageB1: TImage
@@ -607,7 +606,7 @@ object va_debitos: Tva_debitos
             end
             object LabelB1: TLabel
               Align = Bottom
-              Position.Y = 84.000000000000000000
+              Position.Y = 33.000000000000000000
               Size.Width = 100.000000000000000000
               Size.Height = 17.000000000000000000
               Size.PlatformDefault = False
@@ -621,7 +620,7 @@ object va_debitos: Tva_debitos
             Selectable = False
             Position.X = 400.000000000000000000
             Size.Width = 100.000000000000000000
-            Size.Height = 101.000000000000000000
+            Size.Height = 50.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 5
             object ImageB2: TImage
@@ -702,7 +701,7 @@ object va_debitos: Tva_debitos
             end
             object LabelB2: TLabel
               Align = Bottom
-              Position.Y = 84.000000000000000000
+              Position.Y = 33.000000000000000000
               Size.Width = 100.000000000000000000
               Size.Height = 17.000000000000000000
               Size.PlatformDefault = False
@@ -716,7 +715,7 @@ object va_debitos: Tva_debitos
             Selectable = False
             Position.X = 500.000000000000000000
             Size.Width = 100.000000000000000000
-            Size.Height = 101.000000000000000000
+            Size.Height = 50.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 6
             object ImageB3: TImage
@@ -767,7 +766,7 @@ object va_debitos: Tva_debitos
             end
             object LabelB3: TLabel
               Align = Bottom
-              Position.Y = 84.000000000000000000
+              Position.Y = 33.000000000000000000
               Size.Width = 100.000000000000000000
               Size.Height = 17.000000000000000000
               Size.PlatformDefault = False
@@ -781,7 +780,7 @@ object va_debitos: Tva_debitos
             Selectable = False
             Position.X = 600.000000000000000000
             Size.Width = 100.000000000000000000
-            Size.Height = 101.000000000000000000
+            Size.Height = 50.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 7
             object ImageB4: TImage
@@ -835,7 +834,7 @@ object va_debitos: Tva_debitos
             end
             object LabelB4: TLabel
               Align = Bottom
-              Position.Y = 84.000000000000000000
+              Position.Y = 33.000000000000000000
               Size.Width = 100.000000000000000000
               Size.Height = 17.000000000000000000
               Size.PlatformDefault = False
@@ -849,7 +848,7 @@ object va_debitos: Tva_debitos
             Selectable = False
             Position.X = 700.000000000000000000
             Size.Width = 100.000000000000000000
-            Size.Height = 101.000000000000000000
+            Size.Height = 50.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 8
             object ImageC1: TImage
@@ -902,7 +901,7 @@ object va_debitos: Tva_debitos
             end
             object LabelC1: TLabel
               Align = Bottom
-              Position.Y = 84.000000000000000000
+              Position.Y = 33.000000000000000000
               Size.Width = 100.000000000000000000
               Size.Height = 17.000000000000000000
               Size.PlatformDefault = False
@@ -916,7 +915,7 @@ object va_debitos: Tva_debitos
             Selectable = False
             Position.X = 800.000000000000000000
             Size.Width = 100.000000000000000000
-            Size.Height = 101.000000000000000000
+            Size.Height = 50.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 9
             object ImageC2: TImage
@@ -966,7 +965,7 @@ object va_debitos: Tva_debitos
             end
             object LabelC2: TLabel
               Align = Bottom
-              Position.Y = 84.000000000000000000
+              Position.Y = 33.000000000000000000
               Size.Width = 100.000000000000000000
               Size.Height = 17.000000000000000000
               Size.PlatformDefault = False
@@ -980,7 +979,7 @@ object va_debitos: Tva_debitos
             Selectable = False
             Position.X = 900.000000000000000000
             Size.Width = 100.000000000000000000
-            Size.Height = 101.000000000000000000
+            Size.Height = 50.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 10
             object ImageC3: TImage
@@ -1056,7 +1055,7 @@ object va_debitos: Tva_debitos
             end
             object LabelC3: TLabel
               Align = Bottom
-              Position.Y = 84.000000000000000000
+              Position.Y = 33.000000000000000000
               Size.Width = 100.000000000000000000
               Size.Height = 17.000000000000000000
               Size.PlatformDefault = False
@@ -1070,7 +1069,7 @@ object va_debitos: Tva_debitos
             Selectable = False
             Position.X = 1000.000000000000000000
             Size.Width = 100.000000000000000000
-            Size.Height = 101.000000000000000000
+            Size.Height = 50.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 11
             object ImageC4: TImage
@@ -1121,7 +1120,7 @@ object va_debitos: Tva_debitos
             end
             object LabelC4: TLabel
               Align = Bottom
-              Position.Y = 84.000000000000000000
+              Position.Y = 33.000000000000000000
               Size.Width = 100.000000000000000000
               Size.Height = 17.000000000000000000
               Size.PlatformDefault = False
@@ -1135,7 +1134,7 @@ object va_debitos: Tva_debitos
             Selectable = False
             Position.X = 1100.000000000000000000
             Size.Width = 100.000000000000000000
-            Size.Height = 101.000000000000000000
+            Size.Height = 50.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 12
             object ImageD1: TImage
@@ -1199,7 +1198,7 @@ object va_debitos: Tva_debitos
             end
             object LabelD1: TLabel
               Align = Bottom
-              Position.Y = 84.000000000000000000
+              Position.Y = 33.000000000000000000
               Size.Width = 100.000000000000000000
               Size.Height = 17.000000000000000000
               Size.PlatformDefault = False
@@ -1213,7 +1212,7 @@ object va_debitos: Tva_debitos
             Selectable = False
             Position.X = 1200.000000000000000000
             Size.Width = 100.000000000000000000
-            Size.Height = 101.000000000000000000
+            Size.Height = 50.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 13
             object ImageD2: TImage
@@ -1247,7 +1246,7 @@ object va_debitos: Tva_debitos
             end
             object LabelD2: TLabel
               Align = Bottom
-              Position.Y = 84.000000000000000000
+              Position.Y = 33.000000000000000000
               Size.Width = 100.000000000000000000
               Size.Height = 17.000000000000000000
               Size.PlatformDefault = False
@@ -1261,7 +1260,7 @@ object va_debitos: Tva_debitos
             Selectable = False
             Position.X = 1300.000000000000000000
             Size.Width = 100.000000000000000000
-            Size.Height = 101.000000000000000000
+            Size.Height = 50.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 14
             object ImageD3: TImage
@@ -1309,7 +1308,7 @@ object va_debitos: Tva_debitos
             end
             object LabelD3: TLabel
               Align = Bottom
-              Position.Y = 84.000000000000000000
+              Position.Y = 33.000000000000000000
               Size.Width = 100.000000000000000000
               Size.Height = 17.000000000000000000
               Size.PlatformDefault = False
@@ -1323,7 +1322,7 @@ object va_debitos: Tva_debitos
             Selectable = False
             Position.X = 1400.000000000000000000
             Size.Width = 100.000000000000000000
-            Size.Height = 101.000000000000000000
+            Size.Height = 50.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 15
             object ImageD4: TImage
@@ -1387,7 +1386,7 @@ object va_debitos: Tva_debitos
             end
             object LabelD4: TLabel
               Align = Bottom
-              Position.Y = 84.000000000000000000
+              Position.Y = 33.000000000000000000
               Size.Width = 100.000000000000000000
               Size.Height = 17.000000000000000000
               Size.PlatformDefault = False
@@ -1401,7 +1400,7 @@ object va_debitos: Tva_debitos
             Selectable = False
             Position.X = 1500.000000000000000000
             Size.Width = 100.000000000000000000
-            Size.Height = 101.000000000000000000
+            Size.Height = 50.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 0
             object ImageA1: TImage
@@ -1517,7 +1516,7 @@ object va_debitos: Tva_debitos
               Align = Contents
               HitTest = False
               Size.Width = 100.000000000000000000
-              Size.Height = 101.000000000000000000
+              Size.Height = 50.000000000000000000
               Size.PlatformDefault = False
             end
           end
@@ -1678,7 +1677,7 @@ object va_debitos: Tva_debitos
           Size.Width = 380.000000000000000000
           Size.Height = 50.000000000000000000
           Size.PlatformDefault = False
-          TextPrompt = '0,00'
+          TextPrompt = '0'
           StyledSettings = [Family, Style, FontColor]
           OnTyping = Edit_VALORTyping
         end
@@ -1761,7 +1760,7 @@ object va_debitos: Tva_debitos
         TextSettings.Font.Size = 14.000000000000000000
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = xFF2E7D32
-        Text = '           Grupo Selecionado'
+        Text = '             Grupo Relacionado'
         TabOrder = 0
       end
       object Rectangle8: TRectangle
@@ -5027,7 +5026,7 @@ object va_debitos: Tva_debitos
             Size.Width = 177.000000000000000000
             Size.Height = 26.000000000000000000
             Size.PlatformDefault = False
-            TextPrompt = '0,00'
+            TextPrompt = '0'
             StyledSettings = [Family, Style, FontColor]
             OnTyping = Edit1_VALOR_PARTyping
           end
@@ -5058,7 +5057,7 @@ object va_debitos: Tva_debitos
           Fill.Color = xFF2E7D32
           Opacity = 0.800000011920929000
           Position.X = 250.000000000000000000
-          Position.Y = 104.000000000000000000
+          Position.Y = 96.000000000000000000
           Size.Width = 163.000000000000000000
           Size.Height = 57.000000000000000000
           Size.PlatformDefault = False
@@ -5089,6 +5088,7 @@ object va_debitos: Tva_debitos
             TextSettings.Trimming = None
             Text = 'Enviar'
             TabOrder = 0
+            OnClick = RoundRect3Click
           end
         end
       end
@@ -5096,11 +5096,11 @@ object va_debitos: Tva_debitos
   end
   object Lay06_rodape: TLayout
     Align = Bottom
-    Position.Y = 663.000000000000000000
+    Position.Y = 695.000000000000000000
     Size.Width = 468.000000000000000000
     Size.Height = 82.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 53
+    TabOrder = 87
     object RectX_rodape: TRectangle
       Align = Client
       Fill.Color = claAliceblue

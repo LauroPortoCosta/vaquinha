@@ -415,32 +415,37 @@ object va_categorias: Tva_categorias
       Size.Height = 479.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 2
+      ItemAppearance.HeaderHeight = 10
+      ItemAppearance.FooterHeight = 10
       ItemAppearanceObjects.ItemObjects.ObjectsCollection = <
         item
           AppearanceObjectName = 'Text1'
           AppearanceClassName = 'TTextObjectAppearance'
           Appearance.Font.Size = 14.000000000000000000
-          Appearance.WordWrap = True
-          Appearance.Width = 300.000000000000000000
-          Appearance.Height = 40.000000000000000000
-          Appearance.Align = Center
-          Appearance.PlaceOffset.X = 22.000000000000000000
-          Appearance.PlaceOffset.Y = 3.000000000000000000
+          Appearance.TextAlign = Leading
+          Appearance.TextColor = claGreen
+          Appearance.Width = 330.000000000000000000
+          Appearance.Height = 31.000000000000000000
+          Appearance.PlaceOffset.X = 65.000000000000000000
+          Appearance.PlaceOffset.Y = 10.000000000000000000
+          Appearance.Opacity = 0.800000011920929000
         end
         item
           AppearanceObjectName = 'Image2'
           AppearanceClassName = 'TImageObjectAppearance'
-          Appearance.Width = 60.000000000000000000
-          Appearance.Height = 44.000000000000000000
+          Appearance.Width = 30.000000000000000000
+          Appearance.Height = 30.000000000000000000
+          Appearance.PlaceOffset.X = 16.000000000000000000
+          Appearance.PlaceOffset.Y = 8.000000000000000000
         end
         item
           AppearanceObjectName = 'Text3'
           AppearanceClassName = 'TTextObjectAppearance'
-          Appearance.Width = 19.000000000000000000
-          Appearance.Height = 24.000000000000000000
-          Appearance.Align = Center
-          Appearance.PlaceOffset.X = 390.000000000000000000
-          Appearance.PlaceOffset.Y = 8.000000000000000000
+          Appearance.TextAlign = Leading
+          Appearance.Width = 20.000000000000000000
+          Appearance.Height = 16.000000000000000000
+          Appearance.PlaceOffset.X = 400.000000000000000000
+          Appearance.PlaceOffset.Y = 14.000000000000000000
         end>
       ItemAppearanceObjects.ItemEditObjects.ObjectsCollection = <
         item

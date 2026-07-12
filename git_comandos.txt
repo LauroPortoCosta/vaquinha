@@ -44,3 +44,85 @@ tab_categoria/cod_categoria/.json?
 {"descricao":"Hospedagem","icone":2,"id":2,"registro":0,"status":"s"},
 {"descricao":"alimentacao","icone":3,"id":3,"registro":0,"status":"s"}
 ]
+-----------------------------------------------------------------------
+INICIO - USUARIO=2 - CATEGORIA=4  GRUPO=1
+-----------------------------------------------------------------------
+Dentro da list Bos 
+
+---------------------------------------------
+ID      -        ICONE     -        DESCRICAO 
+---------------------------------------------
+4                 0            HABITAÇÃO    <----*
+5                15            PASSAGEM
+1                11            ALIMENTACAO
+0                1             CONSUMO
+2                2             COMBUSTIVEL
+3                14            TRANSPORTE
+----------------------------------------------------------------
+POSICIONA CATEGORIA  653 
+----------------------------------------------------------------
+
+                   APARECE A TELA 
+
+-----------------------------------------------------------------
+Qual o Item da Listbox - 4//  valor do i 0 // valor do inte = -1
+----------------------------------------------------------------
+DENTRO DO IF 
+
+                     ----- AQUI MUDA ---
+
+
+DENTRO DO IF  - 4   //  valor do i 0 // valor do inte = -1
+----------------------------------------------------------------
+
+
+
+
+
+
+
+/////////////////////  AQUI ELE MARCOU O ITEM 1 DA LISTA 
+
+----------------------------------------------------------------
+
+O ITEM DA LIST BOX     = 4
+VALOR DO I             = 0
+VALOR DO ITEM          = 0
+
+
+   
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

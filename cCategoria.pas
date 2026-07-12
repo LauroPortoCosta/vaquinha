@@ -7,18 +7,18 @@ uses FireDAC.Comp.Client, FireDAC.DApt, System.SysUtils, FMX.Graphics;
 type
     TCategoria = class
     private
-        Fconn: TFDConnection;
-        FID_CATEGORIA: Integer;
-        FDESCRICAO: string;
-        FICONE: TBitmap;
-        FINDICE_ICONE: Integer;
+        Fconn         : TFDConnection ;
+        FID_CATEGORIA : Integer       ;
+        FDESCRICAO    : string        ;
+        FICONE        : TBitmap       ;
+        FINDICE_ICONE : Integer       ;
 
     public
         constructor Create(conn: TFDConnection);
-        property ID_CATEGORIA: Integer read FID_CATEGORIA write FID_CATEGORIA;
-        property DESCRICAO: string read FDESCRICAO write FDESCRICAO;
-        property ICONE: TBitmap read FICONE write FICONE;
-        property INDICE_ICONE: Integer read FINDICE_ICONE write FINDICE_ICONE;
+        property ID_CATEGORIA    : Integer read FID_CATEGORIA write FID_CATEGORIA;
+        property DESCRICAO       : string  read FDESCRICAO    write FDESCRICAO;
+        property ICONE           : TBitmap read FICONE        write FICONE;
+        property INDICE_ICONE    : Integer read FINDICE_ICONE write FINDICE_ICONE;
 
 
 

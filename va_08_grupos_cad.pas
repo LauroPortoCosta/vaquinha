@@ -57,6 +57,7 @@ type
     ImageXD4: TImage;
     Rectangle1: TRectangle;
     img_add: TImage;
+    Rectangle2: TRectangle;
     procedure Image1Click(Sender: TObject);
     procedure img_addClick(Sender: TObject);
     procedure ImageXA1Click(Sender: TObject);
@@ -143,7 +144,7 @@ procedure Tva_08_grupo_c.img_addClick(Sender: TObject);
 var
    cat : string;
 begin
-    TDialogService.MessageDialog('Confirma exclusão da categoria?',
+    TDialogService.MessageDialog('Confirma exclusão da GRUPO?',
                      TMsgDlgType.mtConfirmation,
                      [TMsgDlgBtn.mbYes, TMsgDlgBtn.mbNo],
                      TMsgDlgBtn.mbNo,
@@ -153,7 +154,7 @@ begin
         if AResult = mrYes then
         begin
             try
-                cat := 'TCategoria.Create(dm.conn)';
+                cat := 'T.Create(dm.conn)';
                 begin
                     confirma;
                     va_08_grupo_c.Close;
@@ -299,19 +300,4 @@ end;
 
 end.
 
-
-
-
-
-// ----------------------------------- va_05_dm.DM.RESTRequest2_grupo ----------
-// va_05_dm.DM.RESTRequest2_grupo.Params.ParameterByName('id').Value :=id;
-// Dentro do RESTRequest2.grupo o metodo rmPATCH
-// Resource = {id}.json?
-// neste caso tenho que passar o valor de id
-// no metodo PATCH só vai atualizar o que eu passar , no caso ( status , 'n')
-
-// CONTADOR
-// No contador , responsalvel para enumerar os registros dentro do NoSQL na abertura
-// do APP  ele traz [{todos os registros do contador}] , DETALHE 'Só tem uma linha dentro destre registro´
-// va_05_dm.DM.RESTRequest_contadorT , aqui foi usao na URL do RESTClient todos os dados , autenticação, caminho , .json etc ...
 

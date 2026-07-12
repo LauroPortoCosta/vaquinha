@@ -42,32 +42,57 @@ type
     Image2: TImage;
     Image4: TImage;
     Image5: TImage;
+    Layout_rodape: TLayout;
+    Rectangle4: TRectangle;
+    Rectangle_comando: TRectangle;
+    Image11: TImage;
+    Image12: TImage;
+    Label_resultado: TLabel;
+    Image13: TImage;
+    Label7: TLabel;
+    Image6: TImage;
     procedure Img2_direitaClick(Sender: TObject);
     procedure Rectangle1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
+    procedure Image11Click(Sender: TObject);
+    procedure Image12Click(Sender: TObject);
+    procedure Image13Click(Sender: TObject);
+    procedure ListView1ItemClickEx(const Sender: TObject; ItemIndex: Integer;
+      const LocalClickPos: TPointF; const ItemObject: TListItemDrawable);
+    procedure ListView1ItemClick(const Sender: TObject;
+      const AItem: TListViewItem);
   private
-    procedure grava_velho;
+    procedure carrega;
+    procedure grava_mais;
+    procedure contador;
+    procedure acrescenta;
     procedure grava;
     procedure ThreadLoginTerminate(Sender: TObject);
     procedure addcategoria(var1, var2, var3, var4, var5: string);
+    procedure reincidente;
+
     { Private declarations }
   public
     { Public declarations }
-                 meu_grupo     : string;
-                 xvar1         : String;
-                 xvar2         : String;
-                 xvar3         : String;   // controla as variaveis do relatorio
-                 xvar4         : String;   // controla as variaveis do relatorio
-                 xvar5         : String;
-                 xvar6         : String;
-                 unha_data     : String;
-                 unha2_hora    : String;
-                 unha3_servico : String;
-                 unha7_nome    : String;
-                 xtag          : integer;
-                 x_OnClik      : Integer;
-                 so_para_zero  : integer;
-                 x             : integer;
+
+     registroV      : integer  ; // é o arquivo PARTICIPANTES,(incrementa o id ) A procedure acrescenta muda este número
+     quantidade     : integer  ; // serve para guardar a quantidade de cotas
+     ff             : string   ; // Em que linha do listView  eu cliquei ... retorna na primeira 0....1,2,3
+     x              : integer  ; // manipula imagem
+     z              : integer  ; // se já sou deste grupo ....
+
+     i_identificado : string   ; // qual o registro dentro do identificado
+
+     //-------------------------------//
+    //        V A R I A V E I S      //
+   //-------------------------------//
+
+      i_usuarioG : string;
+     id_arquivoG : string;
+          contaG : string;
+          grupoG : string;
 
   end;
 
@@ -78,119 +103,155 @@ implementation
 
 {$R *.fmx}
 
-uses va_05_dm;
+uses va_05_dm, va_09_grupos_inc, va_01_abertura, UnitLogin, cUsuario;
+
+procedure Tva_grupos.Image11Click(Sender: TObject);
+var   // BOTAO SUBTRAI  -
+   u  : integer;
+begin
+
+   u                     := StrToInt(Label_resultado.Text);
+   u                     := u -1;
+   if u < 0  then u      := 0;
+   Label_resultado.Text  := IntToStr(u);   // valor de COTAS escolhido
+   quantidade            := u;
+
+end;
+
+procedure Tva_grupos.Image12Click(Sender: TObject);
+var  // BOTAO SOMA +
+u  : integer;
+begin
+
+   u := StrToInt(Label_resultado.Text) ;
+   u := u + 1;
+   Label_resultado.Text:= IntToStr(u);
+   quantidade:=u;
+end;
+
+procedure Tva_grupos.Image13Click(Sender: TObject);
+var  // BOTAO finaliza
+   T : TThread;
+begin
+
+   Layout_rodape.Visible     := false ;
+   Rectangle_comando.Visible := false ;
+   ListView1.Opacity         := 1     ;
+
+t  := TThread.CreateAnonymousThread(procedure  // montando a thread
+      begin
+        grava_mais;
+      end);
+
+    t.OnTerminate := ThreadLoginTerminate; // depois que passa a thread
+    t.Start; // inicio da thread
+
+end;
 
 procedure Tva_grupos.Img2_direitaClick(Sender: TObject);
 begin
   close;
 end;
 
+procedure Tva_grupos.ListView1ItemClick(const Sender: TObject;
+  const AItem: TListViewItem);
+begin
+   Layout_rodape.Visible     := false;
+   Rectangle_comando.Visible := false;
+   try
+     ff:= AItem.TagString;                     // coloca na ff o item selecionado no pedido
+     i_identificado := AItem.TagString;       // qual a linha dentro do arquivo gravei este registro
+   finally
+     // ListView1Items
+     // Showmessage('Acesse  ( + ) ');
+   end;
+end;
+
+
+procedure Tva_grupos.ListView1ItemClickEx(const Sender: TObject;
+  ItemIndex: Integer; const LocalClickPos: TPointF;
+  const ItemObject: TListItemDrawable);
+var
+  Txt: TListItemText;
+
+begin
+
+  ff := IntToStr(ListView1.ItemIndex);                 // ff é uma variável global , armazena o item da ListVeiw1 que cliquei
+
+  if ItemObject.Name = 'Image5' then
+  begin
+    Txt := TListItemText(ListView1.Items[ItemIndex].Objects.FindDrawable('Text7'));
+    if Assigned(Txt) then
+    quantidade := StrToIntDef(Txt.Text, 0);
+    Label_resultado.Text := IntToStr(quantidade);
+    ListView1.Opacity := 0.4;
+    Layout_rodape.Visible := True;
+    Rectangle_comando.Visible := True;
+
+  end
+  else
+  begin
+    Rectangle_comando.Visible := False;
+    Layout_rodape.Visible := False;
+    ListView1.Opacity := 1;
+  end;
+
+
+end;
+
 
 procedure Tva_grupos.Rectangle1Click(Sender: TObject);
 begin
+   z:=0;               // se este resultado for 4 , então NÃO É PARA GRAVAR
+   reincidente;       // Verifica se o usuário já é reincidente
 
-        grava_velho;
-
+   if z <> 4 then
+     begin
+        grava;            // Botão rodapé do formulario , usuário , GRUPO, cota
+     end;
 end;
 
-procedure Tva_grupos.grava_velho;
-////////////////////////
-///     G R A V A   ///
-//////////////////////
-var
-  jArray    : TJSONArray;
-  JValue    : TJSONValue;
-  JObject   : TJSONObject;
-  email, a  : string;
-  status,descricao     : string;
 
+ procedure Tva_grupos.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  va_05_dm.DM.RESTRequest_grupo.Method := rmGET;
-  va_05_dm.DM.RESTRequest_grupo.Execute;
-  jArray := TJSONObject.ParseJSONValue(TEncoding.UTF8.GetBytes( va_05_dm.DM.RESTResponse_grupo.Content ),0)as TJSONArray;    // fazer a leitura da STRING  a partir da posição  0, converte utf8   // já analisei a string, ela é ARRAY
-  a:= jArray.ToString;                                                                                                      // pego o ARRAY e jogo em uma variável string
-  JObject:= TJSONObject.ParseJSONValue(jArray.Items[0].ToJSON) as TJSONObject;                                            // estou pegando apenas o item PRIMEIRO=0 do ARRAY
-  JValue := JObject;
-
-  if JValue = nil then
-  begin
-    ShowMessage('JSON inválido');
-    Exit;
-  end;
-
-  if JValue is TJSONObject then
-  begin
-
-    JObject := JValue as TJSONObject;
-
-    if JObject.GetValue('status') <> nil then
-    begin
-      status    := JObject.GetValue<string>('status');
-      descricao := JObject.GetValue<string>('descricao');
-      edit1.Text:=descricao;
-    end;
-   end
-  else
-
-  JValue.Free;
+    ListView1.items.Clear;
+    Edit1.Text:='';
 end;
 
 
-
-
-
- procedure Tva_grupos.FormCreate(Sender: TObject); //--------------------------------------------------------------------------------
+procedure Tva_grupos.FormCreate(Sender: TObject);
 begin
-
-  meu_grupo:='0';
-  grava_velho;
-
-        ListView1.items.Clear;
-        va_05_dm.DM.RESTRequest_usuario.Execute;
-        while Not va_05_dm.DM.FDMemTable_usuario.Eof  do
-         begin
-                addcategoria(
-                va_05_dm.DM.FDMemTable_usuario.FieldByName('telefone').AsString,
-                va_05_dm.DM.FDMemTable_usuario.FieldByName('status').AsString,
-                va_05_dm.DM.FDMemTable_usuario.FieldByName('data').AsString,
-                va_05_dm.DM.FDMemTable_usuario.FieldByName('senha').AsString,
-                va_05_dm.DM.FDMemTable_usuario.FieldByName('id').AsString
-                );
-                va_05_dm.DM.FDMemTable_usuario.Next;
-         end ;
+   Edit1.Text := va_09_grupos_in.descricaoV ;
 end;
+
+
+procedure Tva_grupos.FormShow(Sender: TObject);
+begin
+     Edit1.Text := va_09_grupos_in.descricaoV ;
+     carrega; // faz a leitura do FDMANTABLE e carrega o list view
+end;
+
 
 procedure Tva_grupos.grava;
 var
-  cc : string;
-  xx : string;
+  xx, cc:string;
 begin
-  xx := meu_grupo;
-  cc := '{"status":"y"}';
 
-  // URL BASE
-  va_05_dm.DM.RESTClient_grupo.BaseURL          := 'https://laurolivro-606860-default-rtdb.firebaseio.com';
+       acrescenta;                   // gera o número de um novo registro
+       xx:= IntToStr(registroV);    // grava o registro com o ID
+       va_05_dm.DM.RESTRequest_identificador.Params.ParameterByName('ID').Value := xx;
+       va_05_dm.DM.RESTRequest_identificador.Params.Items[0].name  := 'param';
+       cc:= '{"id":"'+xx+'","id_usuario":"'+va_abertura.ID_PUBLICO+'","status":"s","grupo":"'+va_09_grupos_in.idV+'","participantes":"1"}';
+       va_05_dm.DM.RESTRequest_identificador.Params.Items[0].value :=cc;
+       va_05_dm.DM.RESTRequest_identificador.Params.Items[0].ContentType := ctAPPLICATION_JSON;
+       va_05_dm.DM.RESTRequest_identificador.Params.Items[0].Kind := TRESTRequestParameterKind.pkGETorPOST;
+       va_05_dm.DM.RESTRequest_identificador.Execute;
 
-  // RESOURCE
-  va_05_dm.DM.RESTRequest_grupo.Resource        := 'tab_grupo/cod_grupo/';
-  va_05_dm.DM.RESTRequest_grupo.ResourceSuffix  :=  xx+'.json';
-  // METODO
-  va_05_dm.DM.RESTRequest_grupo.Method          :=  TRESTRequestMethod.rmPATCH;
-
-  // LIMPA PARAMETROS
-  va_05_dm.DM.RESTRequest_grupo.Params.Clear;
-
-  // TOKEN AUTH
-  va_05_dm.DM.RESTRequest_grupo.AddParameter('auth', 'gGrjaEZca7Dld3kCnSd7oDeQ8Xi8xJkcuvqCkrBg', pkGETorPOST );
-
-  // JSON BODY
-  va_05_dm.DM.RESTRequest_grupo.AddBody(cc,ctAPPLICATION_JSON );
-
-  // EXECUTA
-  va_05_dm.DM.RESTRequest_grupo.Execute;
-  cc:=va_05_dm.DM.RESTResponse_grupo.Content;
-  ShowMessage('Salvo com sucesso'+cc);
-
+   ListView1.items.Clear;
+   if not Assigned(va_abertura) then
+          Application.CreateForm(Tva_abertura ,va_abertura);
+          va_grupos.Close;
+          va_abertura.Show;
 end;
 
 
@@ -211,15 +272,20 @@ begin // TRATANDO ERRO DENTRO DE UMA TTHREAD
 
 
 procedure  Tva_grupos.addcategoria(var1, var2, var3, var4, var5: string ); // procedure que jogará dentro da list view os dados recolhidos dentro da tab
+var
+  xvar1:string;
  begin
+    xvar1:='  ';
 
     with  ListView1.items.Add do
         begin
            TlistItemText(objects.FindDrawable('Text1')).Text := (xvar1 + var1) ;
-           TlistItemText(objects.FindDrawable('Text2')).Text := (xvar2 + var2) ;
-           TlistItemText(objects.FindDrawable('Text3')).Text := (xvar3 + var3) ;
-           TlistItemText(objects.FindDrawable('Text7')).Text := (xvar4 + var4) ;
-           TlistItemText(objects.FindDrawable('Text8')).Text := (var5) ;
+           TlistItemText(objects.FindDrawable('Text7')).Text :=  var2 ;
+           TlistItemText(objects.FindDrawable('Text3')).Text :=  var3 ;
+//         TlistItemText(objects.FindDrawable('Text7')).Text := (xvar4 + var4) ;
+//         TlistItemText(objects.FindDrawable('Text8')).Text := (var5) ;
+           TListItemImage(Objects.FindDrawable('Image5')).Bitmap := Image6.Bitmap ;
+           TagString := var3;
 
            if x=0 then
            begin
@@ -242,5 +308,200 @@ procedure  Tva_grupos.addcategoria(var1, var2, var3, var4, var5: string ); // pr
  end;
 
 
+procedure Tva_grupos.grava_mais;
+////////////////////////
+///     G R A V A   ///
+//////////////////////
+var
+  cc : string;
+  xx : string;
+  qtv: string;
+begin
+
+   qtv:=IntToStr(quantidade);    // quantidade de COTAS alterada na tela
+   xx:= i_identificado;         // grava o registro com o ID
+   va_05_dm.DM.RESTRequest_identificador.Params.ParameterByName('ID').Value := xx;
+   va_05_dm.DM.RESTRequest_identificador.Params.Items[0].name  := 'param';
+   cc:= '{"participantes":"'+qtv+'"}';
+   va_05_dm.DM.RESTRequest_identificador.Params.Items[0].value :=cc;
+   va_05_dm.DM.RESTRequest_identificador.Params.Items[0].ContentType := ctAPPLICATION_JSON;
+   va_05_dm.DM.RESTRequest_identificador.Params.Items[0].Kind := TRESTRequestParameterKind.pkGETorPOST;
+   va_05_dm.DM.RESTRequest_identificador.Execute;
+
+   ListView1.items.Clear;
+   if not Assigned(va_abertura) then
+          Application.CreateForm(Tva_abertura ,va_abertura);
+          va_grupos.Close;
+          va_abertura.Show;
+
+ end;
+
+
+
+procedure Tva_grupos.carrega;
+begin  // Aqui é para quem tem cadastro no IDENTIFICADOR
+
+
+ va_05_dm.DM.RESTRequest_usuario.Execute;
+ va_05_dm.DM.RESTRequest_identificadorG.Execute;
+ va_05_dm.DM.FDLocalSQL_APP.Active := False;
+ va_05_dm.DM.FDLocalSQL_APP.DataSets.Clear;
+
+  with va_05_dm.DM.FDLocalSQL_APP.DataSets.Add    do
+       begin
+           Name    := 'usuario';
+           DataSet := va_05_dm.DM.FDMemTable_usuario;
+       end;
+
+  with va_05_dm.DM.FDLocalSQL_APP.DataSets.Add    do
+       begin
+           Name    := 'identificado';
+           DataSet := va_05_dm.DM.FDMemTable_identificadorG;
+       end;
+
+      va_05_dm.DM.FDConnection_APP.Connected := True;
+      va_05_dm.DM.FDLocalSQL_APP.Active      := True;
+      va_05_dm.DM.FDQuery_APP.Close;
+      va_05_dm.DM.FDQuery_APP.Connection     := va_05_dm.DM.FDConnection_APP;
+      va_05_dm.DM.FDQuery_APP.SQL.Clear;
+      va_05_dm.DM.FDQuery_APP.SQL.Add('SELECT');
+      va_05_dm.DM.FDQuery_APP.SQL.Add('u.nome,');
+      va_05_dm.DM.FDQuery_APP.SQL.Add('i.participantes,i.id');
+      va_05_dm.DM.FDQuery_APP.SQL.Add('FROM usuario u');
+      va_05_dm.DM.FDQuery_APP.SQL.Add('INNER JOIN identificado i');
+      va_05_dm.DM.FDQuery_APP.SQL.Add('ON u.id = i.id_usuario');
+      va_05_dm.DM.FDQuery_APP.SQL.Add('WHERE i.grupo = :grupo');
+      va_05_dm.DM.FDQuery_APP.ParamByName('grupo').AsInteger := StrToInt(va_09_grupos_in.idV);      // va_09_grupos_in.idV
+      va_05_dm.DM.FDQuery_APP.SQL.Add('ORDER BY u.nome');
+      va_05_dm.DM.FDQuery_APP.Open;
+
+                va_05_dm.DM.FDQuery_APP.First;
+      while not va_05_dm.DM.FDQuery_APP.Eof do
+        begin
+          AddCategoria(
+            va_05_dm.DM.FDQuery_APP.FieldByName('nome').AsString,
+            va_05_dm.DM.FDQuery_APP.FieldByName('participantes').AsString,
+            va_05_dm.DM.FDQuery_APP.FieldByName('id').AsString,
+            va_05_dm.DM.FDQuery_APP.FieldByName('nome').AsString,
+            va_05_dm.DM.FDQuery_APP.FieldByName('participantes').AsString
+                       );
+          va_05_dm.DM.FDQuery_APP.Next;
+        end;
+
+ end;
+
+procedure Tva_grupos.contador;
+begin
+    va_05_dm.DM.RESTRequest_contador_G.Execute;
+ if va_05_dm.DM.FDMemTable_contador.Locate('id;status',VarArrayOf(['0', 's']), []) then
+    begin
+     registroV  := va_05_dm.DM.FDMemTable_contador.FieldByName('identificado').AsInteger;
+    end;
+end;
+
+
+procedure Tva_grupos.acrescenta;
+var
+  cc : string;
+  xx : string;
+begin
+
+    contador;  // Recebe o último id  , gera um registroV
+    registroV := registroV + 1 ;
+    xx:=IntToStr(registroV);
+    cc := '{'+'"identificado":"'+xx+'"'+'}';
+    va_05_dm.DM.RESTRequest_contadorX.Body.ClearBody;
+    va_05_dm.DM.RESTRequest_contadorX.AddBody(cc,ctAPPLICATION_JSON);
+    va_05_dm.DM.RESTRequest_contadorX.Execute;
+
+end;
+
+
+procedure Tva_grupos.reincidente;
+var
+   u    : TUsuario;
+   erro : string;
+begin
+    try
+     u:=TUsuario.Create(va_05_dm.DM.conn4);
+     u.ID_USUARIO := StrToInt(va_abertura.ID_PUBLICO) ;
+     u.ID_GRUPO   := StrToInt(va_09_grupos_in.idV)    ;
+     if u.ValidarGrupo(erro) then
+       begin
+         ShowMessage(erro)  ;
+         z:=4; // manda uma informação para o botão GRAVAR que este usuario já está cadastrado
+       end;
+
+    finally
+     u.DisposeOf;
+    end;
+
+end;
+
+
+
 
 end.
+
+
+
+
+
+
+{
+    va_05_dm.DM.FDQuery_APP.First;
+    while not va_05_dm.DM.FDQuery_APP.Eof do
+    begin
+    ShowMessage('344 - Dentro do LOOP  ');
+    ShowMessage(va_05_dm.DM.FDQuery_APP.FieldByName('nome').AsString +' - ' +va_05_dm.DM.FDQuery_APP.FieldByName('participantes').AsString);
+    va_05_dm.DM.FDQuery_APP.Next;
+    end;
+ }
+
+
+
+ {
+ procedure Tva_grupos.grava;
+var
+  cc : string;
+  xx : string;
+begin   // até aqui, eu gravo um novo registro no IDENTIFICADOR  .....
+
+    registroV := registroV+1;   // Variável global, acrescenta   PARTICIPANTES E SUAS CONTAS dentro da NUVEM
+    xx        := IntToStr(registroV);
+    cc        := '{'+'"identificado":"'+xx+'"'+'}';
+
+//    va_05_dm.DM.RESTRequest_contadorX.Body.ClearBody;
+//    va_05_dm.DM.RESTRequest_contadorX.AddBody(cc,ctAPPLICATION_JSON);
+//    va_05_dm.DM.RESTRequest_contadorX.Execute;
+
+//end;
+
+
+{  ShowMessage(' id_usuario do USUARIO: ' + va_abertura.ID_PUBLICO );
+  ShowMessage(' O Valor do Status:     ' + 's'                    );
+  ShowMessage(' Quantidade da cota:    ' + '1'                    );
+  contador;   // retorna o valor de registroV O último registro gravado
+  ShowMessage(' id NÚVEM:              ' + IntToStr(registroV)    );
+  ShowMessage(' id do GRUPO:           ' + va_09_grupos_in.idV    );
+//--------------- e s t u d o -----------------------------------------//}
+
+
+ // 01 - Quantidade = IntToStr(quantidade)
+ // 02 - ff -> a linha do listView que estou
+ // 03 - va_09_grupos_in.idV - GRUPO
+ // 04 - ID_USUARIO = va_abertura.ID_PUBLICO
+ // 05 - GRUPO = va_09_grupos_in.idV
+ // 06 - i_identificado
+
+//  contador;  // Recebe o último id  , gera um registroV
+//  registroV := registroV + 1 ;
+
+ // 01 - Quantidade = IntToStr(quantidade)         ok
+ // 02 - ff -> a linha do listView que estou       ok
+ // 03 - va_09_grupos_in.idV - GRUPO               ok
+ // 04 - ID_USUARIO = va_abertura.ID_PUBLICO       ok
+ // 05 - GRUPO = va_09_grupos_in.idV               ok
+ // acrescenta;                                           PRECISO DO id DO IDENTIFICADO
+ // gera o número de um novo registro
+

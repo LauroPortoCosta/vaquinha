@@ -33,7 +33,7 @@ type
     Label4: TLabel;
     Label5: TLabel;
     ListView1: TListView;
-    Layout1: TLayout;
+    Lay1_sub_cabecalho: TLayout;
     Rectangle1: TRectangle;
     Label1: TLabel;
     Label2: TLabel;
@@ -73,6 +73,9 @@ type
     ImageD3: TImage;
     ListBoxItem16: TListBoxItem;
     ImageD4: TImage;
+    Lay_superior: TLayout;
+    Lay_inferior: TLayout;
+    Image_acesso: TImage;
     procedure Label3Click(Sender: TObject);
     procedure ListView1ItemClick(const Sender: TObject;
       const AItem: TListViewItem);
@@ -80,11 +83,25 @@ type
     procedure FormShow(Sender: TObject);
     procedure Img2_direitaClick(Sender: TObject);
     procedure Img1_esquerdaClick(Sender: TObject);
+    procedure ListView1ItemClickEx(const Sender: TObject; ItemIndex: Integer;
+      const LocalClickPos: TPointF; const ItemObject: TListItemDrawable);
   private
     procedure Carrega;
     procedure addcategoria(var1, var2, var3: string);
+
+    var
+    passa1 :string; // id        do GRUPO
+    passa2 :string; // icone     do GRUPO
+    passa3 :string; // descrição do GRUPO
+
     { Private declarations }
   public
+
+      id_imgV      : string;     // indica quem é a imagem que está relacionado a categoria
+      descricaoV   : string;    // serve para passar a descrição para uma outra tela
+      idV          : string;   // vai controlar em que registro estou dentro do banco de dados
+      controladorV : integer; // controla a passgem la no grava
+
     { Public declarations }
   end;
 
@@ -95,7 +112,7 @@ implementation
 
 {$R *.fmx}
 
-uses va_08_grupos_cad, va_05_dm, va_01_abertura;
+uses va_08_grupos_cad, va_05_dm, va_01_abertura, va_04_grupos;
 
 procedure Tva_09_grupos_in.FormCreate(Sender: TObject);
 begin
@@ -135,15 +152,59 @@ end;
 
 procedure Tva_09_grupos_in.ListView1ItemClick(const Sender: TObject;
   const AItem: TListViewItem);
-begin   // se vou passar a variável A tenho que criar o formulário
-       va_09_grupos_in.Close;
+begin
+
+  passa1  := AItem.TagString;                                                      // ID        DO GRUPO
+  passa2  := AItem.Objects.FindObjectT<TListItemText>('Text3').Text;              // ICONE        GRUPO
+  passa3  := AItem.Objects.FindObjectT<TListItemText>('Text1').Text;             // DESCRIÇÃO DO GRUPO
+
+//ShowMessage('158 - passa1 é o id ['+passa1+']  passa2 é o icone  ['+passa2+'] passa 3 é a descrição do grupo ['+passa3+']');
+
+end;
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+procedure Tva_09_grupos_in.ListView1ItemClickEx(const Sender: TObject;
+  ItemIndex: Integer; const LocalClickPos: TPointF;
+  const ItemObject: TListItemDrawable);
+begin
+
+   if (ItemObject <> nil) and (ItemObject.Name = 'Image4') then
+    begin
+       id_imgV    := passa2;                                                      // id_imagem
+       descricaoV := passa3;                                                     // Descrição
+       idV        := passa1;                                                    // id DO GRUPO   va_09_grupos_in.idV
+
+       if   not Assigned(va_grupos) then
+       Application.CreateForm(Tva_grupos ,va_grupos);
+       va_grupos.Show;
+    end;
+
+
+   if (ItemObject <> nil) and (ItemObject.Name = 'Image2') then
+    begin
+
+       va_08_grupo_c           := Tva_08_grupo_c.Create(nil);
+       va_08_grupo_c.modo      := 'A';
+       va_08_grupo_c.id_img    := passa2;       // AItem.Objects.FindObjectT<TListItemText>('Text3').Text;
+       va_08_grupo_c.descricao := passa3;      // AItem.Objects.FindObjectT<TListItemText>('Text1').Text;
+       va_08_grupo_c.id        := passa1;     // AItem.TagString;
+
     if not Assigned(va_08_grupo_c) then
        va_08_grupo_c           := Tva_08_grupo_c.Create(nil);
        va_08_grupo_c.modo      := 'A';
-       va_08_grupo_c.id_img    := AItem.Objects.FindObjectT<TListItemText>('Text3').Text;
-       va_08_grupo_c.descricao := AItem.Objects.FindObjectT<TListItemText>('Text1').Text;
-       va_08_grupo_c.id        := AItem.TagString;
+       va_08_grupo_c.id        := IntToStr(ItemIndex);
        va_08_grupo_c.Show;
+
+    end;
+
+   if (ItemObject <> nil) and (ItemObject.Name = 'Text1') then
+    begin
+//      lvMetas.Items.Delete(ItemIndex);
+//        showmessage('Abrir um form com os dados do usuário');
+    end;
+
+
 end;
 
 procedure Tva_09_grupos_in.Carrega;   // vou pegar o RESTResponse e transformar em FDMAmTable porque estou usando   no RESTRequest .json?orderBy="status"&equalTo="s" .Se tirar , não preciso usar o CARREGA
@@ -205,7 +266,7 @@ begin
        TListItemText(Objects.FindDrawable('Text3')).Text := var2;
        ListView1.TagString:=var3;
        TagString := var3;
-
+       TListItemImage(Objects.FindDrawable('Image4')).Bitmap := Image_acesso.Bitmap;
        case StrToIntDef(var2, 0) of
 
          0:TListItemImage(Objects.FindDrawable('Image2')).Bitmap := ImageA1.Bitmap;

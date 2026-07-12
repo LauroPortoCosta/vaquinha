@@ -53,6 +53,7 @@ type
     Rectangle1: TRectangle;
     img_add: TImage;
     Image1: TImage;
+    Rectangle2: TRectangle;
     procedure img_voltarClick(Sender: TObject);
     procedure ImageA1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);

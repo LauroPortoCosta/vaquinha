@@ -43,6 +43,7 @@ type
         function Excluir(out erro: string): Boolean;
         function ValidarLogin(out erro: string): boolean;
         function Logout(out erro: string): boolean;
+        function ValidarGrupo(out erro: string): boolean;
 
 end;
 
@@ -114,6 +115,7 @@ end;
 
 function TUsuario.Alterar(out erro: string): Boolean;
 begin
+//------------------------------------------------------------------------------
     // Validacoes...
     if NOME = '' then
     begin
@@ -138,7 +140,7 @@ begin
 
 
 end;
-
+//--------------------------------------------------------------------------------------------------------------
 
 function TUsuario.Excluir(out erro: string): Boolean;
 begin
@@ -262,6 +264,7 @@ function TUsuario.ValidarLogin(out erro: string): boolean;
        begin
          NOME         := va_05_dm.DM.FDMemTable_usuario.FieldByName('nome').AsString;
          ID_USUARIO   := va_05_dm.DM.FDMemTable_usuario.FieldByName('id').AsInteger;
+         ID_GRUPO     := va_05_dm.DM.FDMemTable_usuario.FieldByName('id_grupo').AsInteger;
          Result       := true;
        end;
  end;
@@ -343,8 +346,16 @@ begin
        exit;
 end;
 
+function TUsuario.ValidarGrupo(out erro: string): boolean;
+ begin
 
-
+      va_05_dm.DM.RESTRequest_identificadorG.Execute;
+   if va_05_dm.DM.FDMemTable_identificadorG.Locate( 'id_usuario;grupo', VarArrayOf([ID_USUARIO,ID_GRUPO]),[]) then
+       begin
+         erro:='Vocë já está neste grupo';
+         Result       := true;
+       end;
+ end;
 
 
 

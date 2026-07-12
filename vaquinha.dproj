@@ -321,8 +321,8 @@
             <FormType>fmx</FormType>
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
-        <DCCReference Include="va_03_debitos.pas">
-            <Form>va_debitos</Form>
+        <DCCReference Include="va_03_debitos2.pas">
+            <Form>va_debitos2</Form>
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="va_04_grupos.pas">
@@ -367,6 +367,23 @@
         <DCCReference Include="cUsuario.pas"/>
         <DCCReference Include="cLancamento.pas"/>
         <DCCReference Include="cCategoria.pas"/>
+        <DCCReference Include="va_10_participante.pas">
+            <Form>participantes</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="Fontes\UnitPrincipal.pas">
+            <Form>FrmPrincipal</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="Fontes\Unit3.pas">
+            <Form>Form3</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="Fontes\Unit2.pas">
+            <Form>Form2</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="Fontes\Units\uSuperChartLight.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

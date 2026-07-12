@@ -10,35 +10,46 @@ type
     TLancamento = class
     private
         Fconn          : TFDConnection;
-        FID_GRUPO: Integer;
+        FID_GRUPO      : Integer;
         FID_CATEGORIA  : Integer;
         FID_LANCAMENTO : Integer;
         FID            : Integer;
+        FNUMERADOR     : Integer;
+        FID_X          : string;
         FDESCRICAO     : string;
         FVALOR         : double;
         FVALOR2        : double;
         FDATA          : TDate;
         FDATA_ATE      : string;
         FDATA_DE       : string;
+        FSTATUS        : string;
     procedure contador;
     procedure grava;
+
     public
         constructor Create(conn: TFDConnection);   // o construtor cria uma conexção com o banco de dados (conn) nome que eu dei la no meu DM
         property ID_LANCAMENTO  : Integer   read FID_LANCAMENTO write FID_LANCAMENTO;
         property ID_CATEGORIA   : Integer   read FID_CATEGORIA  write FID_CATEGORIA;
         property ID_GRUPO       : Integer   read FID_GRUPO      write FID_GRUPO;
+        property NUMERADOR      : Integer   read FNUMERADOR     write FNUMERADOR;
         property ID             : Integer   read FID            write FID;
+        property ID_X           : String    read FID_X          write FID_X;
         property VALOR          : double    read FVALOR         write FVALOR;
         property VALOR2         : double    read FVALOR2        write FVALOR2;
         property DATA           : TDate     read FDATA          write FDATA;
         property DATA_DE        : string    read FDATA_DE       write FDATA_DE;                   // criada esta property para trabalhar a entrada de DATA de entrada .... o intervala da data
         property DATA_ATE       : string    read FDATA_ATE      write FDATA_ATE;                // esta foi criada para entender o intervalo final da data
         property DESCRICAO      : string    read FDESCRICAO     write FDESCRICAO;             // entendo que DESCRICAO  vai receber uma string .... ela pode ser lida e pode ser escrita
-        function ListarResumo(out erro: string): TFDQuery;
+        property STATUS         : string    read FSTATUS        write FSTATUS;             // entendo que DESCRICAO  vai receber uma string .... ela pode ser lida e pode ser escrita
+
+        function ListarResumo(out erro: string): Boolean;
+//      function ListarResumo(out erro: string): TFDQuery;
         function ListarLancamento(qtd_result: integer; out erro: string): TFDQuery;
-        function Inserir(out erro: string): Boolean;
         function Alterar(out erro: string): Boolean;
+        function Inserir(out erro: string): Boolean;
+        function Alterar_x(out erro: string): Boolean;
         function Excluir(out erro: string): Boolean;
+        function Busca_ID(out erro: string): boolean;
 
         end;
 
@@ -55,7 +66,7 @@ end;
 
 
 
-function TLancamento.Inserir(out erro: string): Boolean;
+function TLancamento.Alterar(out erro: string): Boolean;
 var
    yy,x,cc:string;
 begin
@@ -79,39 +90,33 @@ begin
         exit;
     end;
 
-        try
-         if yy = 'S' then
-            begin
+    if yy = 'S' then
+       try
+          begin
+             x:= (ID_X);
+             va_05_dm.DM.RESTRequest_lancamento.Params.ParameterByName('x').Value := x;
+             va_05_dm.DM.RESTRequest_lancamento.Params.Items[0].name  := 'param';                                   // item = param
+             cc:= '{"usuario":"'+IntToStr(ID)+'","id":"'+x+'","descricao":"'+DESCRICAO+'","valor":"'+FloatToStr(VALOR)+'","data":"'+DateToStr(DATA)+'","status":"s","grupo":"'+IntToStr(ID_GRUPO)+'","categoria":"'+IntToStr(ID_CATEGORIA)+'","valor2":"'+FloatToStr(VALOR2)+'"}';
+             va_05_dm.DM.RESTRequest_lancamento.Params.Items[0].value :=cc;                                         // colocado dentro do RESTRequest1 o conteudo de cc
+             va_05_dm.DM.RESTRequest_lancamento.Params.Items[0].ContentType := ctAPPLICATION_JSON;                  // ct application
+             va_05_dm.DM.RESTRequest_lancamento.Params.Items[0].Kind := TRESTRequestParameterKind.pkGETorPOST;      // recebe um pk GET ou POST ( se não existir atualize )
+             va_05_dm.DM.RESTRequest_lancamento.Execute;
+             Result := true;
+             exit;
+          end;
 
-              contador;              // Recebe o último id
-              grava;                // Grava na nuvem o último id+1
-              x:= IntToStr(ID_LANCAMENTO);
-
-              va_05_dm.DM.RESTRequest_lancamento.Params.ParameterByName('x').Value := x;
-              va_05_dm.DM.RESTRequest_lancamento.Params.Items[0].name  := 'param';                                   // item = param
-              cc:= '{"usuario":"'+IntToStr(ID)+'","id":"'+x+'","descricao":"'+DESCRICAO+'","valor":"'+FloatToStr(VALOR)+'","data":"'+DateToStr(DATA)+'","status":"s","grupo":"'+IntToStr(ID_GRUPO)+'","categoria":"'+IntToStr(ID_CATEGORIA)+'","valor2":"'+FloatToStr(VALOR2)+'"}';
-              va_05_dm.DM.RESTRequest_lancamento.Params.Items[0].value :=cc;                                         // colocado dentro do RESTRequest1 o conteudo de cc
-              va_05_dm.DM.RESTRequest_lancamento.Params.Items[0].ContentType := ctAPPLICATION_JSON;                  // ct application
-              va_05_dm.DM.RESTRequest_lancamento.Params.Items[0].Kind := TRESTRequestParameterKind.pkGETorPOST;      // recebe um pk GET ou POST ( se não existir atualize )
-              va_05_dm.DM.RESTRequest_lancamento.Execute;
-              Result := true;
-              exit;
-            end;
-
-        except on ex:exception do
+       except on ex:exception do
 
             begin
               Result := False;
               erro := 'Erro ao inserir lançamento: ' + ex.Message;
             end;
         end;
-
-
-end;
+ end;
 
 
 
-function TLancamento.Alterar(out erro: string): Boolean;
+function TLancamento.Alterar_x(out erro: string): Boolean;
 var
     qry : TFDQuery;
 begin
@@ -175,7 +180,7 @@ begin
 end;
 
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function TLancamento.Excluir(out erro: string): Boolean;
 var
     qry : TFDQuery;
@@ -217,14 +222,19 @@ begin
         qry.DisposeOf;
     end;
 end;
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 
 
 function TLancamento.ListarLancamento(qtd_result: integer; out erro: string): TFDQuery;   // L I S T A R   L A N C A M E N T O
 var
-  qry  : TFDQuery;  // crio minha variavel qry
+  qry  : TFDQuery;
 begin
-  try
-     //--------- F U N C I O N A N D O -------------------------
+     try
+
+       //--------- F U N C I O N A N D O -------------------------
        va_05_dm.DM.FDLocalSQL_lancamento2.Active := True;
        va_05_dm.DM.RESTRequest_lancamento2.Execute;
        va_05_dm.DM.FDQuery_lancamento2.Close;
@@ -245,64 +255,137 @@ begin
         Result := va_05_dm.DM.FDQuery_lancamento2;
         erro := '';
 
-    except on ex:exception do
-    begin
-      //  Result := nil;
-        erro := 'Erro ao consultar categorias: ' + ex.Message;
-    end;
-
-  end;
+        except on ex:exception do
+        begin
+          //  Result := nil;
+          erro := 'Erro ao consultar categorias: ' + ex.Message;
+        end;
+     end;
 end;
 
 
-
-function TLancamento.ListarResumo(out erro: string): TFDQuery;
+function TLancamento.ListarResumo(out erro: string): Boolean;
  begin
+     //--------- F U N C I O N A N D O -------------------------//
+     //     nesta função o sistema pega tudo que o ID pagou    //
 
-     //--------- F U N C I O N A N D O -------------------------
        va_05_dm.DM.FDLocalSQL_lancamento2.Active := True;
        va_05_dm.DM.RESTRequest_lancamento2.Execute;
        va_05_dm.DM.FDQuery_lancamento2.Close;
        va_05_dm.DM.FDQuery_lancamento2.Connection := va_05_dm.DM.conn2; // neste caso eu conectei com CONN2
-       Result := va_05_dm.DM.FDQuery_lancamento2;
-     //--------- valor total de contribuição de um usuário em todos os grupos
+
+    try
         with va_05_dm.DM.FDQuery_lancamento2 do
         begin
             Active := false;
             sql.Clear;
-            sql.Add('SELECT sum(valor) as VALOR, sum(valor2) as VALOR2 ');                                          //  um BUG com os centavos , acrescentou o (CAST .... AS REAL) para resolver o problema
+            sql.Add('SELECT sum(valor) as VALOR, sum(valor2) as VALOR2');    //  um BUG com os centavos , acrescentou o (CAST .... AS REAL) para resolver o problema
             sql.Add('FROM lancamento2 ');
             sql.Add('WHERE usuario = :ID');
-            ParamByName('ID').Value := ID;
+            ParamByName('ID').Value := ID ;
             Open;
             Active := True;
         end;
-        Result := va_05_dm.DM.FDQuery_lancamento2;
+        VALOR := va_05_dm.DM.FDQuery_lancamento2.FieldByName('valor').Value;
+        VALOR2:= va_05_dm.DM.FDQuery_lancamento2.FieldByName('valor2').Value;
+    finally
+        Result := true;
         erro := '';
+    end;
+
  end;
 
 
-procedure TLancamento.grava;
+function TLancamento.Inserir(out erro: string): Boolean;
 var
-    cc,xx : String ;
+   yy,x,cc:string;
 begin
-    ID_LANCAMENTO:= ID_LANCAMENTO+1;
-    xx:= IntToStr(ID_LANCAMENTO);
-    cc := '{'+'"lancamento":"'+xx+'"'+'}';
-    va_05_dm.DM.RESTRequest_contadorX.Body.ClearBody;
-    va_05_dm.DM.RESTRequest_contadorX.AddBody(cc,ctAPPLICATION_JSON);
-    va_05_dm.DM.RESTRequest_contadorX.Execute;
+    NUMERADOR:=0;
+    yy:='S';
+
+    // Validacoes...
+    if VALOR = 0 then
+    begin
+        yy      := 'n';
+        erro    := 'Informe um valor';
+        Result  := false;
+        exit;
+    end;
+
+    if DESCRICAO = '' then
+    begin
+        yy      := 'n';
+        erro    := 'Informe a descrição do lançamento';
+        Result  := false;
+        exit;
+    end;
+
+    if yy = 'S' then
+       begin
+              try
+                 contador;                   // Recebe o último id
+                 grava;                     // Grava e acrescenta 1 ao id
+                 x:= IntToStr(ID_LANCAMENTO);
+                 va_05_dm.DM.RESTRequest_lancamento.Params.ParameterByName('x').Value := x;
+                 va_05_dm.DM.RESTRequest_lancamento.Params.Items[0].name  := 'param';                                   // item = param
+                 cc:= '{"usuario":"'+IntToStr(ID)+'","id":"'+x+'","descricao":"'+DESCRICAO+'","valor":"'+FloatToStr(VALOR)+'","data":"'+DateToStr(DATA)+'","status":"s","grupo":"'+IntToStr(ID_GRUPO)+'","categoria":"'+IntToStr(ID_CATEGORIA)+'","valor2":"'+FloatToStr(VALOR2)+'"}';
+                 va_05_dm.DM.RESTRequest_lancamento.Params.Items[0].value :=cc;                                         // colocado dentro do RESTRequest1 o conteudo de cc
+                 va_05_dm.DM.RESTRequest_lancamento.Params.Items[0].ContentType := ctAPPLICATION_JSON;                  // ct application
+                 va_05_dm.DM.RESTRequest_lancamento.Params.Items[0].Kind := TRESTRequestParameterKind.pkGETorPOST;      // recebe um pk GET ou POST ( se não existir atualize )
+                 va_05_dm.DM.RESTRequest_lancamento.Execute;
+                 Result := true;
+                 exit;
+
+              except on ex:exception do
+
+                 begin
+                     Result := False;
+                     erro := 'Erro ao inserir lançamento: ' + ex.Message;
+                 end;
+
+              end;
+       end;
 end;
 
 
 procedure TLancamento.contador;
 begin
-       va_05_dm.DM.RESTRequest_contador_G.Execute;
+//              FOI SUBISTITUIDO PELO RESOLVE ....... DENTRO DO va_03_debitos
+//--------------------------------------------------------------------------------------------------
+ //  quem é o ULTIMO LANCAMENTO
+ {       va_05_dm.DM.RESTRequest_contador_G.Execute;
  if    va_05_dm.DM.FDMemTable_contador.Locate('id;status',VarArrayOf(['0', 's']), []) then
-    begin
+       begin
        ID_LANCAMENTO := va_05_dm.DM.FDMemTable_contador.FieldByName('lancamento').AsInteger;
-    end;
+       end;
+}
 end;
+
+procedure TLancamento.grava;
+var  //             O GRAVA TAMBEM FOI SUBTITUIDO POU UMA OUTRA ROTINA LA NO  va_03_debitos
+    cc : String ;
+begin
+//  ID_LANCAMENTO:= ID_LANCAMENTO+1;
+//    cc := '{'+'"lancamento":"'+IntToStr(ID_LANCAMENTO)+'"'+'}';
+//    va_05_dm.DM.RESTRequest_contadorX.Body.ClearBody;
+//    va_05_dm.DM.RESTRequest_contadorX.AddBody(cc,ctAPPLICATION_JSON);
+//    va_05_dm.DM.RESTRequest_contadorX.Execute;
+end;
+
+function TLancamento.Busca_ID(out erro: string): boolean;
+ begin
+              va_05_dm.DM.RESTRequest_lancamento2.Execute;
+        if    va_05_dm.DM.FDMemTable_lancamento2.Locate('id;status',VarArrayOf([IntToStr(ID_LANCAMENTO), 's']), []) then
+        begin
+            DESCRICAO      := va_05_dm.DM.FDMemTable_lancamento2.FieldByName('descricao').AsString;
+            VALOR          := va_05_dm.DM.FDMemTable_lancamento2.FieldByName('valor').AsFloat;
+            VALOR2         := va_05_dm.DM.FDMemTable_lancamento2.FieldByName('valor2').AsFloat;
+            ID_CATEGORIA   := va_05_dm.DM.FDMemTable_lancamento2.FieldByName('categoria').AsInteger;
+            ID_GRUPO       := va_05_dm.DM.FDMemTable_lancamento2.FieldByName('grupo').AsInteger;
+            Result         := true;
+            erro:='';
+        end;
+ end;
 
 
 end.

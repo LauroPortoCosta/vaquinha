@@ -110,8 +110,9 @@ type
     permissao: T99Permissions;
     procedure TrataErroPermissao(Sender: TObject);
   public
-     ID_PUBLICO   :string;
-     NOME_PUBLICO :string;
+     ID_PUBLICO      :string;
+     NOME_PUBLICO    :string;
+     ESTOU_NO_GRUPO :string;
     { Public declarations }
   end;
 
@@ -282,8 +283,6 @@ var
  erro : string   ;
 begin
 
-//    ShowMessage('linha 306 --- cria minha conta ...');
-
     try
         u:=  TUsuario.Create(va_05_dm.DM.conn);
         u.NOME      :=  edt_cad_nome.Text;                      // passamos o valor para a ( property NOME: string read FNOME write FNOME; ) o valor que esta em meu EDIT  edt_cad_nome.Text;
@@ -311,7 +310,6 @@ begin
         u.DisposeOf;
     end;
 
-
     if NOT Assigned(va_abertura) then
        Application.CreateForm(Tva_abertura, va_abertura);
        Application.MainForm := va_abertura;
@@ -334,7 +332,7 @@ var
   erro : string;
 begin
 
-//   ShowMessage('- L350 - Abertura');
+//   ShowMessage('- L337 - Abertura');
 
     try
       u       := TUsuario.Create(va_05_dm.DM.conn);
@@ -348,9 +346,11 @@ begin
            end;
 
     finally
-         NOME_PUBLICO := u.NOME;
-         ID_PUBLICO   := IntToStr(u.ID_USUARIO);
+         NOME_PUBLICO   := u.NOME;
+         ID_PUBLICO     := IntToStr(u.ID_USUARIO);
+         ESTOU_NO_GRUPO := IntToStr(u.ID_GRUPO);
          u.DisposeOf;
+ //        showmessage('353 - O valor de ID_GRUPO '+ESTOU_NO_GRUPO);
     end;
 
 

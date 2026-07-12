@@ -1,0 +1,364 @@
+unit UnitLogin;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
+  FMX.Layouts, FMX.Controls.Presentation, FMX.Edit, FMX.StdCtrls, FMX.TabControl,
+  System.Actions, FMX.ActnList, u99Permissions, FMX.MediaLibrary.Actions,
+  FireDAC.Comp.Client, FireDAC.DApt, FireDAC.Stan.ExprFuncs, uFormat, FMX.DialogService,
+
+
+  {$IFDEF ANDROID}
+  FMX.VirtualKeyboard, FMX.Platform,
+  {$ENDIF}
+
+  FMX.StdActns, FMX.MediaLibrary;
+
+type
+  TFrmLogin = class(TForm)
+    Layout2: TLayout;
+    img_login_logo: TImage;
+    Layout1: TLayout;
+    RoundRect1: TRoundRect;
+    edt_login_email: TEdit;
+    StyleBook1: TStyleBook;
+    Layout3: TLayout;
+    RoundRect2: TRoundRect;
+    edt_login_senha: TEdit;
+    Layout4: TLayout;
+    rect_login: TRoundRect;
+    Label1: TLabel;
+    TabControl1: TTabControl;
+    TabLogin: TTabItem;
+    TabConta: TTabItem;
+    Layout5: TLayout;
+    Image1: TImage;
+    Layout6: TLayout;
+    RoundRect4: TRoundRect;
+    edt_cad_nome: TEdit;
+    Layout7: TLayout;
+    RoundRect5: TRoundRect;
+    edt_cad_senha: TEdit;
+    Layout8: TLayout;
+    rect_conta_proximo: TRoundRect;
+    Label2: TLabel;
+    Layout9: TLayout;
+    RoundRect7: TRoundRect;
+    edt_cad_email: TEdit;
+    TabFoto: TTabItem;
+    Layout10: TLayout;
+    c_foto_editar: TCircle;
+    Layout11: TLayout;
+    rect_conta: TRoundRect;
+    Label3: TLabel;
+    TabEscolher: TTabItem;
+    Layout12: TLayout;
+    Label4: TLabel;
+    img_foto: TImage;
+    img_library: TImage;
+    Layout13: TLayout;
+    img_foto_voltar: TImage;
+    Layout14: TLayout;
+    img_escolher_voltar: TImage;
+    Layout15: TLayout;
+    Layout16: TLayout;
+    lbl_login_tab: TLabel;
+    lbl_login_conta: TLabel;
+    Rectangle1: TRectangle;
+    ActionList1: TActionList;
+    ActConta: TChangeTabAction;
+    ActEscolher: TChangeTabAction;
+    ActFoto: TChangeTabAction;
+    ActLogin: TChangeTabAction;
+    Layout17: TLayout;
+    lbl_conta_login: TLabel;
+    Label6: TLabel;
+    Rectangle2: TRectangle;
+    Layout18: TLayout;
+    ActLibrary: TTakePhotoFromLibraryAction;
+    ActCamera: TTakePhotoFromCameraAction;
+    Timer1: TTimer;
+    Circle1: TCircle;
+    Image2: TImage;
+    Image3: TImage;
+    Image4: TImage;
+    procedure lbl_login_contaClick(Sender: TObject);
+    procedure lbl_conta_loginClick(Sender: TObject);
+    procedure img_foto_voltarClick(Sender: TObject);
+    procedure c_foto_editarClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure img_fotoClick(Sender: TObject);
+    procedure img_libraryClick(Sender: TObject);
+    procedure img_escolher_voltarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure ActLibraryDidFinishTaking(Image: TBitmap);
+    procedure ActCameraDidFinishTaking(Image: TBitmap);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char;  Shift: TShiftState);
+    procedure rect_loginClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure rect_contaClick(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+    procedure FormVirtualKeyboardShown(Sender: TObject;  KeyboardVisible: Boolean; const Bounds: TRect);
+    procedure FormVirtualKeyboardHidden(Sender: TObject; KeyboardVisible: Boolean; const Bounds: TRect);
+    procedure rect_conta_proximoClick(Sender: TObject);
+
+  private
+    { Private declarations }
+    permissao: T99Permissions;
+    procedure TrataErroPermissao(Sender: TObject);
+  public
+     ID_PUBLICO   :string;
+     NOME_PUBLICO :string;
+    { Public declarations }
+  end;
+
+var
+  FrmLogin: TFrmLogin;
+
+implementation
+
+{$R *.fmx}
+
+uses cUsuario, va_01_abertura, va_05_dm;
+
+procedure TFrmLogin.ActCameraDidFinishTaking(Image: TBitmap);
+begin
+    c_foto_editar.Fill.Bitmap.Bitmap := Image;
+    ActFoto.Execute;
+end;
+
+procedure TFrmLogin.ActLibraryDidFinishTaking(Image: TBitmap);
+begin
+    c_foto_editar.Fill.Bitmap.Bitmap := Image;
+    ActFoto.Execute;
+end;
+
+procedure TFrmLogin.c_foto_editarClick(Sender: TObject);
+begin
+    ActEscolher.Execute;
+end;
+
+procedure TFrmLogin.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+    Action := TCloseAction.caFree;
+    FrmLogin := nil;
+end;
+
+procedure TFrmLogin.FormCreate(Sender: TObject);
+begin
+    permissao := T99Permissions.Create;
+end;
+
+procedure TFrmLogin.FormDestroy(Sender: TObject);
+begin
+    permissao.DisposeOf;
+end;
+
+procedure TFrmLogin.FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char;
+  Shift: TShiftState);
+{$IFDEF ANDROID}
+var
+    FService : IFMXVirtualKeyboardService;
+{$ENDIF}
+
+begin
+    {$IFDEF ANDROID}
+    if (Key = vkHardwareBack) then
+    begin
+        TPlatformServices.Current.SupportsPlatformService(IFMXVirtualKeyboardService,
+                                                          IInterface(FService));
+
+        if (FService <> nil) and
+           (TVirtualKeyboardState.Visible in FService.VirtualKeyBoardState) then
+        begin
+            // Botao back pressionado e teclado visivel...
+            // (apenas fecha o teclado)
+        end
+        else
+        begin
+            // Botao back pressionado e teclado NAO visivel...
+
+            if TabControl1.ActiveTab = TabConta then
+            begin
+                Key := 0;
+                ActLogin.Execute
+            end
+            else if TabControl1.ActiveTab = TabFoto then
+            begin
+                Key := 0;
+                ActConta.Execute
+            end
+            else if TabControl1.ActiveTab = TabEscolher then
+            begin
+                Key := 0;
+                ActFoto.Execute;
+            end;
+        end;
+    end;
+    {$ENDIF}
+end;
+
+procedure TFrmLogin.FormShow(Sender: TObject);
+begin
+    TabControl1.ActiveTab := TabLogin;
+    Timer1.Enabled := true;
+end;
+
+procedure TFrmLogin.FormVirtualKeyboardHidden(Sender: TObject;
+  KeyboardVisible: Boolean; const Bounds: TRect);
+begin
+// Object Inspector , Events, OnVirtualKeybord => quando ativo meu teclado
+// quero que volte ao normal depois que o teclado virtual for desativado
+    TabControl1.Margins.Bottom := 0;
+  end;
+
+
+procedure TFrmLogin.FormVirtualKeyboardShown(Sender: TObject;
+  KeyboardVisible: Boolean; const Bounds: TRect);
+begin
+// Object Inspector , Events, OnVirtualKeybord => quando ativo meu teclado
+// quero que meu formulario suba no bottom em 160
+// assim o teclado virtual nao atrapalha
+    TabControl1.Margins.Bottom := 160;
+end;
+
+
+procedure TFrmLogin.Timer1Timer(Sender: TObject);
+var
+   u    : TUsuario;
+   erro : string;
+   qry  : TFDQuery;
+begin
+    Timer1.Enabled := false;
+    try
+
+    finally
+
+    end;
+end;
+
+procedure TFrmLogin.TrataErroPermissao(Sender: TObject);
+begin
+    showmessage('Você não possui permissão de acesso para esse recurso');
+end;
+
+procedure TFrmLogin.img_escolher_voltarClick(Sender: TObject);
+begin
+    ActFoto.Execute;
+end;
+
+procedure TFrmLogin.img_fotoClick(Sender: TObject);
+begin
+    permissao.Camera(ActCamera, TrataErroPermissao);
+end;
+
+procedure TFrmLogin.img_foto_voltarClick(Sender: TObject);
+begin
+    ActConta.Execute;
+end;
+
+procedure TFrmLogin.img_libraryClick(Sender: TObject);
+begin
+    permissao.PhotoLibrary(ActLibrary, TrataErroPermissao);
+end;
+
+procedure TFrmLogin.lbl_conta_loginClick(Sender: TObject);
+begin
+    ActLogin.Execute;    // Action List Login
+end;
+
+procedure TFrmLogin.lbl_login_contaClick(Sender: TObject);
+begin
+    ActConta.Execute;   // Action Conta
+end;
+
+// ------------ TELA DE CADASTRO  ------------------
+procedure TFrmLogin.rect_contaClick(Sender: TObject);
+var
+ u    : TUsuario ;
+ erro : string   ;
+begin
+
+//    ShowMessage('linha 306 --- cria minha conta ...');
+
+    try
+        u:=  TUsuario.Create(va_05_dm.DM.conn);
+        u.NOME      :=  edt_cad_nome.Text;                      // passamos o valor para a ( property NOME: string read FNOME write FNOME; ) o valor que esta em meu EDIT  edt_cad_nome.Text;
+        u.EMAIL     :=  edt_cad_email.Text;
+        u.SENHA     :=  edt_cad_senha.Text;
+        u.IND_LOGIN :=  'S';                                  // toda vez que ele entrar no sistema , vai ser sempre sim .... siginifica que ele ja digitou a senha anteriormente
+        u.FOTO      :=  c_foto_editar.Fill.Bitmap.Bitmap;    // a imagem é       c_foto_editar.Fill.Bitmap do tipo bitmap , ficando assim  => c_foto_editar.Fill.Bitmap.Bitmap;
+
+        // Excluir conta existente...
+        if NOT u.Excluir(erro) then
+        begin
+            showmessage('Erro ao Excluir Conta :'+erro);
+            exit;
+        end;
+
+
+        // Cadastrar novo usuario...
+        if NOT u.Inserir(erro) then     // se NAO pode inserir ( u.inserir) entao ...
+        begin
+            showmessage('Erro ao Inserir Conta :'+erro);
+            exit;
+        end;
+
+    finally
+        u.DisposeOf;
+    end;
+
+
+    if NOT Assigned(va_abertura) then
+       Application.CreateForm(Tva_abertura, va_abertura);
+       Application.MainForm := va_abertura;
+       va_abertura.Show;
+       FrmLogin.Close;
+end;
+
+
+
+procedure TFrmLogin.rect_conta_proximoClick(Sender: TObject);
+begin
+    ActFoto.Execute;
+end;
+
+
+// ------------ TELA DE ABERTURA --------------------------------------
+procedure TFrmLogin.rect_loginClick(Sender: TObject);
+var
+  u    : TUsuario;
+  erro : string;
+begin
+
+//   ShowMessage('- L350 - Abertura');
+
+    try
+      u       := TUsuario.Create(va_05_dm.DM.conn);
+      u.EMAIL := edt_login_email.Text;
+      u.SENHA := edt_login_senha.Text;
+
+        if NOT u.ValidarLogin(erro) then
+           begin
+              showmessage(erro);
+              exit;
+           end;
+
+    finally
+         NOME_PUBLICO := u.NOME;
+         ID_PUBLICO   := IntToStr(u.ID_USUARIO);
+         u.DisposeOf;
+    end;
+
+
+    if NOT Assigned(va_abertura) then
+           Application.CreateForm(Tva_abertura, va_abertura);
+           Application.MainForm := va_abertura;
+           va_abertura.Show;
+           FrmLogin.Close;
+end;
+
+end.

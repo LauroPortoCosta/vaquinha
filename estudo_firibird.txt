@@ -535,6 +535,147 @@ end;
 
   }
 
+//-------------------------------------------------------------------------------------------------
+procedure Tva_grupos.carrega;
+var
+   xx : string ; // valor do campo GRUPO
+   dd : string ; // será usado para receber o id do arquivo identificador
+   yy : integer ; // Quantoa pessoas dirvidem seu crédito
+ begin
+
+   ListView1.items.Clear;
+   va_05_dm.DM.RESTRequest_usuario.Execute;
+
+
+  while Not va_05_dm.DM.FDMemTable_usuario.Eof  do
+    begin
+    addcategoria(
+       va_05_dm.DM.FDMemTable_usuario.FieldByName('nome').AsString    ,
+       va_05_dm.DM.FDMemTable_usuario.FieldByName('status').AsString  ,
+       va_05_dm.DM.FDMemTable_usuario.FieldByName('data').AsString    ,
+       va_05_dm.DM.FDMemTable_usuario.FieldByName('senha').AsString   ,
+       va_05_dm.DM.FDMemTable_usuario.FieldByName('id').AsString  )   ;
+       ShowMessage('O que está passandor AGORA no  id: [ '+va_05_dm.DM.FDMemTable_usuario.FieldByName('id').AsString+' ]');
+       va_05_dm.DM.FDMemTable_usuario.Next;
+    end ;
+
+
+    with va_05_dm.DM do
+    begin
+                     RESTRequest_identificadorG.Execute;
+      if va_05_dm.DM.FDMemTable_identificadorG.Locate( 'grupo;id', VarArrayOf([dd,xx]),[]) then
+           begin
+               dd  := va_05_dm.DM.FDMemTable_identificadorG.FieldByName('id_usuario').AsString;
+               yy  := va_05_dm.DM.FDMemTable_identificadorG.FieldByName('participantes').AsInteger;
+           end;
+      //---------------- homens trabalhando ---------------------------------------
+
+    end;
+
+
+
+
+//**************************************************************************************************************************
+
+var
+   xx : string ; // valor do campo GRUPO
+   dd : string ; // será usado para receber o id do arquivo identificador
+   GrupoAtual : integer ; // Quantoa pessoas dirvidem seu crédito
+begin
+      GrupoAtual:=0;
+      va_05_dm.DM.RESTRequest_identificadorG.Execute;
+      va_05_dm.DM.FDMemTable_identificadorG.First;
+
+  while not va_05_dm.DM.FDMemTable_identificadorG.Eof do
+  begin
+
+     if va_05_dm.DM.FDMemTable_identificadorG.FieldByName('grupo').AsInteger = GrupoAtual then
+     begin
+
+        if va_05_dm.DM.FDMemTable_usuario.Locate('id', va_05_dm.DM.FDMemTable_identificadorG.FieldByName('id_usuario').AsString,[]) then
+        begin
+
+           AddCategoria(
+               va_05_dm.DM.FDMemTable_usuario.FieldByName('id').AsString,
+               '',
+               '',
+               '',
+               va_05_dm.DM.FDMemTable_identificadorG.FieldByName('participantes').AsString
+           );
+
+        end;
+
+     end;
+
+     va_05_dm.DM.FDMemTable_identificadorG.Next;
+
+  end;
+
+//********************************
+
+
+
+
+
+
+
+
+function TLancamento.ListarLancamento(qtd_result: integer; out erro: string): TFDQuery;   // L I S T A R   L A N C A M E N T O
+var
+qry : TFDQuery;  // crio minha variavel qry
+
+begin
+    try
+        qry := TFDQuery.Create(nil); // qry que é uma TFDQuery vai cria ( create) vazia (nil) // passa uma query limpinha para o sistema
+        qry.Connection := Fconn;    //  qry recebe uma conexão ( connection ) = Fconn ( que é o meu banco de dados DM FCONN
+
+        with qry do
+        begin
+            Active := false;
+            sql.Clear;       // L = LANCAMENTO  C = CATEGORIA // estamos criando os comando SQL  ... e o SQL clear , limpa o conteudo da minha SQL
+            sql.Add('SELECT L.*, C.DESCRICAO AS DESCRICAO_CATEGORIA, C.ICONE');  // select L.* significa = select * from TAB_LANCAMENTO // e C.DESCRICAO é = select DESCRICAO, ICONE from TAB_CATEGORIA
+            sql.Add('FROM TAB_LANCAMENTO L');
+            sql.Add('JOIN TAB_CATEGORIA C ON (C.ID_CATEGORIA = L.ID_CATEGORIA)'); // SQLite //O JOIN está informando que para acontecer o select as tabelas estao de acordo ( INTEGRIDADE RELACIONAL )
+            sql.Add('WHERE 1 = 1');                                              // SQLite // o quere fico assim ... para facilitar a digitação seginte .... ai o Where sendo 1=1 o que é aceito ou positivo ... então o que vai valer é as expressões seguintes
+
+            if ID_LANCAMENTO > 0 then
+            begin
+                SQL.Add('AND L.ID_LANCAMENTO = :ID_LANCAMENTO');
+                ParamByName('ID_LANCAMENTO').Value := ID_LANCAMENTO;
+            end;
+
+            if ID_CATEGORIA > 0 then
+            begin
+                SQL.Add('AND L.ID_CATEGORIA = :ID_CATEGORIA');  // SQLite // condição do Where ( tipo faça isso se for igual ou maior ou diferente .... etc
+                ParamByName('ID_CATEGORIA').Value := ID_CATEGORIA;
+            end;
+
+            if (DATA_DE <> '') AND (DATA_ATE <> '') then                                    // SQLite // no momento em que as datas sao selecionadas
+                SQL.Add('AND L.DATA BETWEEN ''' + DATA_DE + ''' AND ''' + DATA_ATE + ''''); // SQLite // o comando BETWEEN  é entre valores tipo :  10 BETWEEN 15 // entre 10 e 15
+
+            sql.Add('ORDER BY L.DATA DESC'); // SQLite // ORDER BY 'será a ordem em que vai ser listada
+
+            if qtd_result > 0 then
+                sql.Add('LIMIT ' + qtd_result.ToString);  // SQLite // qual o limite de registros selecionado  // normalmente colocamos o limit quando queremos limitar a impressão ou apresentação de uma determinada quantidade de registros ... exemplo  mostra apelas 5 unidades de cada produto ou 10 registros para nao lotar a tela
+
+            Active := true;
+        end;
+
+        Result := qry;
+        erro := '';
+
+    except on ex:exception do
+    begin
+        Result := nil;
+        erro := 'Erro ao consultar categorias: ' + ex.Message;
+    end;
+    end;
+
+
+
+
+
+
 
 
 
